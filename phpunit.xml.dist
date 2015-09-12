@@ -15,4 +15,9 @@
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./ripple</directory>
+        </whitelist>
+    </filter>
 </phpunit>
