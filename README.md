@@ -1,5 +1,7 @@
 # ripple
 
+[![Latest Stable Version](https://poser.pugx.org/jamband/ripple/v/stable)](https://packagist.org/packages/jamband/ripple) [![Total Downloads](https://poser.pugx.org/jamband/ripple/downloads)](https://packagist.org/packages/jamband/ripple) [![Latest Unstable Version](https://poser.pugx.org/jamband/ripple/v/unstable)](https://packagist.org/packages/jamband/ripple) [![License](https://poser.pugx.org/jamband/ripple/license)](https://packagist.org/packages/jamband/ripple) [![Build Status](https://travis-ci.org/jamband/ripple.svg)](https://travis-ci.org/jamband/ripple)
+
 Get track information from the URL.
 
 ## Requirements
