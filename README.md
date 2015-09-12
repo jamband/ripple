@@ -86,5 +86,12 @@ var_dump($embed); // https://w.soundcloud.com/player/?url=https%3A//api.soundclo
 <iframe width="300" height="300" src="<?= $embed ?>" frameborder="0" allowfullscreen></iframe>
 ```
 
+## Supported Providers
+
+- Bandcamp
+- SoundCloud
+- Vimeo
+- YouTube
+
 ## License
 Ripple is licensed under the MIT license.
