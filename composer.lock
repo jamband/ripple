@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "hash": "3cfc7c91c3aed8fb34edd2dd92e0f67a",
+    "content-hash": "6e242f71050b43279737570cca36864a",
     "packages": [
         {
             "name": "fabpot/goutte",
