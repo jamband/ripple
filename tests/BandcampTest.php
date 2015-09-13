@@ -21,12 +21,6 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
     const URL_TRACK = 'https://example.bandcamp.com/track/title';
     const URL_EMBED = 'https://bandcamp.com/EmbeddedPlayer/track=';
 
-    const HTML = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'.
-        '<meta name="title" content="Bandcamp Title">'.
-        '<link rel="image_src" href="bandcamp-thumbnail.jpg">'.
-        '<meta property="og:video" content="https://bandcamp.com/EmbeddedPlayer/v=2/track=1234567890/">'.
-        '<title></title></head><body></body></html>';
-
     /**
      * @dataProvider isValidUrlProvider
      */
@@ -52,39 +46,36 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
     public function testId()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(self::HTML));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->id());
 
         $ripple->request($client);
-        $this->assertInstanceOf('Symfony\Component\DomCrawler\Crawler', $ripple->content);
         $this->assertSame('1234567890', $ripple->id());
     }
 
     public function testTitle()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(self::HTML));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->title());
 
         $ripple->request($client);
-        $this->assertInstanceOf('Symfony\Component\DomCrawler\Crawler', $ripple->content);
         $this->assertSame('Bandcamp Title', $ripple->title());
     }
 
     public function testImage()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(self::HTML));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->image());
 
         $ripple->request($client);
-        $this->assertInstanceOf('Symfony\Component\DomCrawler\Crawler', $ripple->content);
         $this->assertSame('bandcamp-thumbnail.jpg', $ripple->image());
     }
 

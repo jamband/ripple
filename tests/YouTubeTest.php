@@ -59,26 +59,24 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     public function testTitle()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(static::content()));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
         $this->assertNull($ripple->title());
 
         $ripple->request($client);
-        $this->assertInstanceOf('stdClass', $ripple->content);
         $this->assertSame('YouTube Title', $ripple->title());
     }
 
     public function testImage()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(static::content()));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
         $this->assertNull($ripple->title());
 
         $ripple->request($client);
-        $this->assertInstanceOf('stdClass', $ripple->content);
         $this->assertSame('youtube_thumbnail.jpg', $ripple->image());
     }
 
@@ -101,13 +99,5 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     private static function id()
     {
         return rtrim(strtr(base64_encode(openssl_random_pseudo_bytes(8)), '+/', '-_'), '=');
-    }
-
-    private static function content()
-    {
-        return json_encode([
-            'title' => 'YouTube Title',
-            'thumbnail_url' => 'youtube_thumbnail.jpg',
-        ]);
     }
 }

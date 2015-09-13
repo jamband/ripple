@@ -53,7 +53,7 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
         $ripple = new Ripple(self::URL_TRACK);
 
         $client = new Client();
-        $client->setClient($this->getGuzzle(static::content()));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
         $ripple->request($client);
         $this->assertSame('1234567890', $ripple->id());
     }
@@ -61,26 +61,24 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
     public function testTitle()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(static::content()));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->title());
 
         $ripple->request($client);
-        $this->assertInstanceOf('stdClass', $ripple->content);
         $this->assertSame('SoundCloud Title', $ripple->title());
     }
 
     public function testImage()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(static::content()));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->title());
 
         $ripple->request($client);
-        $this->assertInstanceOf('stdClass', $ripple->content);
         $this->assertSame('soundcloud_thumbnail.jpg', $ripple->image());
     }
 
@@ -103,14 +101,5 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
     private static function id()
     {
         return (string)mt_rand(10000000, 99999999);
-    }
-
-    private static function content()
-    {
-        return json_encode([
-            'title' => 'SoundCloud Title',
-            'thumbnail_url' => 'soundcloud_thumbnail.jpg',
-            'html' => '<iframe width="100%" height="400" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=true&url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1234567890&show_artwork=true"></iframe>',
-        ]);
     }
 }

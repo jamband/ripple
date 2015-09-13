@@ -60,26 +60,24 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
     public function testTitle()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(static::content()));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
         $this->assertNull($ripple->title());
 
         $ripple->request($client);
-        $this->assertInstanceOf('stdClass', $ripple->content);
         $this->assertSame('Vimeo Title', $ripple->title());
     }
 
     public function testImage()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(static::content()));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
         $this->assertNull($ripple->title());
 
         $ripple->request($client);
-        $this->assertInstanceOf('stdClass', $ripple->content);
         $this->assertSame('vimeo_thumbnail.jpg', $ripple->image());
     }
 
@@ -102,13 +100,5 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
     private static function id()
     {
         return (string)mt_rand(10000000, 99999999);
-    }
-
-    private static function content()
-    {
-        return json_encode([
-            'title' => 'Vimeo Title',
-            'thumbnail_url' => 'vimeo_thumbnail.jpg',
-        ]);
     }
 }
