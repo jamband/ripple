@@ -11,10 +11,13 @@
 
 namespace jamband\ripple\tests;
 
+use Goutte\Client;
 use jamband\ripple\Ripple;
 
 class RippleTest extends \PHPUnit_Framework_TestCase
 {
+    use ClientTrait;
+
     const TRACK_BANDCAMP = 'https://example.bandcamp.com/track/title';
     const EMBED_BANDCAMP = 'https://bandcamp.com/EmbeddedPlayer/track=';
 
@@ -48,6 +51,29 @@ class RippleTest extends \PHPUnit_Framework_TestCase
             [self::TRACK_SOUNDCLOUD, 'SoundCloud'],
             [self::TRACK_VIMEO, 'Vimeo'],
             [self::TRACK_YOUTUBE, 'YouTube'],
+        ];
+    }
+
+    /**
+     * @dataProvider requestProvider
+     */
+    public function testRequest($provider, $track, $class)
+    {
+        $client = new Client();
+        $client->setClient($this->getGuzzle(require __DIR__."/response/$provider.php"));
+
+        $ripple = new Ripple($track);
+        $ripple->request($client);
+        $this->assertInstanceOf($class, $ripple->content);
+    }
+
+    public function requestProvider()
+    {
+        return [
+            ['YouTube', self::TRACK_YOUTUBE, 'stdClass'],
+            ['Vimeo', self::TRACK_VIMEO, 'stdClass'],
+            ['SoundCloud', self::TRACK_SOUNDCLOUD, 'stdClass'],
+            ['Bandcamp', self::TRACK_BANDCAMP, 'Symfony\Component\DomCrawler\Crawler'],
         ];
     }
 
