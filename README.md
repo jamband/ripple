@@ -21,70 +21,38 @@ or add in composer.json
 
 ## Usage
 
-basic:
 ```php
 <?php
+// basic
+$url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
 
-require __DIR__.'/../vendor/autoload.php';
-
-use jamband\ripple\Ripple;
-use Goutte\Client;
-
-// $url = 'https://folkadelphia.bandcamp.com/track/facing-west';
-// $url = 'https://soundcloud.com/the-staves/pay-us-no-mind';
-// $url = 'https://vimeo.com/67320034';
-$url = 'https://www.youtube.com/watch?v=MBlpfXLQLvU';
-
-$ripple = new Ripple($url);
-var_dump($ripple->url); // https://www.youtube.com/watch?v=MBlpfXLQLvU
-var_dump($ripple->provider); // YouTube
+$ripple = new \jamband\ripple\Ripple($url);
+var_dump($ripple->url); // http://linneshelvete.bandcamp.com/track/tjeresten
+var_dump($ripple->provider); // Bandcamp
 var_dump($ripple->isValidUrl()); // true
 
-$ripple->request(new Client());
-var_dump($ripple->id()); // MBlpfXLQLvU
-var_dump($ripple->title()); // The Staves - The Motherlode (Official Video)
-var_dump($ripple->image()); // https://i.ytimg.com/vi/MBlpfXLQLvU/hqdefault.jpg
-var_dump($ripple->embed($ripple->provider, $ripple->id())); // https://www.youtube.com/embed/MBlpfXLQLvU
+$ripple->request(new \Goutte\Client());
+var_dump($ripple->id()); // 932292198
+var_dump($ripple->title()); // Tjeresten, by Linnés Helvete
+var_dump($ripple->image()); // http://f1.bcbits.com/img/a3144407673_16.jpg
 ```
 
-embed:
+And also check [some samples](https://github.com/jamband/ripple/tree/master/samples).
+
 ```php
 <?php
+// embed
+$url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
 
-require __DIR__.'/../vendor/autoload.php';
+$ripple = new \jamband\ripple\Ripple($url);
+$ripple->request(new \Goutte\Client());
 
-use jamband\ripple\Ripple;
-use Goutte\Client;
-
-// $url = 'https://folkadelphia.bandcamp.com/track/facing-west';
-$url = 'https://soundcloud.com/the-staves/pay-us-no-mind';
-// $url = 'https://vimeo.com/67320034';
-// $url = 'https://www.youtube.com/watch?v=MBlpfXLQLvU';
-
-// simple (set provider name and ID)
-$ripple = new Ripple();
-var_dump($ripple->embed('YouTube', 'MBlpfXLQLvU')); // https://www.youtube.com/embed/MBlpfXLQLvU
-
-// append parameter
-$ripple->setEmbedParams(['YouTube' => '?autoplay=1']);
-var_dump($ripple->embed('YouTube', 'MBlpfXLQLvU')); // https://www.youtube.com/embed/MBlpfXLQLvU?autoplay=1
-
-// from track url
-$ripple = new Ripple($url);
-$ripple->request(new Client());
-var_dump($ripple->embed($ripple->provider, $ripple->id())); // https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/42854561
-
-// append parameter
 $ripple->setEmbedParams([
-    'YouTube' => '?autoplay=1',
-    'Vimeo' => '?autoplay=1',
-    'SoundCloud' => '?auto_play=true&amp;show_comments=false&amp;visual=true',
     'Bandcamp' => 'size=large/',
 ]);
 $embed = $ripple->embed($ripple->provider, $ripple->id());
-var_dump($embed); // https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/42854561?auto_play=true&amp;show_comments=false&amp;visual=true
+var_dump($embed); // https://bandcamp.com/EmbeddedPlayer/track=932292198/size=large/
 ?>
-<!-- embed HTML -->
 <iframe width="300" height="300" src="<?= $embed ?>" frameborder="0" allowfullscreen></iframe>
 ```
 
