@@ -37,8 +37,6 @@ var_dump($ripple->title()); // Tjeresten, by Linnés Helvete
 var_dump($ripple->image()); // http://f1.bcbits.com/img/a3144407673_16.jpg
 ```
 
-And also check [some samples](https://github.com/jamband/ripple/tree/master/samples).
-
 ```php
 <?php
 // embed
@@ -55,6 +53,8 @@ var_dump($embed); // https://bandcamp.com/EmbeddedPlayer/track=932292198/size=la
 ?>
 <iframe width="300" height="300" src="<?= $embed ?>" frameborder="0" allowfullscreen></iframe>
 ```
+
+And also check [some samples](https://github.com/jamband/ripple/tree/master/samples).
 
 ## Supported Providers
 
