@@ -46,7 +46,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
     public function testId()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/BandcampHtml.php'));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->id());
@@ -58,7 +58,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
     public function testTitle()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/BandcampHtml.php'));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->title());
@@ -70,7 +70,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
     public function testImage()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/BandcampHtml.php'));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->image());

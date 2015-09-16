@@ -59,7 +59,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     public function testTitle()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTubeJson.php'));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
         $this->assertNull($ripple->title());
@@ -71,7 +71,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     public function testImage()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTubeJson.php'));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
         $this->assertNull($ripple->title());

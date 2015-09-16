@@ -70,10 +70,10 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function requestProvider()
     {
         return [
-            ['YouTubeJson', self::TRACK_YOUTUBE, 'stdClass'],
-            ['VimeoJson', self::TRACK_VIMEO, 'stdClass'],
-            ['SoundCloudJson', self::TRACK_SOUNDCLOUD, 'stdClass'],
-            ['BandcampHtml', self::TRACK_BANDCAMP, 'Symfony\Component\DomCrawler\Crawler'],
+            ['YouTube', self::TRACK_YOUTUBE, 'stdClass'],
+            ['Vimeo', self::TRACK_VIMEO, 'stdClass'],
+            ['SoundCloud', self::TRACK_SOUNDCLOUD, 'Symfony\Component\DomCrawler\Crawler'],
+            ['Bandcamp', self::TRACK_BANDCAMP, 'Symfony\Component\DomCrawler\Crawler'],
         ];
     }
 

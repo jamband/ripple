@@ -25,12 +25,6 @@ class SoundCloud
     public static $host = 'soundcloud.com';
 
     /**
-     * @var string
-     * @see https://developers.soundcloud.com/docs/oembed
-     */
-    public static $endpoint = 'https://soundcloud.com/oembed?format=json&url=';
-
-    /**
      * @param Ripple $ripple
      * @return bool
      */
@@ -48,18 +42,7 @@ class SoundCloud
      */
     public static function id(Ripple $ripple)
     {
-        if (isset($ripple->content->html)) {
-            preg_match('/url\=https.+"/', $ripple->content->html, $matches);
-
-            if (!empty($matches)) {
-                preg_match('/tracks\/([1-9][0-9]+)?/', substr(rawurldecode(implode($matches)), 4, -1), $matches);
-
-                if (!empty($matches)) {
-                    return array_pop($matches);
-                }
-            }
-        }
-        if ($ripple->content instanceof Crawler) {
+        if (isset($ripple->content)) {
             $meta = $ripple->content->filter('meta[name="twitter:audio:source"]');
             if ($meta->count() > 0) {
                 preg_match('/sounds\:([1-9][0-9]+)?/', $meta->attr('content'), $matches);
@@ -77,10 +60,7 @@ class SoundCloud
      */
     public static function title(Ripple $ripple)
     {
-        if (isset($ripple->content->title)) {
-            return $ripple->content->title;
-        }
-        if ($ripple->content instanceof Crawler) {
+        if (isset($ripple->content)) {
             $meta = $ripple->content->filter('meta[property="og:title"]');
             if ($meta->count() > 0) {
                 return $meta->attr('content');
@@ -94,10 +74,7 @@ class SoundCloud
      */
     public static function image(Ripple $ripple)
     {
-        if (isset($ripple->content->thumbnail_url)) {
-            return $ripple->content->thumbnail_url;
-        }
-        if ($ripple->content instanceof Crawler) {
+        if (isset($ripple->content)) {
             $meta = $ripple->content->filter('meta[property="og:image"]');
             if ($meta->count() > 0) {
                 return $meta->attr('content');

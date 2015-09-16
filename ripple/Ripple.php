@@ -92,10 +92,6 @@ class Ripple
             if (isset($class::$endpoint)) {
                 $client->request('GET', $class::$endpoint.rawurlencode($this->url));
                 $this->content = json_decode($client->getResponse()->getContent());
-
-                if (!isset($this->content) && $this->provider === 'SoundCloud') {
-                    $this->content = $client->request('GET', $this->url);
-                }
             } else {
                 $this->content = $client->request('GET', $this->url);
             }
