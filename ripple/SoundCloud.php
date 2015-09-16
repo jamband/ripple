@@ -11,6 +11,8 @@
 
 namespace jamband\ripple;
 
+use Symfony\Component\DomCrawler\Crawler;
+
 /**
  * SoundCloud class file.
  * url pattern: https://soundcloud.com/{account}/{title}
@@ -57,6 +59,16 @@ class SoundCloud
                 }
             }
         }
+        if ($ripple->content instanceof Crawler) {
+            $meta = $ripple->content->filter('meta[name="twitter:audio:source"]');
+            if ($meta->count() > 0) {
+                preg_match('/sounds\:([1-9][0-9]+)?/', $meta->attr('content'), $matches);
+
+                if (!empty($matches)) {
+                    return array_pop($matches);
+                }
+            }
+        }
     }
 
     /**
@@ -68,6 +80,12 @@ class SoundCloud
         if (isset($ripple->content->title)) {
             return $ripple->content->title;
         }
+        if ($ripple->content instanceof Crawler) {
+            $meta = $ripple->content->filter('meta[property="og:title"]');
+            if ($meta->count() > 0) {
+                return $meta->attr('content');
+            }
+        }
     }
 
     /**
@@ -78,6 +96,12 @@ class SoundCloud
     {
         if (isset($ripple->content->thumbnail_url)) {
             return $ripple->content->thumbnail_url;
+        }
+        if ($ripple->content instanceof Crawler) {
+            $meta = $ripple->content->filter('meta[property="og:image"]');
+            if ($meta->count() > 0) {
+                return $meta->attr('content');
+            }
         }
     }
 

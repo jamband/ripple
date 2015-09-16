@@ -53,33 +53,54 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
         $ripple = new Ripple(self::URL_TRACK);
 
         $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloudJson.php'));
         $ripple->request($client);
         $this->assertSame('1234567890', $ripple->id());
+
+        $client = new Client();
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloudHtml.php'));
+
+        $ripple = new Ripple();
+        $ripple->content = $client->request('GET', self::URL_TRACK);
+        $this->assertSame('1234567890', \jamband\ripple\SoundCloud::id($ripple));
     }
 
     public function testTitle()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloudJson.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->title());
 
         $ripple->request($client);
         $this->assertSame('SoundCloud Title', $ripple->title());
+
+        $client = new Client();
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloudHtml.php'));
+
+        $ripple = new Ripple();
+        $ripple->content = $client->request('GET', self::URL_TRACK);
+        $this->assertSame('SoundCloud Title', \jamband\ripple\SoundCloud::title($ripple));
     }
 
     public function testImage()
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloudJson.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
         $this->assertNull($ripple->title());
 
         $ripple->request($client);
         $this->assertSame('soundcloud_thumbnail.jpg', $ripple->image());
+
+        $client = new Client();
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloudHtml.php'));
+
+        $ripple = new Ripple();
+        $ripple->content = $client->request('GET', self::URL_TRACK);
+        $this->assertSame('soundcloud_thumbnail.jpg', \jamband\ripple\SoundCloud::image($ripple));
     }
 
     public function testEmbed()
