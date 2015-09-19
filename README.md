@@ -27,7 +27,6 @@ or add in composer.json
 $url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
 
 $ripple = new \jamband\ripple\Ripple($url);
-var_dump($ripple->url); // http://linneshelvete.bandcamp.com/track/tjeresten
 var_dump($ripple->provider); // Bandcamp
 var_dump($ripple->isValidUrl()); // true
 

@@ -11,7 +11,6 @@ use Goutte\Client;
 $url = 'https://www.youtube.com/watch?v=MBlpfXLQLvU';
 
 $ripple = new Ripple($url);
-var_dump($ripple->url); // https://www.youtube.com/watch?v=MBlpfXLQLvU
 var_dump($ripple->provider); // YouTube
 var_dump($ripple->isValidUrl()); // true
 
