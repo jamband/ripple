@@ -21,16 +21,6 @@ use Symfony\Component\DomCrawler\Crawler;
 class Ripple
 {
     /**
-     * @var array all providers (provider => class)
-     */
-    public static $providers = [
-        'Bandcamp' => __NAMESPACE__.'\Bandcamp',
-        'SoundCloud' => __NAMESPACE__.'\SoundCloud',
-        'Vimeo' => __NAMESPACE__.'\Vimeo',
-        'YouTube' => __NAMESPACE__.'\YouTube',
-    ];
-
-    /**
      * @var string URL of the provider
      */
     public $url;
@@ -44,6 +34,13 @@ class Ripple
      * @var stdClass|Crawler contents of the track
      */
     public $content;
+
+    private static $providers = [
+        'Bandcamp' => __NAMESPACE__.'\Bandcamp',
+        'SoundCloud' => __NAMESPACE__.'\SoundCloud',
+        'Vimeo' => __NAMESPACE__.'\Vimeo',
+        'YouTube' => __NAMESPACE__.'\YouTube',
+    ];
 
     private $embedParams;
 
