@@ -19,7 +19,6 @@ use Goutte\Client;
  */
 class Ripple
 {
-
     /**
      * @var string the provider name
      */
