@@ -102,14 +102,14 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider setEmbedParamsWithoutSetParametersProvider
+     * @dataProvider embedWithSetArgumentsProvider
      */
-    public function testSetEmbedParamsWithoutSetParameters($provider, $id, $embed)
+    public function testEmbedWithSetArguments($provider, $id, $embed)
     {
         $this->assertSame($embed, (new Ripple())->embed($provider, $id));
     }
 
-    public function setEmbedParamsWithoutSetParametersProvider()
+    public function embedWithSetArgumentsProvider()
     {
         return [
             ['UnknownProvider', '1234567890', null],
