@@ -107,15 +107,20 @@ class Ripple
      */
     public function embed($provider = null, $id = null)
     {
+        $embed = function ($provider, $embed) {
+            return isset($this->embedParams[$provider])
+                ? $embed.$this->embedParams[$provider]
+                : $embed;
+        };
         if (isset($provider, $id)) {
-            if (isset(static::$providers[$provider])) {
+            if (in_array($provider, static::providers(), true)) {
                 $class = static::$providers[$provider];
-
-                return isset($this->embedParams)
-                    ? $class::embed($id).$this->embedParams[$provider]
-                    : $class::embed($id);
+                return $embed($provider, $class::embed((string)$id));
             }
-
+        }
+        if (isset($this->provider, $this->content)) {
+            $class = static::$providers[$this->provider];
+            return $embed($this->provider, $class::embed($class::id($this->content)));
         }
     }
 

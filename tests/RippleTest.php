@@ -111,6 +111,8 @@ class RippleTest extends \PHPUnit_Framework_TestCase
             [['Vimeo' => '?autoplay=1'], 'Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890?autoplay=1'],
             [['SoundCloud' => '?auto_play=true'], 'SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890?auto_play=true'],
             [['Bandcamp' => 'size=large/'], 'Bandcamp', '1234567890', self::EMBED_BANDCAMP.'1234567890/size=large/'],
+            // Set a different provider
+            [['Bandcamp' => 'size=large/'], 'YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_'],
         ];
     }
 
