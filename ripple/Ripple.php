@@ -51,13 +51,11 @@ class Ripple
     {
         $this->url = $url;
 
-        $domain = function ($url) {
-            return implode('.', array_slice(
-                explode('.', parse_url($url, PHP_URL_HOST)), -2
-            ));
-        };
+        $domain = implode('.', array_slice(
+            explode('.', parse_url($this->url, PHP_URL_HOST)), -2
+        ));
         foreach (static::$providers as $provider => $class) {
-            if ($domain($url) === $class::$host) {
+            if ($domain === $class::$host) {
                 $this->provider = $provider;
                 break;
             }
