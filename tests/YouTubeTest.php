@@ -48,11 +48,13 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
 
     public function testId()
     {
-        $ripple = new Ripple();
-        $this->assertNull($ripple->id());
+        $client = new Client();
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
         $id = static::id();
         $ripple = new Ripple(self::URL_TRACK.$id);
+        $ripple->request($client);
+
         $this->assertSame($id, $ripple->id());
     }
 
@@ -62,9 +64,8 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
         $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
-        $this->assertNull($ripple->title());
-
         $ripple->request($client);
+
         $this->assertSame('YouTube Title', $ripple->title());
     }
 
@@ -74,9 +75,8 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
         $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
-        $this->assertNull($ripple->title());
-
         $ripple->request($client);
+
         $this->assertSame('youtube_thumbnail.jpg', $ripple->image());
     }
 

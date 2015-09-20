@@ -49,11 +49,13 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
 
     public function testId()
     {
-        $ripple = new Ripple();
-        $this->assertNull($ripple->id());
+        $client = new Client();
+        $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
 
         $id = static::id();
         $ripple = new Ripple(self::URL_TRACK.$id);
+        $ripple->request($client);
+
         $this->assertSame($id, $ripple->id());
     }
 
@@ -63,9 +65,8 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
         $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
-        $this->assertNull($ripple->title());
-
         $ripple->request($client);
+
         $this->assertSame('Vimeo Title', $ripple->title());
     }
 
@@ -75,9 +76,8 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
         $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
 
         $ripple = new Ripple(self::URL_TRACK.static::id());
-        $this->assertNull($ripple->title());
-
         $ripple->request($client);
+
         $this->assertSame('vimeo_thumbnail.jpg', $ripple->image());
     }
 

@@ -37,48 +37,42 @@ class SoundCloud
     }
 
     /**
-     * @var Ripple $ripple
+     * @var Crawler $crawler
      * @return string|null
      */
-    public static function id(Ripple $ripple)
+    public static function id(Crawler $crawler)
     {
-        if (isset($ripple->content)) {
-            $meta = $ripple->content->filter('meta[name="twitter:audio:source"]');
-            if ($meta->count() > 0) {
-                preg_match('/sounds\:([1-9][0-9]+)?/', $meta->attr('content'), $matches);
+        $meta = $crawler->filter('meta[name="twitter:audio:source"]');
+        if ($meta->count() > 0) {
+            preg_match('/sounds\:([1-9][0-9]+)?/', $meta->attr('content'), $matches);
 
-                if (!empty($matches)) {
-                    return array_pop($matches);
-                }
+            if (!empty($matches)) {
+                return array_pop($matches);
             }
         }
     }
 
     /**
-     * @param Ripple $ripple
+     * @param Crawler $crawler
      * @return string|null
      */
-    public static function title(Ripple $ripple)
+    public static function title(Crawler $crawler)
     {
-        if (isset($ripple->content)) {
-            $meta = $ripple->content->filter('meta[property="og:title"]');
-            if ($meta->count() > 0) {
-                return $meta->attr('content');
-            }
+        $meta = $crawler->filter('meta[property="og:title"]');
+        if ($meta->count() > 0) {
+            return $meta->attr('content');
         }
     }
 
     /**
-     * @param Ripple $content
+     * @param Crawler $crawler
      * @return string|null
      */
-    public static function image(Ripple $ripple)
+    public static function image(Crawler $crawler)
     {
-        if (isset($ripple->content)) {
-            $meta = $ripple->content->filter('meta[property="og:image"]');
-            if ($meta->count() > 0) {
-                return $meta->attr('content');
-            }
+        $meta = $crawler->filter('meta[property="og:image"]');
+        if ($meta->count() > 0) {
+            return $meta->attr('content');
         }
     }
 

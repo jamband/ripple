@@ -11,6 +11,8 @@
 
 namespace jamband\ripple;
 
+use stdClass;
+
 /**
  * YouTube class file.
  * url pattern: https://www.youtube.com/watch?v={id}
@@ -40,40 +42,38 @@ class YouTube
     }
 
     /**
-     * @var Ripple $ripple
+     * @var stdClass $content
      * @return string|null
      */
-    public static function id(Ripple $ripple)
+    public static function id(stdClass $content)
     {
-        if (isset($ripple->url)) {
-            parse_str(parse_url($ripple->url, PHP_URL_QUERY), $query);
+        parse_str(parse_url($content->url, PHP_URL_QUERY), $query);
 
-            if (isset($query['v'])) {
-                return $query['v'];
-            }
+        if (isset($query['v'])) {
+            return $query['v'];
         }
 
     }
 
     /**
-     * @param Ripple $ripple
+     * @param stdClass $content
      * @return string|null
      */
-    public static function title(Ripple $ripple)
+    public static function title(stdClass $content)
     {
-        if (isset($ripple->content->title)) {
-            return $ripple->content->title;
+        if (isset($content->title)) {
+            return $content->title;
         }
     }
 
     /**
-     * @param Ripple $ripple
+     * @param stdClass $content
      * @return string|null
      */
-    public static function image(Ripple $ripple)
+    public static function image(stdClass $content)
     {
-        if (isset($ripple->content->thumbnail_url)) {
-            return $ripple->content->thumbnail_url;
+        if (isset($content->thumbnail_url)) {
+            return $content->thumbnail_url;
         }
     }
 

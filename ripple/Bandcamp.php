@@ -11,6 +11,8 @@
 
 namespace jamband\ripple;
 
+use Symfony\Component\DomCrawler\Crawler;
+
 /**
  * Bandcamp class file.
  * url pattern 1: https://{subdomain}.bandcamp.com/track/{title}
@@ -36,48 +38,42 @@ class Bandcamp
     }
 
     /**
-     * @param Ripple $ripple
+     * @param Crawler $crawler
      * @return string|null
      */
-    public static function id(Ripple $ripple)
+    public static function id(Crawler $crawler)
     {
-        if (isset($ripple->content)) {
-            $meta = $ripple->content->filter('meta[property="og:video"]');
-            if ($meta->count() > 0) {
-                preg_match('/track\=([1-9][0-9]+)?/', $meta->attr('content'), $matches);
+        $meta = $crawler->filter('meta[property="og:video"]');
+        if ($meta->count() > 0) {
+            preg_match('/track\=([1-9][0-9]+)?/', $meta->attr('content'), $matches);
 
-                if (!empty($matches)) {
-                    return array_pop($matches);
-                }
+            if (!empty($matches)) {
+                return array_pop($matches);
             }
         }
     }
 
     /**
-     * @param Ripple $ripple
+     * @param Crawler $crawler
      * @return string|null
      */
-    public static function title(Ripple $ripple)
+    public static function title(Crawler $crawler)
     {
-        if (isset($ripple->content)) {
-            $meta = $ripple->content->filter('meta[name="title"]');
-            if ($meta->count() > 0) {
-                return $meta->attr('content');
-            }
+        $meta = $crawler->filter('meta[name="title"]');
+        if ($meta->count() > 0) {
+            return $meta->attr('content');
         }
     }
 
     /**
-     * @param Ripple $ripple
+     * @param Crawler $crawler
      * @return string|null
      */
-    public static function image(Ripple $ripple)
+    public static function image(Crawler $crawler)
     {
-        if (isset($ripple->content)) {
-            $link = $ripple->content->filter('link[rel="image_src"]');
-            if ($link->count() > 0) {
-                return $link->attr('href');
-            }
+        $link = $crawler->filter('link[rel="image_src"]');
+        if ($link->count() > 0) {
+            return $link->attr('href');
         }
     }
 

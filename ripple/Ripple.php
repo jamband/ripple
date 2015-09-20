@@ -13,27 +13,17 @@ namespace jamband\ripple;
 
 use stdClass;
 use Goutte\Client;
-use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Ripple class file.
  */
 class Ripple
 {
-    /**
-     * @var string URL of the provider
-     */
-    public $url;
 
     /**
      * @var string the provider name
      */
     public $provider;
-
-    /**
-     * @var stdClass|Crawler contents of the track
-     */
-    public $content;
 
     private static $providers = [
         'Bandcamp' => __NAMESPACE__.'\Bandcamp',
@@ -42,6 +32,8 @@ class Ripple
         'YouTube' => __NAMESPACE__.'\YouTube',
     ];
 
+    private $url;
+    private $content;
     private $embedParams;
 
     /**
@@ -71,7 +63,7 @@ class Ripple
     {
         if (isset($this->url, $this->provider)) {
             $class = static::$providers[$this->provider];
-            return $class::$method($this);
+            return $class::$method($this->content);
         }
     }
 
@@ -89,7 +81,6 @@ class Ripple
 
     /**
      * @param Client $client
-     * @return Ripple|null
      */
     public function request(Client $client)
     {
@@ -101,6 +92,9 @@ class Ripple
                 $this->content = json_decode($client->getResponse()->getContent());
             } else {
                 $this->content = $client->request('GET', $this->url);
+            }
+            if ($this->content instanceof stdClass) {
+                $this->content->url = $this->url;
             }
         }
     }

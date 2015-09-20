@@ -11,6 +11,8 @@
 
 namespace jamband\ripple;
 
+use stdClass;
+
 /**
  * Vimeo class file.
  * url pattern: https://vimeo.com/{id}
@@ -41,35 +43,35 @@ class Vimeo
     }
 
     /**
-     * @var Ripple $ripple
+     * @var stdClass $content
      * @return string|null
      */
-    public static function id(Ripple $ripple)
+    public static function id(stdClass $content)
     {
-        if (isset($ripple->url)) {
-            return substr(parse_url($ripple->url, PHP_URL_PATH), 1);
+        if (isset($content->url)) {
+            return substr(parse_url($content->url, PHP_URL_PATH), 1);
         }
     }
 
     /**
-     * @param Ripple $ripple
+     * @param stdClass $content
      * @return string|null
      */
-    public static function title(Ripple $ripple)
+    public static function title(stdClass $content)
     {
-        if (isset($ripple->content->title)) {
-            return $ripple->content->title;
+        if (isset($content->title)) {
+            return $content->title;
         }
     }
 
     /**
-     * @param Ripple $ripple
+     * @param stdClass $content
      * @return string|null
      */
-    public static function image(Ripple $ripple)
+    public static function image(stdClass $content)
     {
-        if (isset($ripple->content->thumbnail_url)) {
-            return $ripple->content->thumbnail_url;
+        if (isset($content->thumbnail_url)) {
+            return $content->thumbnail_url;
         }
     }
 

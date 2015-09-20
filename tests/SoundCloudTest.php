@@ -47,14 +47,12 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
 
     public function testId()
     {
-        $ripple = new Ripple();
-        $this->assertNull($ripple->id());
-
-        $ripple = new Ripple(self::URL_TRACK);
-
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
+
+        $ripple = new Ripple(self::URL_TRACK);
         $ripple->request($client);
+
         $this->assertSame('1234567890', $ripple->id());
     }
 
@@ -64,9 +62,8 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
         $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
-        $this->assertNull($ripple->title());
-
         $ripple->request($client);
+
         $this->assertSame('SoundCloud Title', $ripple->title());
     }
 
@@ -76,9 +73,8 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
         $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
 
         $ripple = new Ripple(self::URL_TRACK);
-        $this->assertNull($ripple->title());
-
         $ripple->request($client);
+
         $this->assertSame('soundcloud_thumbnail.jpg', $ripple->image());
     }
 
