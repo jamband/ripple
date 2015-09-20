@@ -61,7 +61,7 @@ class Ripple
      */
     public function __call($method, array $args = [])
     {
-        if (isset($this->url, $this->provider)) {
+        if (isset($this->provider)) {
             $class = static::$providers[$this->provider];
             return $class::$method($this->content);
         }
@@ -84,7 +84,7 @@ class Ripple
      */
     public function request(Client $client)
     {
-        if (isset($this->url, $this->provider)) {
+        if (isset($this->provider)) {
             $class = static::$providers[$this->provider];
 
             if (isset($class::$endpoint)) {
