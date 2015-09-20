@@ -77,7 +77,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider testEmbedProvider
+     * @dataProvider embedProvider
      */
     public function testEmbed($file, $url, $embed)
     {
@@ -90,7 +90,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($embed, $ripple->embed());
     }
 
-    public function testEmbedProvider()
+    public function embedProvider()
     {
         return [
             ['UnknownProvider', self::TRACK_UNKNOWN_PROVIDER, null],
