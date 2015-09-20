@@ -77,6 +77,31 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider testEmbedProvider
+     */
+    public function testEmbed($file, $url, $embed)
+    {
+        $client = new Client();
+        $client->setClient($this->getGuzzle(require __DIR__."/response/$file.php"));
+
+        $ripple = new Ripple($url);
+        $ripple->request($client);
+
+        $this->assertSame($embed, $ripple->embed());
+    }
+
+    public function testEmbedProvider()
+    {
+        return [
+            ['UnknownProvider', self::TRACK_UNKNOWN_PROVIDER, null],
+            ['YouTube', self::TRACK_YOUTUBE, self::EMBED_YOUTUBE.'AbCxYz012_'],
+            ['Vimeo', self::TRACK_VIMEO, self::EMBED_VIMEO.'1234567890'],
+            ['SoundCloud', self::TRACK_SOUNDCLOUD, self::EMBED_SOUNDCLOUD.'1234567890'],
+            ['Bandcamp', self::TRACK_BANDCAMP, self::EMBED_BANDCAMP.'1234567890/'],
+        ];
+    }
+
+    /**
      * @dataProvider setEmbedParamsWithoutSetParametersProvider
      */
     public function testSetEmbedParamsWithoutSetParameters($provider, $id, $embed)
