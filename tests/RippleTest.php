@@ -69,10 +69,10 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function requestProvider()
     {
         return [
-            ['YouTube', self::TRACK_YOUTUBE, 'stdClass'],
-            ['Vimeo', self::TRACK_VIMEO, 'stdClass'],
-            ['SoundCloud', self::TRACK_SOUNDCLOUD, 'Symfony\Component\DomCrawler\Crawler'],
             ['Bandcamp', self::TRACK_BANDCAMP, 'Symfony\Component\DomCrawler\Crawler'],
+            ['SoundCloud', self::TRACK_SOUNDCLOUD, 'Symfony\Component\DomCrawler\Crawler'],
+            ['Vimeo', self::TRACK_VIMEO, 'stdClass'],
+            ['YouTube', self::TRACK_YOUTUBE, 'stdClass'],
         ];
     }
 
@@ -94,10 +94,10 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['UnknownProvider', self::TRACK_UNKNOWN_PROVIDER, null],
-            ['YouTube', self::TRACK_YOUTUBE, self::EMBED_YOUTUBE.'AbCxYz012_'],
-            ['Vimeo', self::TRACK_VIMEO, self::EMBED_VIMEO.'1234567890'],
-            ['SoundCloud', self::TRACK_SOUNDCLOUD, self::EMBED_SOUNDCLOUD.'1234567890'],
             ['Bandcamp', self::TRACK_BANDCAMP, self::EMBED_BANDCAMP.'1234567890/'],
+            ['SoundCloud', self::TRACK_SOUNDCLOUD, self::EMBED_SOUNDCLOUD.'1234567890'],
+            ['Vimeo', self::TRACK_VIMEO, self::EMBED_VIMEO.'1234567890'],
+            ['YouTube', self::TRACK_YOUTUBE, self::EMBED_YOUTUBE.'AbCxYz012_'],
         ];
     }
 
@@ -113,10 +113,10 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['UnknownProvider', '1234567890', null],
-            ['YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_'],
-            ['Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890'],
-            ['SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890'],
             ['Bandcamp', '1234567890', self::EMBED_BANDCAMP.'1234567890/'],
+            ['SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890'],
+            ['Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890'],
+            ['YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_'],
         ];
     }
 
@@ -134,10 +134,10 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [['UnknownProvider' => '?query=value'], 'UnknownProvider', 'AbCxYz012_', null],
-            [['YouTube' => '?autoplay=1'], 'YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_?autoplay=1'],
-            [['Vimeo' => '?autoplay=1'], 'Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890?autoplay=1'],
-            [['SoundCloud' => '?auto_play=true'], 'SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890?auto_play=true'],
             [['Bandcamp' => 'size=large/'], 'Bandcamp', '1234567890', self::EMBED_BANDCAMP.'1234567890/size=large/'],
+            [['SoundCloud' => '?auto_play=true'], 'SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890?auto_play=true'],
+            [['Vimeo' => '?autoplay=1'], 'Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890?autoplay=1'],
+            [['YouTube' => '?autoplay=1'], 'YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_?autoplay=1'],
             // Set a different provider
             [['Bandcamp' => 'size=large/'], 'YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_'],
         ];
