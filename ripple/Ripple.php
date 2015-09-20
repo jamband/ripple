@@ -59,7 +59,7 @@ class Ripple
      * @param array $args
      * @return string|null
      */
-    public function __call($method, array $args = [])
+    public function __call($method, array $args)
     {
         if (isset($this->provider)) {
             $class = static::$providers[$this->provider];
@@ -128,7 +128,7 @@ class Ripple
      * Sets HTML embed parameters of the track.
      * @param array $embedParams
      */
-    public function setEmbedParams(array $embedParams = [])
+    public function setEmbedParams(array $embedParams)
     {
         $this->embedParams = $embedParams;
     }
