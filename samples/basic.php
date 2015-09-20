@@ -11,11 +11,11 @@ use Goutte\Client;
 $url = 'https://www.youtube.com/watch?v=MBlpfXLQLvU';
 
 $ripple = new Ripple($url);
-var_dump($ripple->provider); // YouTube
+var_dump($ripple->provider()); // YouTube
 var_dump($ripple->isValidUrl()); // true
 
 $ripple->request(new Client());
 var_dump($ripple->id()); // MBlpfXLQLvU
 var_dump($ripple->title()); // The Staves - The Motherlode (Official Video)
 var_dump($ripple->image()); // https://i.ytimg.com/vi/MBlpfXLQLvU/hqdefault.jpg
-var_dump($ripple->embed($ripple->provider, $ripple->id())); // https://www.youtube.com/embed/MBlpfXLQLvU
+var_dump($ripple->embed()); // https://www.youtube.com/embed/MBlpfXLQLvU

@@ -27,7 +27,7 @@ or add in composer.json
 $url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
 
 $ripple = new \jamband\ripple\Ripple($url);
-var_dump($ripple->provider); // Bandcamp
+var_dump($ripple->provider()); // Bandcamp
 var_dump($ripple->isValidUrl()); // true
 
 $ripple->request(new \Goutte\Client());
@@ -47,7 +47,7 @@ $ripple->request(new \Goutte\Client());
 $ripple->setEmbedParams([
     'Bandcamp' => 'size=large/',
 ]);
-$embed = $ripple->embed($ripple->provider, $ripple->id());
+$embed = $ripple->embed($ripple->provider(), $ripple->id());
 var_dump($embed); // https://bandcamp.com/EmbeddedPlayer/track=932292198/size=large/
 ?>
 <iframe width="300" height="300" src="<?= $embed ?>" frameborder="0" allowfullscreen></iframe>

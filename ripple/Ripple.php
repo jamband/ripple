@@ -19,10 +19,7 @@ use Goutte\Client;
  */
 class Ripple
 {
-    /**
-     * @var string the provider name
-     */
-    public $provider;
+    private $url;
 
     private static $providers = [
         'Bandcamp' => __NAMESPACE__.'\Bandcamp',
@@ -31,7 +28,7 @@ class Ripple
         'YouTube' => __NAMESPACE__.'\YouTube',
     ];
 
-    private $url;
+    private $provider;
     private $content;
     private $embedParams;
 
@@ -64,6 +61,14 @@ class Ripple
             $class = static::$providers[$this->provider];
             return $class::$method($this->content);
         }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function provider()
+    {
+        return $this->provider;
     }
 
     /**

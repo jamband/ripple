@@ -33,15 +33,15 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     const TRACK_UNKNOWN_PROVIDER = 'https://www.example.com/';
 
     /**
-     * @dataProvider constructProvider
+     * @dataProvider providerProvider
      */
-    public function testConstruct($url, $provider)
+    public function testProvider($url, $provider)
     {
         $ripple = new Ripple($url);
-        $this->assertSame($provider, $ripple->provider);
+        $this->assertSame($provider, $ripple->provider());
     }
 
-    public function constructProvider()
+    public function providerProvider()
     {
         return [
             ['', null],

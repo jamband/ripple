@@ -21,7 +21,7 @@ var_dump($ripple->embed('YouTube', 'MBlpfXLQLvU')); // https://www.youtube.com/e
 // from track url
 $ripple = new Ripple($url);
 $ripple->request(new Client());
-var_dump($ripple->embed($ripple->provider, $ripple->id())); // https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/42854561
+var_dump($ripple->embed()); // https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/42854561
 
 // append parameter
 $ripple->setEmbedParams([
@@ -30,7 +30,7 @@ $ripple->setEmbedParams([
     'SoundCloud' => '?auto_play=true&amp;show_comments=false&amp;visual=true',
     'Bandcamp' => 'size=large/',
 ]);
-$embed = $ripple->embed($ripple->provider, $ripple->id());
+$embed = $ripple->embed();
 var_dump($embed); // https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/42854561?auto_play=true&amp;show_comments=false&amp;visual=true
 ?>
 <!-- embed HTML -->
