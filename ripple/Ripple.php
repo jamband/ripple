@@ -49,7 +49,7 @@ class Ripple
      */
     public function __construct($url = null)
     {
-        $this->url = $url;
+        $this->url = (string)$url;
 
         $domain = implode('.', array_slice(
             explode('.', parse_url($this->url, PHP_URL_HOST)), -2

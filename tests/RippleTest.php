@@ -45,7 +45,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function constructProvider()
     {
         return [
-            [null, null],
+            ['', null],
             [self::TRACK_UNKNOWN_PROVIDER, null],
             [self::TRACK_BANDCAMP, 'Bandcamp'],
             [self::TRACK_SOUNDCLOUD, 'SoundCloud'],
