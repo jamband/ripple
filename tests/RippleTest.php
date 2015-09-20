@@ -87,6 +87,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function setEmbedParamsWithoutSetParametersProvider()
     {
         return [
+            ['UnknownProvider', '1234567890', null],
             ['YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_'],
             ['Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890'],
             ['SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890'],
@@ -107,6 +108,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function setEmbedParamsProvider()
     {
         return [
+            [['UnknownProvider' => '?query=value'], 'UnknownProvider', 'AbCxYz012_', null],
             [['YouTube' => '?autoplay=1'], 'YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_?autoplay=1'],
             [['Vimeo' => '?autoplay=1'], 'Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890?autoplay=1'],
             [['SoundCloud' => '?auto_play=true'], 'SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890?auto_play=true'],
