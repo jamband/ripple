@@ -29,14 +29,14 @@ class Vimeo
     public static $endpoint = 'http://vimeo.com/api/oembed.json?url=';
 
     /**
-     * @param Ripple $ripple
+     * @param string $url
      * @return bool
      */
-    public static function isValidUrl(Ripple $ripple)
+    public static function isValidUrl($url)
     {
         return (bool)preg_match(
             '#\Ahttps?\://(www\.)?vimeo\.com/[1-9][0-9]+\z#',
-            $ripple->url
+            $url
         );
     }
 

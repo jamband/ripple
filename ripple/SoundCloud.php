@@ -25,14 +25,14 @@ class SoundCloud
     public static $host = 'soundcloud.com';
 
     /**
-     * @param Ripple $ripple
+     * @param string $url
      * @return bool
      */
-    public static function isValidUrl(Ripple $ripple)
+    public static function isValidUrl($url)
     {
         return (bool)preg_match(
             '#\Ahttps?\://(www\.)?soundcloud\.com/[A-Za-z0-9-_]+/[A-Za-z0-9-_]+\z#',
-            $ripple->url
+            $url
         );
     }
 

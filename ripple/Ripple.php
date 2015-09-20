@@ -76,6 +76,18 @@ class Ripple
     }
 
     /**
+     * @return bool
+     */
+    public function isValidUrl()
+    {
+        if (isset($this->provider)) {
+            $class = static::$providers[$this->provider];
+            return $class::isValidUrl($this->url);
+        }
+        return false;
+    }
+
+    /**
      * @param Client $client
      * @return Ripple|null
      */

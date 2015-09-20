@@ -28,14 +28,14 @@ class YouTube
     public static $endpoint = 'http://www.youtube.com/oembed?url=';
 
     /**
-     * @param Ripple $ripple
+     * @param string $url
      * @return bool
      */
-    public static function isValidUrl(Ripple $ripple)
+    public static function isValidUrl($url)
     {
         return (bool)preg_match(
             '#\Ahttps?\://(www\.)?youtube\.com/watch\?v\=[A-Za-z0-9_-]+\z#',
-            $ripple->url
+            $url
         );
     }
 

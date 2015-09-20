@@ -24,14 +24,14 @@ class Bandcamp
     public static $host = 'bandcamp.com';
 
     /**
-     * @param Ripple $ripple
+     * @param string $url
      * @return bool
      */
-    public static function isValidUrl(Ripple $ripple)
+    public static function isValidUrl($url)
     {
         return (bool)preg_match(
             '#\Ahttps?\://[a-z][a-z0-9-]+\.bandcamp\.com/track/[A-Za-z0-9_-]+\z#',
-            $ripple->url
+            $url
         );
     }
 
