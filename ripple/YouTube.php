@@ -45,12 +45,14 @@ class YouTube
      * @var stdClass $content
      * @return string|null
      */
-    public static function id(stdClass $content)
+    public static function id(stdClass $content = null)
     {
-        parse_str(parse_url($content->url, PHP_URL_QUERY), $query);
+        if (isset($content->url)) {
+            parse_str(parse_url($content->url, PHP_URL_QUERY), $query);
 
-        if (isset($query['v'])) {
-            return $query['v'];
+            if (isset($query['v'])) {
+                return $query['v'];
+            }
         }
 
     }
@@ -59,7 +61,7 @@ class YouTube
      * @param stdClass $content
      * @return string|null
      */
-    public static function title(stdClass $content)
+    public static function title(stdClass $content = null)
     {
         if (isset($content->title)) {
             return $content->title;
@@ -70,7 +72,7 @@ class YouTube
      * @param stdClass $content
      * @return string|null
      */
-    public static function image(stdClass $content)
+    public static function image(stdClass $content = null)
     {
         if (isset($content->thumbnail_url)) {
             return $content->thumbnail_url;

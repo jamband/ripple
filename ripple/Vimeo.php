@@ -46,7 +46,7 @@ class Vimeo
      * @var stdClass $content
      * @return string|null
      */
-    public static function id(stdClass $content)
+    public static function id(stdClass $content = null)
     {
         if (isset($content->url)) {
             return substr(parse_url($content->url, PHP_URL_PATH), 1);
@@ -57,7 +57,7 @@ class Vimeo
      * @param stdClass $content
      * @return string|null
      */
-    public static function title(stdClass $content)
+    public static function title(stdClass $content = null)
     {
         if (isset($content->title)) {
             return $content->title;
@@ -68,7 +68,7 @@ class Vimeo
      * @param stdClass $content
      * @return string|null
      */
-    public static function image(stdClass $content)
+    public static function image(stdClass $content = null)
     {
         if (isset($content->thumbnail_url)) {
             return $content->thumbnail_url;
