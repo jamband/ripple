@@ -54,25 +54,27 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Asserting by Ripple::id()
      * @dataProvider requestProvider
      */
-    public function testRequest($provider, $track, $class)
+    public function testRequest($file, $track, $id)
     {
         $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__."/response/$provider.php"));
+        $client->setClient($this->getGuzzle(require __DIR__."/response/$file.php"));
 
         $ripple = new Ripple($track);
         $ripple->request($client);
-        // $this->assertInstanceOf($class, $ripple->content);
+        $this->assertSame($id, $ripple->id());
     }
 
     public function requestProvider()
     {
         return [
-            ['Bandcamp', self::TRACK_BANDCAMP, 'Symfony\Component\DomCrawler\Crawler'],
-            ['SoundCloud', self::TRACK_SOUNDCLOUD, 'Symfony\Component\DomCrawler\Crawler'],
-            ['Vimeo', self::TRACK_VIMEO, 'stdClass'],
-            ['YouTube', self::TRACK_YOUTUBE, 'stdClass'],
+            ['UnknownProvider', self::TRACK_SOUNDCLOUD, null],
+            ['Bandcamp', self::TRACK_BANDCAMP, '1234567890'],
+            ['SoundCloud', self::TRACK_SOUNDCLOUD, '1234567890'],
+            ['Vimeo', self::TRACK_VIMEO, '1234567890'],
+            ['YouTube', self::TRACK_YOUTUBE, 'AbCxYz012_'],
         ];
     }
 
