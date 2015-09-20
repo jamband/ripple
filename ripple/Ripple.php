@@ -90,8 +90,6 @@ class Ripple
             } else {
                 $this->content = $client->request('GET', $this->url);
             }
-
-            return $this;
         }
     }
 
