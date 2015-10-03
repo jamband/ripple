@@ -19,6 +19,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     use ClientTrait;
 
     const URL_TRACK = 'https://www.youtube.com/watch?v=';
+    const URL_TRACK2 = 'https://youtu.be/';
     const URL_EMBED = 'https://www.youtube.com/embed/';
 
     /**
@@ -38,11 +39,17 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
             [self::URL_TRACK.static::id().'?', false],
             [self::URL_TRACK.static::id().'&query=value', false],
             [self::URL_TRACK.static::id().'#fragment', false],
+            [self::URL_TRACK2.static::id().'/', false],
+            [self::URL_TRACK2.static::id().'?', false],
+            [self::URL_TRACK2.static::id().'&query=value', false],
+            [self::URL_TRACK2.static::id().'#fragment', false],
             // success
             [self::URL_TRACK.static::id(), true],
             ['https://youtube.com/watch?v='.static::id(), true],
             ['http://www.youtube.com/watch?v='.static::id(), true],
             ['http://youtube.com/watch?v='.static::id(), true],
+            [self::URL_TRACK2.static::id(), true],
+            ['http://youtu.be/'.static::id(), true],
         ];
     }
 

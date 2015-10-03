@@ -15,14 +15,15 @@ use stdClass;
 
 /**
  * YouTube class file.
- * url pattern: https://www.youtube.com/watch?v={id}
+ * url pattern 1: https://www.youtube.com/watch?v={id}
+ * url pattern 2: https://youtu.be/{id}
  */
 class YouTube
 {
     /**
      * @var string
      */
-    public static $host = 'youtube.com';
+    public static $host = 'youtube.com|youtu.be';
 
     /**
      * @var string
@@ -35,10 +36,19 @@ class YouTube
      */
     public static function isValidUrl($url)
     {
-        return (bool)preg_match(
-            '#\Ahttps?\://(www\.)?youtube\.com/watch\?v\=[A-Za-z0-9_-]+\z#',
-            $url
-        );
+        $host = implode('.', array_slice(
+            explode('.', parse_url($url, PHP_URL_HOST)), -2
+        ));
+        if ($host === 'youtube.com') {
+            $pattern = '#\Ahttps?\://(www\.)?youtube\.com/watch\?v\=[A-Za-z0-9_-]+\z#';
+        }
+        if ($host === 'youtu.be') {
+            $pattern = '#\Ahttps?\://youtu\.be/[A-Za-z0-9_-]+\z#';
+        }
+        if (isset($pattern)) {
+            return (bool)preg_match($pattern, $url);
+        }
+        return false;
     }
 
     /**

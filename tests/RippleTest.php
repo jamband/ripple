@@ -25,6 +25,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     const EMBED_SOUNDCLOUD = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
 
     const TRACK_YOUTUBE = 'https://www.youtube.com/watch?v=AbCxYz012_-';
+    const TRACK_YOUTUBE2 = 'https://youtu.be/AbCxYz012_-';
     const EMBED_YOUTUBE = 'https://www.youtube.com/embed/';
 
     const TRACK_VIMEO = 'https://vimeo.com/1234567890';
@@ -50,6 +51,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
             [self::TRACK_SOUNDCLOUD, 'SoundCloud'],
             [self::TRACK_VIMEO, 'Vimeo'],
             [self::TRACK_YOUTUBE, 'YouTube'],
+            [self::TRACK_YOUTUBE2, 'YouTube'],
         ];
     }
 

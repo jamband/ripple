@@ -43,7 +43,7 @@ class Ripple
             explode('.', parse_url($this->url, PHP_URL_HOST)), -2
         ));
         foreach (static::$providers as $provider => $class) {
-            if ($domain === $class::$host) {
+            if (preg_match('/\A('.str_replace('.', '\.', $class::$host).')\z/', $domain)) {
                 $this->provider = $provider;
                 break;
             }
