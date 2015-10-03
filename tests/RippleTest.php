@@ -24,7 +24,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     const TRACK_SOUNDCLOUD = 'https://soundcloud.com/example/title';
     const EMBED_SOUNDCLOUD = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
 
-    const TRACK_YOUTUBE = 'https://www.youtube.com/watch?v=AbCxYz012_';
+    const TRACK_YOUTUBE = 'https://www.youtube.com/watch?v=AbCxYz012_-';
     const EMBED_YOUTUBE = 'https://www.youtube.com/embed/';
 
     const TRACK_VIMEO = 'https://vimeo.com/1234567890';
@@ -74,7 +74,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
             ['Bandcamp', self::TRACK_BANDCAMP, '1234567890'],
             ['SoundCloud', self::TRACK_SOUNDCLOUD, '1234567890'],
             ['Vimeo', self::TRACK_VIMEO, '1234567890'],
-            ['YouTube', self::TRACK_YOUTUBE, 'AbCxYz012_'],
+            ['YouTube', self::TRACK_YOUTUBE, 'AbCxYz012_-'],
         ];
     }
 
@@ -99,7 +99,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
             ['Bandcamp', self::TRACK_BANDCAMP, self::EMBED_BANDCAMP.'1234567890/'],
             ['SoundCloud', self::TRACK_SOUNDCLOUD, self::EMBED_SOUNDCLOUD.'1234567890'],
             ['Vimeo', self::TRACK_VIMEO, self::EMBED_VIMEO.'1234567890'],
-            ['YouTube', self::TRACK_YOUTUBE, self::EMBED_YOUTUBE.'AbCxYz012_'],
+            ['YouTube', self::TRACK_YOUTUBE, self::EMBED_YOUTUBE.'AbCxYz012_-'],
         ];
     }
 
@@ -135,13 +135,13 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function setEmbedParamsProvider()
     {
         return [
-            [['UnknownProvider' => '?query=value'], 'UnknownProvider', 'AbCxYz012_', null],
+            [['UnknownProvider' => '?query=value'], 'UnknownProvider', 'AbCxYz012_-', null],
             [['Bandcamp' => 'size=large/'], 'Bandcamp', '1234567890', self::EMBED_BANDCAMP.'1234567890/size=large/'],
             [['SoundCloud' => '?auto_play=true'], 'SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890?auto_play=true'],
             [['Vimeo' => '?autoplay=1'], 'Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890?autoplay=1'],
-            [['YouTube' => '?autoplay=1'], 'YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_?autoplay=1'],
+            [['YouTube' => '?autoplay=1'], 'YouTube', 'AbCxYz012_-', self::EMBED_YOUTUBE.'AbCxYz012_-?autoplay=1'],
             // Set a different provider
-            [['Bandcamp' => 'size=large/'], 'YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_'],
+            [['Bandcamp' => 'size=large/'], 'YouTube', 'AbCxYz012_-', self::EMBED_YOUTUBE.'AbCxYz012_-'],
         ];
     }
 

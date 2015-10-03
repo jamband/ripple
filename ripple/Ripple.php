@@ -97,9 +97,6 @@ class Ripple
             } else {
                 $this->content = $client->request('GET', $this->url);
             }
-            if ($this->content instanceof stdClass) {
-                $this->content->url = $this->url;
-            }
         }
     }
 

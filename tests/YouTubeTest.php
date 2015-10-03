@@ -51,11 +51,10 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
-        $id = static::id();
-        $ripple = new Ripple(self::URL_TRACK.$id);
+        $ripple = new Ripple(self::URL_TRACK.'AbCxYz012_-');
         $ripple->request($client);
 
-        $this->assertSame($id, $ripple->id());
+        $this->assertSame('AbCxYz012_-', $ripple->id());
     }
 
     public function testTitle()

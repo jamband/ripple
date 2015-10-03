@@ -47,11 +47,11 @@ class YouTube
      */
     public static function id(stdClass $content = null)
     {
-        if (isset($content->url)) {
-            parse_str(parse_url($content->url, PHP_URL_QUERY), $query);
+        if (isset($content->html)) {
+            preg_match('/embed\/([\w-]+)?\?/', $content->html, $matches);
 
-            if (isset($query['v'])) {
-                return $query['v'];
+            if (!empty($matches)) {
+                return array_pop($matches);
             }
         }
 
