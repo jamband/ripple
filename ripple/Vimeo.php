@@ -48,8 +48,8 @@ class Vimeo
      */
     public static function id(stdClass $content = null)
     {
-        if (isset($content->url)) {
-            return substr(parse_url($content->url, PHP_URL_PATH), 1);
+        if (isset($content->video_id)) {
+            return (string)$content->video_id;
         }
     }
 

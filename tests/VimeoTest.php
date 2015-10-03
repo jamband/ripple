@@ -52,11 +52,10 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
 
-        $id = static::id();
-        $ripple = new Ripple(self::URL_TRACK.$id);
+        $ripple = new Ripple(self::URL_TRACK.'1234567890');
         $ripple->request($client);
 
-        $this->assertSame($id, $ripple->id());
+        $this->assertSame('1234567890', $ripple->id());
     }
 
     public function testTitle()
