@@ -48,7 +48,7 @@ class YouTube
     public static function id(stdClass $content = null)
     {
         if (isset($content->html)) {
-            preg_match('/embed\/([\w-]+)?\?/', $content->html, $matches);
+            preg_match('/embed\/([A-Za-z0-9_-]+)?\?/', $content->html, $matches);
 
             if (!empty($matches)) {
                 return array_pop($matches);
