@@ -43,7 +43,7 @@ class SoundCloud
     public static function id(Crawler $crawler)
     {
         $meta = $crawler->filter('meta[name="twitter:audio:source"]');
-        if ($meta->count() > 0) {
+        if ($meta->count() === 1) {
             preg_match('/sounds\:([1-9][0-9]+)?/', $meta->attr('content'), $matches);
 
             if (!empty($matches)) {
@@ -59,7 +59,7 @@ class SoundCloud
     public static function title(Crawler $crawler)
     {
         $meta = $crawler->filter('meta[property="og:title"]');
-        if ($meta->count() > 0) {
+        if ($meta->count() === 1) {
             return $meta->attr('content');
         }
     }
@@ -71,7 +71,7 @@ class SoundCloud
     public static function image(Crawler $crawler)
     {
         $meta = $crawler->filter('meta[property="og:image"]');
-        if ($meta->count() > 0) {
+        if ($meta->count() === 1) {
             return $meta->attr('content');
         }
     }

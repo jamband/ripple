@@ -44,7 +44,7 @@ class Bandcamp
     public static function id(Crawler $crawler)
     {
         $meta = $crawler->filter('meta[property="og:video"]');
-        if ($meta->count() > 0) {
+        if ($meta->count() === 1) {
             preg_match('/track\=([1-9][0-9]+)?/', $meta->attr('content'), $matches);
 
             if (!empty($matches)) {
@@ -60,7 +60,7 @@ class Bandcamp
     public static function title(Crawler $crawler)
     {
         $meta = $crawler->filter('meta[name="title"]');
-        if ($meta->count() > 0) {
+        if ($meta->count() === 1) {
             return $meta->attr('content');
         }
     }
@@ -72,7 +72,7 @@ class Bandcamp
     public static function image(Crawler $crawler)
     {
         $link = $crawler->filter('link[rel="image_src"]');
-        if ($link->count() > 0) {
+        if ($link->count() === 1) {
             return $link->attr('href');
         }
     }
