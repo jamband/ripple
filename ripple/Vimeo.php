@@ -26,7 +26,7 @@ class Vimeo
 
     /**
      * @var string
-     * @see https://developer.vimeo.com/apis/oembed
+     * @link https://developer.vimeo.com/apis/oembed
      */
     public static $endpoint = 'http://vimeo.com/api/oembed.json?url=';
 
@@ -43,7 +43,7 @@ class Vimeo
     }
 
     /**
-     * @var stdClass $content
+     * @param stdClass $content
      * @return string|null
      */
     public static function id(stdClass $content = null)

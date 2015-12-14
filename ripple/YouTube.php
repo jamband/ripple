@@ -53,7 +53,7 @@ class YouTube
     }
 
     /**
-     * @var stdClass $content
+     * @param stdClass $content
      * @return string|null
      */
     public static function id(stdClass $content = null)

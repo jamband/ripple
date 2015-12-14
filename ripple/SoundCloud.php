@@ -37,7 +37,7 @@ class SoundCloud
     }
 
     /**
-     * @var Crawler $crawler
+     * @param Crawler $crawler
      * @return string|null
      */
     public static function id(Crawler $crawler)

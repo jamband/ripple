@@ -79,8 +79,8 @@ class Bandcamp
 
     /**
      * @param string $id
-     * @see https://bandcamp.com/help/audio_basics#autostart
      * @return string
+     * @link https://bandcamp.com/help/audio_basics#autostart
      */
     public static function embed($id)
     {
