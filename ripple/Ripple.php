@@ -19,6 +19,8 @@ use Goutte\Client;
  */
 class Ripple
 {
+    use Utility;
+
     private $url;
 
     private static $providers = [
@@ -38,10 +40,8 @@ class Ripple
     public function __construct($url = null)
     {
         $this->url = (string)$url;
+        $domain = static::getDomain($this->url);
 
-        $domain = implode('.', array_slice(
-            explode('.', parse_url($this->url, PHP_URL_HOST)), -2
-        ));
         foreach (static::$providers as $provider => $class) {
             if (preg_match('/\A('.str_replace('.', '\.', $class::$host).')\z/', $domain)) {
                 $this->provider = $provider;

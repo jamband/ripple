@@ -20,6 +20,8 @@ use stdClass;
  */
 class YouTube
 {
+    use Utility;
+
     /**
      * @var string
      */
@@ -36,13 +38,12 @@ class YouTube
      */
     public static function isValidUrl($url)
     {
-        $host = implode('.', array_slice(
-            explode('.', parse_url($url, PHP_URL_HOST)), -2
-        ));
-        if ($host === 'youtube.com') {
+        $domain = static::getDomain($url);
+
+        if ($domain === 'youtube.com') {
             $pattern = '#\Ahttps?\://(www\.)?youtube\.com/watch\?v\=[A-Za-z0-9_-]+\z#';
         }
-        if ($host === 'youtu.be') {
+        if ($domain === 'youtu.be') {
             $pattern = '#\Ahttps?\://youtu\.be/[A-Za-z0-9_-]+\z#';
         }
         if (isset($pattern)) {
