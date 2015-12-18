@@ -132,7 +132,6 @@ class Ripple
         $this->embedParams = $embedParams;
     }
 
-
     /**
      * Returns all providers.
      * @return array
