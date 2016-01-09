@@ -74,9 +74,7 @@ class YouTube
      */
     public static function title(stdClass $content = null)
     {
-        if (isset($content->title)) {
-            return $content->title;
-        }
+        return isset($content->title) ? $content->title : null;
     }
 
     /**
@@ -85,9 +83,7 @@ class YouTube
      */
     public static function image(stdClass $content = null)
     {
-        if (isset($content->thumbnail_url)) {
-            return $content->thumbnail_url;
-        }
+        return isset($content->thumbnail_url) ? $content->thumbnail_url : null;
     }
 
     /**

@@ -59,10 +59,8 @@ class Bandcamp
      */
     public static function title(Crawler $crawler)
     {
-        $meta = $crawler->filter('meta[name="title"]');
-        if ($meta->count() === 1) {
-            return $meta->attr('content');
-        }
+        $crawler = $crawler->filter('meta[name="title"]');
+        return $crawler->count() === 1 ? $crawler->attr('content') : null;
     }
 
     /**
@@ -71,10 +69,8 @@ class Bandcamp
      */
     public static function image(Crawler $crawler)
     {
-        $link = $crawler->filter('link[rel="image_src"]');
-        if ($link->count() === 1) {
-            return $link->attr('href');
-        }
+        $crawler = $crawler->filter('link[rel="image_src"]');
+        return $crawler->count() === 1 ? $crawler->attr('href') : null;
     }
 
     /**

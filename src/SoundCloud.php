@@ -58,10 +58,8 @@ class SoundCloud
      */
     public static function title(Crawler $crawler)
     {
-        $meta = $crawler->filter('meta[property="og:title"]');
-        if ($meta->count() === 1) {
-            return $meta->attr('content');
-        }
+        $crawler = $crawler->filter('meta[property="og:title"]');
+        return $crawler->count() === 1 ? $crawler->attr('content') : null;
     }
 
     /**
@@ -70,10 +68,8 @@ class SoundCloud
      */
     public static function image(Crawler $crawler)
     {
-        $meta = $crawler->filter('meta[property="og:image"]');
-        if ($meta->count() === 1) {
-            return $meta->attr('content');
-        }
+        $crawler = $crawler->filter('meta[property="og:image"]');
+        return $crawler->count() === 1 ? $crawler->attr('content') : null;
     }
 
     /**

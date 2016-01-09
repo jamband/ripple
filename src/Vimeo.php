@@ -48,9 +48,7 @@ class Vimeo
      */
     public static function id(stdClass $content = null)
     {
-        if (isset($content->video_id)) {
-            return (string)$content->video_id;
-        }
+        return isset($content->video_id) ? (string)$content->video_id : null;
     }
 
     /**
@@ -59,9 +57,7 @@ class Vimeo
      */
     public static function title(stdClass $content = null)
     {
-        if (isset($content->title)) {
-            return $content->title;
-        }
+        return isset($content->title) ? $content->title : null;
     }
 
     /**
@@ -70,9 +66,7 @@ class Vimeo
      */
     public static function image(stdClass $content = null)
     {
-        if (isset($content->thumbnail_url)) {
-            return $content->thumbnail_url;
-        }
+        return isset($content->thumbnail_url) ? $content->thumbnail_url : null;
     }
 
     /**

@@ -23,8 +23,9 @@ trait Utility
     private static function getDomain($url)
     {
         $domain = parse_url($url, PHP_URL_HOST);
-        if (false !== strpos($domain, '.')) {
-            return implode('.', array_slice(explode('.', $domain), -2));
-        }
+
+        return false !== strpos($domain, '.')
+            ? implode('.', array_slice(explode('.', $domain), -2))
+            : null;
     }
 }
