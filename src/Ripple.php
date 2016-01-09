@@ -11,7 +11,6 @@
 
 namespace jamband\ripple;
 
-use stdClass;
 use Goutte\Client;
 
 /**
