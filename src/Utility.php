@@ -18,7 +18,7 @@ trait Utility
 {
     /**
      * Returns the domain name from URL.
-     * @return string|null
+     * @return null|string
      */
     private static function getDomain($url)
     {

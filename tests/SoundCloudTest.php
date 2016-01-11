@@ -22,6 +22,8 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
     const URL_EMBED = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
 
     /**
+     * @param string $url
+     * @param string $expected
      * @dataProvider isValidUrlProvider
      */
     public function testIsValidUrl($url, $expected)

@@ -44,7 +44,7 @@ class Vimeo
 
     /**
      * @param stdClass $content
-     * @return string|null
+     * @return null|string
      */
     public static function id(stdClass $content = null)
     {
@@ -53,7 +53,7 @@ class Vimeo
 
     /**
      * @param stdClass $content
-     * @return string|null
+     * @return null|string
      */
     public static function title(stdClass $content = null)
     {
@@ -62,7 +62,7 @@ class Vimeo
 
     /**
      * @param stdClass $content
-     * @return string|null
+     * @return null|string
      */
     public static function image(stdClass $content = null)
     {

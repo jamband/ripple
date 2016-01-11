@@ -22,6 +22,8 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
     const URL_EMBED = 'https://player.vimeo.com/video/';
 
     /**
+     * @param string $url
+     * @param string $isValidUrl
      * @dataProvider isValidUrlProvider
      */
     public function testIsValidUrl($url, $isValidUrl)

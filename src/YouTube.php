@@ -54,7 +54,7 @@ class YouTube
 
     /**
      * @param stdClass $content
-     * @return string|null
+     * @return null|string
      */
     public static function id(stdClass $content = null)
     {
@@ -65,12 +65,12 @@ class YouTube
                 return array_pop($matches);
             }
         }
-
+        return null;
     }
 
     /**
      * @param stdClass $content
-     * @return string|null
+     * @return null|string
      */
     public static function title(stdClass $content = null)
     {
@@ -79,7 +79,7 @@ class YouTube
 
     /**
      * @param stdClass $content
-     * @return string|null
+     * @return null|string
      */
     public static function image(stdClass $content = null)
     {

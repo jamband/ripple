@@ -38,7 +38,7 @@ class SoundCloud
 
     /**
      * @param Crawler $crawler
-     * @return string|null
+     * @return null|string
      */
     public static function id(Crawler $crawler)
     {
@@ -50,6 +50,7 @@ class SoundCloud
                 return array_pop($matches);
             }
         }
+        return null;
     }
 
     /**

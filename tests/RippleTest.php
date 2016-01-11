@@ -34,6 +34,8 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     const TRACK_UNKNOWN_PROVIDER = 'https://www.example.com/';
 
     /**
+     * @param string $url
+     * @param string $provider
      * @dataProvider providerProvider
      */
     public function testProvider($url, $provider)
@@ -57,6 +59,9 @@ class RippleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Asserting by Ripple::id()
+     * @param string $file
+     * @param string $track
+     * @param string $id
      * @dataProvider requestProvider
      */
     public function testRequest($file, $track, $id)
@@ -81,6 +86,9 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $file
+     * @param string $url
+     * @param string $embed
      * @dataProvider embedProvider
      */
     public function testEmbed($file, $url, $embed)
@@ -106,6 +114,9 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $provider
+     * @param string $id
+     * @param string $embed
      * @dataProvider embedWithSetArgumentsProvider
      */
     public function testEmbedWithSetArguments($provider, $id, $embed)
@@ -125,6 +136,10 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param array $params
+     * @param string $provider
+     * @param string $id
+     * @param string $embed
      * @dataProvider setEmbedParamsProvider
      */
     public function testSetEmbedParams($params, $provider, $id, $embed)

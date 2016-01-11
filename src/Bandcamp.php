@@ -39,7 +39,7 @@ class Bandcamp
 
     /**
      * @param Crawler $crawler
-     * @return string|null
+     * @return null|string
      */
     public static function id(Crawler $crawler)
     {
@@ -51,11 +51,12 @@ class Bandcamp
                 return array_pop($matches);
             }
         }
+        return null;
     }
 
     /**
      * @param Crawler $crawler
-     * @return string|null
+     * @return null|string
      */
     public static function title(Crawler $crawler)
     {
@@ -65,7 +66,7 @@ class Bandcamp
 
     /**
      * @param Crawler $crawler
-     * @return string|null
+     * @return null|string
      */
     public static function image(Crawler $crawler)
     {

@@ -20,8 +20,10 @@ use GuzzleHttp\Middleware;
 trait ClientTrait
 {
     /**
+     * @param null|string $response
+     * @return GuzzleClient
      * @see ClientTest::getGuzzle()
-     * https://github.com/FriendsOfPHP/Goutte/blob/master/Goutte/Tests/ClientTest.php
+     * @link https://github.com/FriendsOfPHP/Goutte/blob/master/Goutte/Tests/ClientTest.php
      */
     protected function getGuzzle($response)
     {

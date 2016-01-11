@@ -22,6 +22,8 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
     const URL_EMBED = 'https://bandcamp.com/EmbeddedPlayer/track=';
 
     /**
+     * @param string $url
+     * @param string $expected
      * @dataProvider isValidUrlProvider
      */
     public function testIsValidUrl($url, $expected)

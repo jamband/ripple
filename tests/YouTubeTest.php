@@ -23,6 +23,8 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     const URL_EMBED = 'https://www.youtube.com/embed/';
 
     /**
+     * @param string $url
+     * @param string $isValidUrl
      * @dataProvider isValidUrlProvider
      */
     public function testIsValidUrl($url, $isValidUrl)

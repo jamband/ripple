@@ -52,14 +52,15 @@ class Ripple
     /**
      * @param string $method
      * @param array $args
-     * @return string|null
+     * @return null|string
      */
     public function __call($method, array $args)
     {
-        if (isset($this->provider)) {
-            $class = static::$providers[$this->provider];
-            return $class::$method($this->content);
+        if (null === $this->provider) {
+            return null;
         }
+        $class = static::$providers[$this->provider];
+        return $class::$method($this->content);
     }
 
     /**
@@ -75,11 +76,11 @@ class Ripple
      */
     public function isValidUrl()
     {
-        if (isset($this->provider)) {
-            $class = static::$providers[$this->provider];
-            return $class::isValidUrl($this->url);
+        if (null === $this->provider) {
+            return false;
         }
-        return false;
+        $class = static::$providers[$this->provider];
+        return $class::isValidUrl($this->url);
     }
 
     /**
@@ -103,7 +104,7 @@ class Ripple
      * Returns HTML embed of the track.
      * @param string $provider
      * @param string $id
-     * @return string|null
+     * @return null|string
      */
     public function embed($provider = null, $id = null)
     {
@@ -120,6 +121,7 @@ class Ripple
             $class = static::$providers[$this->provider];
             return $embed($this->provider, $class::embed($class::id($this->content)));
         }
+        return null;
     }
 
     /**
