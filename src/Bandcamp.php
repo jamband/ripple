@@ -70,8 +70,8 @@ class Bandcamp
      */
     public static function image(Crawler $crawler)
     {
-        $crawler = $crawler->filter('link[rel="image_src"]');
-        return $crawler->count() === 1 ? $crawler->attr('href') : null;
+        $crawler = $crawler->filter('meta[property="og:image"]');
+        return $crawler->count() === 1 ? $crawler->attr('content') : null;
     }
 
     /**
