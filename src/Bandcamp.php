@@ -60,7 +60,7 @@ class Bandcamp
      */
     public static function title(Crawler $crawler)
     {
-        $crawler = $crawler->filter('meta[name="title"]');
+        $crawler = $crawler->filter('meta[property="og:title"]');
         return $crawler->count() === 1 ? $crawler->attr('content') : null;
     }
 
