@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace jamband\ripple\tests;
+namespace tests;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;

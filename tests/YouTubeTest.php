@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace jamband\ripple\tests;
+namespace tests;
 
 use jamband\ripple\Ripple;
 use Goutte\Client;
