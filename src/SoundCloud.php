@@ -42,9 +42,9 @@ class SoundCloud
      */
     public static function id(Crawler $crawler)
     {
-        $meta = $crawler->filter('meta[name="twitter:audio:source"]');
+        $meta = $crawler->filter('meta[property="twitter:player"]');
         if ($meta->count() === 1) {
-            preg_match('/sounds\:([1-9][0-9]+)?/', $meta->attr('content'), $matches);
+            preg_match('/\/tracks\/([1-9][0-9]+)?/', rawurldecode($meta->attr('content')), $matches);
 
             if (!empty($matches)) {
                 return array_pop($matches);
