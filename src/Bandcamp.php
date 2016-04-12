@@ -15,8 +15,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Bandcamp class file.
- * url pattern 1: https://{subdomain}.bandcamp.com/track/{title}
- * url pattern 2: https://{domain}/track/{title}
+ * url pattern 1: https?://{subdomain}.bandcamp.com/track/{title}
+ * url pattern 2: https?://{domain}/track/{title} (It has not yet implemented)
  */
 class Bandcamp
 {

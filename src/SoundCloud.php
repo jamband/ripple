@@ -15,7 +15,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * SoundCloud class file.
- * url pattern: https://soundcloud.com/{account}/{title}
+ * url pattern: https?://soundcloud.com/{account}/{title}
  */
 class SoundCloud
 {

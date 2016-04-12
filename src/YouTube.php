@@ -15,8 +15,8 @@ use stdClass;
 
 /**
  * YouTube class file.
- * url pattern 1: https://www.youtube.com/watch?v={id}
- * url pattern 2: https://youtu.be/{id}
+ * url pattern 1: https?://www.youtube.com/watch?v={id}
+ * url pattern 2: https?://youtu.be/{id}
  */
 class YouTube
 {

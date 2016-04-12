@@ -15,7 +15,7 @@ use stdClass;
 
 /**
  * Vimeo class file.
- * url pattern: https://vimeo.com/{id}
+ * url pattern: https?://vimeo.com/{id}
  */
 class Vimeo
 {
