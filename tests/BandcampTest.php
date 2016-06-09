@@ -42,6 +42,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
             // success
             [self::URL_TRACK, true],
             ['http://example.bandcamp.com/track/title', true],
+            ['http://123example.bandcamp.com/track/title', true],
         ];
     }
 

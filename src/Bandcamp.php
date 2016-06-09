@@ -32,7 +32,7 @@ class Bandcamp
     public static function isValidUrl($url)
     {
         return (bool)preg_match(
-            '#\Ahttps?\://[a-z][a-z0-9-]+\.bandcamp\.com/track/[A-Za-z0-9_-]+\z#',
+            '#\Ahttps?\://[a-z0-9][a-z0-9-]+\.bandcamp\.com/track/[A-Za-z0-9_-]+\z#',
             $url
         );
     }
