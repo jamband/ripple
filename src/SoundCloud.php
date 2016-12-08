@@ -31,7 +31,7 @@ class SoundCloud
     public static function isValidUrl($url)
     {
         return (bool)preg_match(
-            '#\Ahttps?\://(www\.)?soundcloud\.com/[A-Za-z0-9-_]+/[A-Za-z0-9-_]+\z#',
+            '#\Ahttps?\://(www\.)?'.preg_quote(static::$host).'/[A-Za-z0-9-_]+/[A-Za-z0-9-_]+\z#',
             $url
         );
     }
@@ -60,7 +60,10 @@ class SoundCloud
     public static function title(Crawler $crawler)
     {
         $crawler = $crawler->filter('meta[property="og:title"]');
-        return $crawler->count() === 1 ? $crawler->attr('content') : null;
+        if (1 === $crawler->count()) {
+            return $crawler->attr('content');
+        }
+        return null;
     }
 
     /**
@@ -70,7 +73,10 @@ class SoundCloud
     public static function image(Crawler $crawler)
     {
         $crawler = $crawler->filter('meta[property="og:image"]');
-        return $crawler->count() === 1 ? $crawler->attr('content') : null;
+        if (1 === $crawler->count()) {
+            return $crawler->attr('content');
+        }
+        return null;
     }
 
     /**

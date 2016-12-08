@@ -37,7 +37,7 @@ class Vimeo
     public static function isValidUrl($url)
     {
         return (bool)preg_match(
-            '#\Ahttps?\://(www\.)?vimeo\.com/[1-9][0-9]+\z#',
+            '#\Ahttps?\://(www\.)?'.preg_quote(static::$host).'/[1-9][0-9]+\z#',
             $url
         );
     }
@@ -48,7 +48,10 @@ class Vimeo
      */
     public static function id(stdClass $content = null)
     {
-        return isset($content->video_id) ? (string)$content->video_id : null;
+        if (isset($content->video_id)) {
+            return (string)$content->video_id;
+        }
+        return null;
     }
 
     /**
@@ -57,7 +60,10 @@ class Vimeo
      */
     public static function title(stdClass $content = null)
     {
-        return isset($content->title) ? $content->title : null;
+        if (isset($content->title)) {
+            return $content->title;
+        }
+        return null;
     }
 
     /**
@@ -66,7 +72,10 @@ class Vimeo
      */
     public static function image(stdClass $content = null)
     {
-        return isset($content->thumbnail_url) ? $content->thumbnail_url : null;
+        if (isset($content->thumbnail_url)) {
+            return $content->thumbnail_url;
+        }
+        return null;
     }
 
     /**

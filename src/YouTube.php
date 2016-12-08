@@ -40,14 +40,14 @@ class YouTube
     {
         $domain = static::getDomain($url);
 
-        if ($domain === 'youtube.com') {
-            $pattern = '#\Ahttps?\://(www\.)?youtube\.com/watch\?v\=[A-Za-z0-9_-]+\z#';
+        if ('youtube.com' === $domain) {
+            $pattern = '(www\.)?youtube\.com/watch\?v\=[A-Za-z0-9_-]+';
         }
-        if ($domain === 'youtu.be') {
-            $pattern = '#\Ahttps?\://youtu\.be/[A-Za-z0-9_-]+\z#';
+        if ('youtu.be' === $domain) {
+            $pattern = 'youtu\.be/[A-Za-z0-9_-]+';
         }
         if (isset($pattern)) {
-            return (bool)preg_match($pattern, $url);
+            return (bool)preg_match('#\Ahttps?\://'.$pattern.'\z#', $url);
         }
         return false;
     }
@@ -74,7 +74,10 @@ class YouTube
      */
     public static function title(stdClass $content = null)
     {
-        return isset($content->title) ? $content->title : null;
+        if (isset($content->title)) {
+            return $content->title;
+        }
+        return null;
     }
 
     /**
@@ -83,7 +86,10 @@ class YouTube
      */
     public static function image(stdClass $content = null)
     {
-        return isset($content->thumbnail_url) ? $content->thumbnail_url : null;
+        if (isset($content->thumbnail_url)) {
+            return $content->thumbnail_url;
+        }
+        return null;
     }
 
     /**

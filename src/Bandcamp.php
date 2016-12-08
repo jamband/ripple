@@ -32,7 +32,7 @@ class Bandcamp
     public static function isValidUrl($url)
     {
         return (bool)preg_match(
-            '#\Ahttps?\://[a-z0-9][a-z0-9-]+\.bandcamp\.com/track/[A-Za-z0-9_-]+\z#',
+            '#\Ahttps?\://[a-z0-9][a-z0-9-]+\.'.preg_quote(static::$host).'/track/[A-Za-z0-9_-]+\z#',
             $url
         );
     }
@@ -44,7 +44,7 @@ class Bandcamp
     public static function id(Crawler $crawler)
     {
         $meta = $crawler->filter('meta[property="og:video"]');
-        if ($meta->count() === 1) {
+        if (1 === $meta->count()) {
             preg_match('/track\=([1-9][0-9]+)?/', $meta->attr('content'), $matches);
 
             if (!empty($matches)) {
@@ -61,7 +61,10 @@ class Bandcamp
     public static function title(Crawler $crawler)
     {
         $crawler = $crawler->filter('meta[property="og:title"]');
-        return $crawler->count() === 1 ? $crawler->attr('content') : null;
+        if (1 === $crawler->count()) {
+            return $crawler->attr('content');
+        }
+        return null;
     }
 
     /**
@@ -71,7 +74,10 @@ class Bandcamp
     public static function image(Crawler $crawler)
     {
         $crawler = $crawler->filter('meta[property="og:image"]');
-        return $crawler->count() === 1 ? $crawler->attr('content') : null;
+        if (1 === $crawler->count()) {
+            return $crawler->attr('content');
+        }
+        return null;
     }
 
     /**
