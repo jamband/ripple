@@ -26,11 +26,11 @@ or add in composer.json
 // basic
 $url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
 
-$ripple = new \jamband\ripple\Ripple($url);
+$ripple = new jamband\ripple\Ripple($url);
 var_dump($ripple->provider()); // Bandcamp
 var_dump($ripple->isValidUrl()); // true
 
-$ripple->request(new \Goutte\Client());
+$ripple->request(new Goutte\Client());
 var_dump($ripple->id()); // 932292198
 var_dump($ripple->title()); // Tjeresten, by Linnés Helvete
 var_dump($ripple->image()); // http://f1.bcbits.com/img/a3144407673_16.jpg
@@ -41,8 +41,8 @@ var_dump($ripple->image()); // http://f1.bcbits.com/img/a3144407673_16.jpg
 // embed
 $url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
 
-$ripple = new \jamband\ripple\Ripple($url);
-$ripple->request(new \Goutte\Client());
+$ripple = new jamband\ripple\Ripple($url);
+$ripple->request(new Goutte\Client());
 
 $ripple->setEmbedParams([
     'Bandcamp' => 'size=large/',
