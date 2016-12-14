@@ -18,31 +18,36 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
 {
     use ClientTrait;
 
-    const URL_TRACK = 'https://example.bandcamp.com/track/title';
-    const URL_EMBED = 'https://bandcamp.com/EmbeddedPlayer/track=';
-
     /**
      * @param string $url
      * @param string $expected
-     * @dataProvider isValidUrlProvider
+     * @dataProvider validUrlPatternProvider
      */
-    public function testIsValidUrl($url, $expected)
+    public function testValidUrlPattern($url, $expected)
     {
         $ripple = new Ripple($url);
         $this->assertSame($expected, $ripple->isValidUrl());
     }
 
-    public function isValidUrlProvider()
+    public function validUrlPatternProvider()
     {
         return [
             // failure
-            [self::URL_TRACK.'/path/to', false],
-            [self::URL_TRACK.'?query=value', false],
-            [self::URL_TRACK.'#fragment', false],
+            ['https://example.bandcamp.com/track/title/path/to', false],
+            ['https://example.bandcamp.com/track/title?query=value', false],
+            ['https://example.bandcamp.com/track/title#fragment', false],
+            ['https://music.botanicalhouse.net/track/title/path/to', false],
+            ['https://music.botanicalhouse.net/track/title?query=value', false],
+            ['https://music.botanicalhouse.net/track/title#fragment', false],
+            ['https://souterraine.biz/track/title/path/to', false],
+            ['https://souterraine.biz/track/title?query=value', false],
+            ['https://souterraine.biz/track/title#fragment', false],
+
             // success
-            [self::URL_TRACK, true],
-            ['http://example.bandcamp.com/track/title', true],
-            ['http://123example.bandcamp.com/track/title', true],
+            ['https://example.bandcamp.com/track/title', true],
+            ['https://123example.bandcamp.com/track/title', true],
+            ['https://music.botanicalhouse.net/track/title', true],
+            ['https://souterraine.biz/track/title', true],
         ];
     }
 
@@ -51,7 +56,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
 
-        $ripple = new Ripple(self::URL_TRACK);
+        $ripple = new Ripple('https://example.bandcamp.com/track/title');
         $ripple->request($client);
 
         $this->assertSame('1234567890', $ripple->id());
@@ -62,7 +67,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
 
-        $ripple = new Ripple(self::URL_TRACK);
+        $ripple = new Ripple('https://example.bandcamp.com/track/title');
         $ripple->request($client);
 
         $this->assertSame('Bandcamp Title', $ripple->title());
@@ -73,7 +78,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
 
-        $ripple = new Ripple(self::URL_TRACK);
+        $ripple = new Ripple('https://example.bandcamp.com/track/title');
         $ripple->request($client);
 
         $this->assertSame('bandcamp-thumbnail.jpg', $ripple->image());
@@ -84,11 +89,11 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
         $id = static::id();
 
         $ripple = new Ripple();
-        $this->assertSame(self::URL_EMBED.$id.'/', $ripple->embed('Bandcamp', $id));
+        $this->assertSame("https://bandcamp.com/EmbeddedPlayer/track=$id/", $ripple->embed('Bandcamp', $id));
 
         $ripple = new Ripple();
         $ripple->setEmbedParams(['Bandcamp' => 'size=large/']);
-        $this->assertSame(self::URL_EMBED.$id.'/size=large/', $ripple->embed('Bandcamp', $id));
+        $this->assertSame("https://bandcamp.com/EmbeddedPlayer/track=$id/size=large/", $ripple->embed('Bandcamp', $id));
     }
 
     /**

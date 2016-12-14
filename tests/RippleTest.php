@@ -18,21 +18,6 @@ class RippleTest extends \PHPUnit_Framework_TestCase
 {
     use ClientTrait;
 
-    const TRACK_BANDCAMP = 'https://example.bandcamp.com/track/title';
-    const EMBED_BANDCAMP = 'https://bandcamp.com/EmbeddedPlayer/track=';
-
-    const TRACK_SOUNDCLOUD = 'https://soundcloud.com/example/title';
-    const EMBED_SOUNDCLOUD = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
-
-    const TRACK_YOUTUBE = 'https://www.youtube.com/watch?v=AbCxYz012_-';
-    const TRACK_YOUTUBE2 = 'https://youtu.be/AbCxYz012_-';
-    const EMBED_YOUTUBE = 'https://www.youtube.com/embed/';
-
-    const TRACK_VIMEO = 'https://vimeo.com/1234567890';
-    const EMBED_VIMEO = 'https://player.vimeo.com/video/';
-
-    const TRACK_UNKNOWN_PROVIDER = 'https://www.example.com/';
-
     /**
      * @param string $url
      * @param string $provider
@@ -48,12 +33,17 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['', null],
-            [self::TRACK_UNKNOWN_PROVIDER, null],
-            [self::TRACK_BANDCAMP, 'Bandcamp'],
-            [self::TRACK_SOUNDCLOUD, 'SoundCloud'],
-            [self::TRACK_VIMEO, 'Vimeo'],
-            [self::TRACK_YOUTUBE, 'YouTube'],
-            [self::TRACK_YOUTUBE2, 'YouTube'],
+            ['https://www.example.com/', null],
+
+            ['https://example.bandcamp.com/', 'Bandcamp'],
+            ['https://music.botanicalhouse.net/track/title', 'Bandcamp'],
+            ['https://souterraine.biz/track/title', 'Bandcamp'],
+
+            ['https://soundcloud.com/example/title', 'SoundCloud'],
+            ['https://vimeo.com/1234567890', 'Vimeo'],
+
+            ['https://www.youtube.com/watch?v=AbCxYz012_-', 'YouTube'],
+            ['https://youtu.be/AbCxYz012_-', 'YouTube'],
         ];
     }
 
@@ -77,11 +67,11 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function requestProvider()
     {
         return [
-            ['UnknownProvider', self::TRACK_SOUNDCLOUD, null],
-            ['Bandcamp', self::TRACK_BANDCAMP, '1234567890'],
-            ['SoundCloud', self::TRACK_SOUNDCLOUD, '1234567890'],
-            ['Vimeo', self::TRACK_VIMEO, '1234567890'],
-            ['YouTube', self::TRACK_YOUTUBE, 'AbCxYz012_-'],
+            ['UnknownProvider', 'https://soundcloud.com/example/title', null],
+            ['Bandcamp', 'https://example.bandcamp.com/track/title', '1234567890'],
+            ['SoundCloud', 'https://soundcloud.com/example/title', '1234567890'],
+            ['Vimeo', 'https://vimeo.com/1234567890', '1234567890'],
+            ['YouTube', 'https://www.youtube.com/watch?v=AbCxYz012_-', 'AbCxYz012_-'],
         ];
     }
 
@@ -105,11 +95,31 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function embedProvider()
     {
         return [
-            ['UnknownProvider', self::TRACK_UNKNOWN_PROVIDER, null],
-            ['Bandcamp', self::TRACK_BANDCAMP, self::EMBED_BANDCAMP.'1234567890/'],
-            ['SoundCloud', self::TRACK_SOUNDCLOUD, self::EMBED_SOUNDCLOUD.'1234567890'],
-            ['Vimeo', self::TRACK_VIMEO, self::EMBED_VIMEO.'1234567890'],
-            ['YouTube', self::TRACK_YOUTUBE, self::EMBED_YOUTUBE.'AbCxYz012_-'],
+            [
+                'UnknownProvider',
+                'https://example.com/',
+                null
+            ],
+            [
+                'Bandcamp',
+                'https://example.bandcamp.com/track/title',
+                'https://bandcamp.com/EmbeddedPlayer/track=1234567890/'
+            ],
+            [
+                'SoundCloud',
+                'https://soundcloud.com/example/title',
+                'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1234567890',
+            ],
+            [
+                'Vimeo',
+                'https://vimeo.com/1234567890',
+                'https://player.vimeo.com/video/1234567890',
+            ],
+            [
+                'YouTube',
+                'https://www.youtube.com/watch?v=AbCxYz012_-',
+                'https://www.youtube.com/embed/AbCxYz012_-',
+            ],
         ];
     }
 
@@ -128,10 +138,10 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['UnknownProvider', '1234567890', null],
-            ['Bandcamp', '1234567890', self::EMBED_BANDCAMP.'1234567890/'],
-            ['SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890'],
-            ['Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890'],
-            ['YouTube', 'AbCxYz012_', self::EMBED_YOUTUBE.'AbCxYz012_'],
+            ['Bandcamp', '1234567890', 'https://bandcamp.com/EmbeddedPlayer/track=1234567890/'],
+            ['SoundCloud', '1234567890', 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1234567890'],
+            ['Vimeo', '1234567890', 'https://player.vimeo.com/video/1234567890'],
+            ['YouTube', 'AbCxYz012_', 'https://www.youtube.com/embed/AbCxYz012_'],
         ];
     }
 
@@ -152,13 +162,43 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function setEmbedParamsProvider()
     {
         return [
-            [['UnknownProvider' => '?query=value'], 'UnknownProvider', 'AbCxYz012_-', null],
-            [['Bandcamp' => 'size=large/'], 'Bandcamp', '1234567890', self::EMBED_BANDCAMP.'1234567890/size=large/'],
-            [['SoundCloud' => '?auto_play=true'], 'SoundCloud', '1234567890', self::EMBED_SOUNDCLOUD.'1234567890?auto_play=true'],
-            [['Vimeo' => '?autoplay=1'], 'Vimeo', '1234567890', self::EMBED_VIMEO.'1234567890?autoplay=1'],
-            [['YouTube' => '?autoplay=1'], 'YouTube', 'AbCxYz012_-', self::EMBED_YOUTUBE.'AbCxYz012_-?autoplay=1'],
+            [
+                ['UnknownProvider' => '?query=value'],
+                'UnknownProvider',
+                'AbCxYz012_-',
+                null,
+            ],
+            [
+                ['Bandcamp' => 'size=large/'],
+                'Bandcamp',
+                '1234567890',
+                'https://bandcamp.com/EmbeddedPlayer/track=1234567890/size=large/',
+            ],
+            [
+                ['SoundCloud' => '?auto_play=true'],
+                'SoundCloud',
+                '1234567890',
+                'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1234567890?auto_play=true',
+            ],
+            [
+                ['Vimeo' => '?autoplay=1'],
+                'Vimeo',
+                '1234567890',
+                'https://player.vimeo.com/video/1234567890?autoplay=1',
+            ],
+            [
+                ['YouTube' => '?autoplay=1'],
+                'YouTube',
+                'AbCxYz012_-',
+                'https://www.youtube.com/embed/AbCxYz012_-?autoplay=1',
+            ],
             // Set a different provider
-            [['Bandcamp' => 'size=large/'], 'YouTube', 'AbCxYz012_-', self::EMBED_YOUTUBE.'AbCxYz012_-'],
+            [
+                ['Bandcamp' => 'size=large/'],
+                'YouTube',
+                'AbCxYz012_-',
+                'https://www.youtube.com/embed/AbCxYz012_-',
+            ],
         ];
     }
 

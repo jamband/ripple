@@ -38,10 +38,9 @@ class Ripple
     public function __construct($url = null)
     {
         $this->url = (string)$url;
-        $domain = static::getDomain($this->url);
 
         foreach (static::$providers as $provider => $class) {
-            if (preg_match('/\A('.str_replace('.', '\.', $class::$host).')\z/', $domain)) {
+            if (in_array(static::getDomain($this->url), $class::$hosts, true)) {
                 $this->provider = $provider;
                 break;
             }

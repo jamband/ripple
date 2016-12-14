@@ -18,39 +18,36 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
 {
     use ClientTrait;
 
-    const URL_TRACK = 'https://www.youtube.com/watch?v=';
-    const URL_TRACK2 = 'https://youtu.be/';
-    const URL_EMBED = 'https://www.youtube.com/embed/';
-
     /**
      * @param string $url
      * @param string $isValidUrl
-     * @dataProvider isValidUrlProvider
+     * @dataProvider validUrlPatternProvider
      */
-    public function testIsValidUrl($url, $isValidUrl)
+    public function testValidUrlPattern($url, $isValidUrl)
     {
         $ripple = new Ripple($url);
         $this->assertSame($isValidUrl, $ripple->isValidUrl());
     }
 
-    public function isValidUrlProvider()
+    public function validUrlPatternProvider()
     {
         return [
             // failure
-            [self::URL_TRACK.static::id().'/', false],
-            [self::URL_TRACK.static::id().'?', false],
-            [self::URL_TRACK.static::id().'&query=value', false],
-            [self::URL_TRACK.static::id().'#fragment', false],
-            [self::URL_TRACK2.static::id().'/', false],
-            [self::URL_TRACK2.static::id().'?', false],
-            [self::URL_TRACK2.static::id().'&query=value', false],
-            [self::URL_TRACK2.static::id().'#fragment', false],
+            ['https://www.youtube.com/watch?v='.static::id().'/', false],
+            ['https://www.youtube.com/watch?v='.static::id().'?', false],
+            ['https://www.youtube.com/watch?v='.static::id().'&query=value', false],
+            ['https://www.youtube.com/watch?v='.static::id().'#fragment', false],
+            ['https://youtu.be/'.static::id().'/', false],
+            ['https://youtu.be/'.static::id().'?', false],
+            ['https://youtu.be/'.static::id().'&query=value', false],
+            ['https://youtu.be/'.static::id().'#fragment', false],
+
             // success
-            [self::URL_TRACK.static::id(), true],
+            ['https://www.youtube.com/watch?v='.static::id(), true],
             ['https://youtube.com/watch?v='.static::id(), true],
             ['http://www.youtube.com/watch?v='.static::id(), true],
             ['http://youtube.com/watch?v='.static::id(), true],
-            [self::URL_TRACK2.static::id(), true],
+            ['https://youtu.be/'.static::id(), true],
             ['http://youtu.be/'.static::id(), true],
         ];
     }
@@ -60,7 +57,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
-        $ripple = new Ripple(self::URL_TRACK.'AbCxYz012_-');
+        $ripple = new Ripple('https://www.youtube.com/watch?v=AbCxYz012_-');
         $ripple->request($client);
 
         $this->assertSame('AbCxYz012_-', $ripple->id());
@@ -71,7 +68,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
-        $ripple = new Ripple(self::URL_TRACK.static::id());
+        $ripple = new Ripple('https://www.youtube.com/watch?v='.static::id());
         $ripple->request($client);
 
         $this->assertSame('YouTube Title', $ripple->title());
@@ -82,7 +79,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
 
-        $ripple = new Ripple(self::URL_TRACK.static::id());
+        $ripple = new Ripple('https://www.youtube.com/watch?v='.static::id());
         $ripple->request($client);
 
         $this->assertSame('youtube_thumbnail.jpg', $ripple->image());
@@ -93,11 +90,11 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
         $id = static::id();
 
         $ripple = new Ripple();
-        $this->assertSame(self::URL_EMBED.$id, $ripple->embed('YouTube', $id));
+        $this->assertSame("https://www.youtube.com/embed/$id", $ripple->embed('YouTube', $id));
 
         $ripple = new Ripple();
         $ripple->setEmbedParams(['YouTube' => '?autoplay=1']);
-        $this->assertSame(self::URL_EMBED.$id.'?autoplay=1', $ripple->embed('YouTube', $id));
+        $this->assertSame("https://www.youtube.com/embed/$id?autoplay=1", $ripple->embed('YouTube', $id));
     }
 
     /**

@@ -20,9 +20,11 @@ use Symfony\Component\DomCrawler\Crawler;
 class SoundCloud
 {
     /**
-     * @var string
+     * @var array
      */
-    public static $host = 'soundcloud.com';
+    public static $hosts = [
+        'soundcloud.com',
+    ];
 
     /**
      * @return boolean

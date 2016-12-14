@@ -20,9 +20,11 @@ use stdClass;
 class Vimeo
 {
     /**
-     * @var string
+     * @var array
      */
-    public static $host = 'vimeo.com';
+    public static $hosts = [
+        'vimeo.com',
+    ];
 
     /**
      * @var string

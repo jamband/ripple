@@ -23,9 +23,12 @@ class YouTube
     use Utility;
 
     /**
-     * @var string
+     * @var array
      */
-    public static $host = 'youtube.com|youtu.be';
+    public static $hosts = [
+        'youtube.com',
+        'youtu.be',
+    ];
 
     /**
      * @var string

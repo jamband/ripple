@@ -18,29 +18,27 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
 {
     use ClientTrait;
 
-    const URL_TRACK = 'https://soundcloud.com/example/title';
-    const URL_EMBED = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
-
     /**
      * @param string $url
      * @param string $expected
-     * @dataProvider isValidUrlProvider
+     * @dataProvider validUrlPatternProvider
      */
-    public function testIsValidUrl($url, $expected)
+    public function testValidUrlPattern($url, $expected)
     {
         $ripple = new Ripple($url);
         $this->assertSame($expected, $ripple->isValidUrl());
     }
 
-    public function isValidUrlProvider()
+    public function validUrlPatternProvider()
     {
         return [
             // failure
-            [self::URL_TRACK.'/path/to', false],
-            [self::URL_TRACK.'?query=value', false],
-            [self::URL_TRACK.'#fragment', false],
+            ['https://soundcloud.com/example/title/path/to', false],
+            ['https://soundcloud.com/example/title?query=value', false],
+            ['https://soundcloud.com/example/title#fragment', false],
+
             // success
-            [self::URL_TRACK, true],
+            ['https://soundcloud.com/example/title', true],
             ['https://www.soundcloud.com/example/title', true],
             ['http://soundcloud.com/example/title', true],
             ['http://www.soundcloud.com/example/title', true],
@@ -52,7 +50,7 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
 
-        $ripple = new Ripple(self::URL_TRACK);
+        $ripple = new Ripple('https://soundcloud.com/example/title');
         $ripple->request($client);
 
         $this->assertSame('1234567890', $ripple->id());
@@ -63,7 +61,7 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
 
-        $ripple = new Ripple(self::URL_TRACK);
+        $ripple = new Ripple('https://soundcloud.com/example/title');
         $ripple->request($client);
 
         $this->assertSame('SoundCloud Title', $ripple->title());
@@ -74,7 +72,7 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
 
-        $ripple = new Ripple(self::URL_TRACK);
+        $ripple = new Ripple('https://soundcloud.com/example/title');
         $ripple->request($client);
 
         $this->assertSame('soundcloud_thumbnail.jpg', $ripple->image());
@@ -85,11 +83,17 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
         $id = static::id();
 
         $ripple = new Ripple();
-        $this->assertSame(self::URL_EMBED.$id, $ripple->embed('SoundCloud', $id));
+        $this->assertSame(
+            "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/$id",
+            $ripple->embed('SoundCloud', $id)
+        );
 
         $ripple = new Ripple();
         $ripple->setEmbedParams(['SoundCloud' => '?auto_play=true']);
-        $this->assertSame(self::URL_EMBED.$id.'?auto_play=true', $ripple->embed('SoundCloud', $id));
+        $this->assertSame(
+            "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/$id?auto_play=true",
+            $ripple->embed('SoundCloud', $id)
+        );
     }
 
     /**

@@ -18,31 +18,28 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
 {
     use ClientTrait;
 
-    const URL_TRACK = 'https://vimeo.com/';
-    const URL_EMBED = 'https://player.vimeo.com/video/';
-
     /**
      * @param string $url
      * @param string $isValidUrl
-     * @dataProvider isValidUrlProvider
+     * @dataProvider validUrlPatternProvider
      */
-    public function testIsValidUrl($url, $isValidUrl)
+    public function testValidUrlPattern($url, $isValidUrl)
     {
         $ripple = new Ripple($url);
         $this->assertSame($isValidUrl, $ripple->isValidUrl());
     }
 
-    public function isValidUrlProvider()
+    public function validUrlPatternProvider()
     {
         return [
             // failure
-            [self::URL_TRACK.'0123456789', false],
-            [self::URL_TRACK.static::id().'?', false],
-            [self::URL_TRACK.static::id().'/', false],
-            [self::URL_TRACK.static::id().'&query=value', false],
-            [self::URL_TRACK.static::id().'#fragment', false],
+            ['https://vimeo.com/0123456789', false],
+            ['https://vimeo.com/'.static::id().'?', false],
+            ['https://vimeo.com/'.static::id().'/', false],
+            ['https://vimeo.com/'.static::id().'&query=value', false],
+            ['https://vimeo.com/'.static::id().'#fragment', false],
             // success
-            [self::URL_TRACK.static::id(), true],
+            ['https://vimeo.com/'.static::id(), true],
             ['https://www.vimeo.com/'.static::id(), true],
             ['http://vimeo.com/'.static::id(), true],
             ['http://www.vimeo.com/'.static::id(), true],
@@ -54,7 +51,7 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
 
-        $ripple = new Ripple(self::URL_TRACK.'1234567890');
+        $ripple = new Ripple('https://vimeo.com/1234567890');
         $ripple->request($client);
 
         $this->assertSame('1234567890', $ripple->id());
@@ -65,7 +62,7 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
 
-        $ripple = new Ripple(self::URL_TRACK.static::id());
+        $ripple = new Ripple('https://vimeo.com/'.static::id());
         $ripple->request($client);
 
         $this->assertSame('Vimeo Title', $ripple->title());
@@ -76,7 +73,7 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
 
-        $ripple = new Ripple(self::URL_TRACK.static::id());
+        $ripple = new Ripple('https://vimeo.com/'.static::id());
         $ripple->request($client);
 
         $this->assertSame('vimeo_thumbnail.jpg', $ripple->image());
@@ -87,11 +84,11 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
         $id = static::id();
 
         $ripple = new Ripple();
-        $this->assertSame(self::URL_EMBED.$id, $ripple->embed('Vimeo', $id));
+        $this->assertSame("https://player.vimeo.com/video/$id", $ripple->embed('Vimeo', $id));
 
         $ripple = new Ripple();
         $ripple->setEmbedParams(['Vimeo' => '?autoplay=1']);
-        $this->assertSame(self::URL_EMBED.$id.'?autoplay=1', $ripple->embed('Vimeo', $id));
+        $this->assertSame("https://player.vimeo.com/video/$id?autoplay=1", $ripple->embed('Vimeo', $id));
     }
 
     /**

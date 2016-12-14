@@ -16,21 +16,27 @@ use Symfony\Component\DomCrawler\Crawler;
 /**
  * Bandcamp class file.
  * url pattern 1: https?://{subdomain}.bandcamp.com/track/{title}
- * url pattern 2: https?://{domain}/track/{title} (It has not yet implemented)
+ * url pattern 2: https?://{domain}/track/{title}
  */
 class Bandcamp
 {
     /**
-     * @var string
+     * @var array
      */
-    public static $host = 'bandcamp.com';
+    public static $hosts = [
+        'bandcamp.com',
+        'botanicalhouse.net',
+        'mamabirdrecordingco.com',
+        'souterraine.biz',
+    ];
 
     /**
      * @return boolean
      */
     public static function validUrlPattern()
     {
-        return '#\Ahttps?\://[a-z0-9][a-z0-9-]+\.bandcamp\.com/track/[A-Za-z0-9_-]+\z#';
+        $hosts = str_replace('.', '\.', implode('|', static::$hosts));
+        return '#\Ahttps?\://([a-z0-9][a-z0-9-]+\.)?('.$hosts.')/track/[A-Za-z0-9_-]+\z#';
     }
 
     /**
