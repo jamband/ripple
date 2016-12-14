@@ -80,7 +80,7 @@ class Ripple
             return false;
         }
         $class = static::$providers[$this->provider];
-        return $class::isValidUrl($this->url);
+        return (bool)preg_match($class::validUrlPattern(), $this->url);
     }
 
     /**

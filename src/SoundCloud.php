@@ -25,15 +25,11 @@ class SoundCloud
     public static $host = 'soundcloud.com';
 
     /**
-     * @param string $url
      * @return bool
      */
-    public static function isValidUrl($url)
+    public static function validUrlPattern()
     {
-        return (bool)preg_match(
-            '#\Ahttps?\://(www\.)?'.preg_quote(static::$host).'/[A-Za-z0-9-_]+/[A-Za-z0-9-_]+\z#',
-            $url
-        );
+        return '#\Ahttps?\://(www\.)?soundcloud\.com/[A-Za-z0-9-_]+/[A-Za-z0-9-_]+\z#';
     }
 
     /**

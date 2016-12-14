@@ -31,15 +31,11 @@ class Vimeo
     public static $endpoint = 'http://vimeo.com/api/oembed.json?url=';
 
     /**
-     * @param string $url
      * @return bool
      */
-    public static function isValidUrl($url)
+    public static function validUrlPattern()
     {
-        return (bool)preg_match(
-            '#\Ahttps?\://(www\.)?'.preg_quote(static::$host).'/[1-9][0-9]+\z#',
-            $url
-        );
+        return '#\Ahttps?\://(www\.)?vimeo\.com/[1-9][0-9]+\z#';
     }
 
     /**

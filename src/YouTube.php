@@ -33,23 +33,11 @@ class YouTube
     public static $endpoint = 'http://www.youtube.com/oembed?url=';
 
     /**
-     * @param string $url
      * @return bool
      */
-    public static function isValidUrl($url)
+    public static function validUrlPattern()
     {
-        $domain = static::getDomain($url);
-
-        if ('youtube.com' === $domain) {
-            $pattern = '(www\.)?youtube\.com/watch\?v\=[A-Za-z0-9_-]+';
-        }
-        if ('youtu.be' === $domain) {
-            $pattern = 'youtu\.be/[A-Za-z0-9_-]+';
-        }
-        if (isset($pattern)) {
-            return (bool)preg_match('#\Ahttps?\://'.$pattern.'\z#', $url);
-        }
-        return false;
+        return '#\Ahttps?\://(www\.)?(youtube\.com/watch\?v\=|youtu\.be/)[A-Za-z0-9_-]+\z#';
     }
 
     /**

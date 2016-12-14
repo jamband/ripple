@@ -26,15 +26,11 @@ class Bandcamp
     public static $host = 'bandcamp.com';
 
     /**
-     * @param string $url
      * @return bool
      */
-    public static function isValidUrl($url)
+    public static function validUrlPattern()
     {
-        return (bool)preg_match(
-            '#\Ahttps?\://[a-z0-9][a-z0-9-]+\.'.preg_quote(static::$host).'/track/[A-Za-z0-9_-]+\z#',
-            $url
-        );
+        return '#\Ahttps?\://[a-z0-9][a-z0-9-]+\.bandcamp\.com/track/[A-Za-z0-9_-]+\z#';
     }
 
     /**
