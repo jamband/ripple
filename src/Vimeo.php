@@ -31,7 +31,7 @@ class Vimeo
     public static $endpoint = 'http://vimeo.com/api/oembed.json?url=';
 
     /**
-     * @return bool
+     * @return boolean
      */
     public static function validUrlPattern()
     {

@@ -26,7 +26,7 @@ class Bandcamp
     public static $host = 'bandcamp.com';
 
     /**
-     * @return bool
+     * @return boolean
      */
     public static function validUrlPattern()
     {
@@ -79,7 +79,6 @@ class Bandcamp
     /**
      * @param string $id
      * @return string
-     * @link https://bandcamp.com/help/audio_basics#autostart
      */
     public static function embed($id)
     {

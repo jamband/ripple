@@ -25,7 +25,7 @@ class SoundCloud
     public static $host = 'soundcloud.com';
 
     /**
-     * @return bool
+     * @return boolean
      */
     public static function validUrlPattern()
     {

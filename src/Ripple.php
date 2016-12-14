@@ -20,8 +20,6 @@ class Ripple
 {
     use Utility;
 
-    private $url;
-
     private static $providers = [
         'Bandcamp' => __NAMESPACE__.'\Bandcamp',
         'SoundCloud' => __NAMESPACE__.'\SoundCloud',
@@ -29,6 +27,7 @@ class Ripple
         'YouTube' => __NAMESPACE__.'\YouTube',
     ];
 
+    private $url;
     private $provider;
     private $content;
     private $embedParams;
@@ -72,7 +71,7 @@ class Ripple
     }
 
     /**
-     * @return bool
+     * @return boolean
      */
     public function isValidUrl()
     {
