@@ -12,11 +12,14 @@
 namespace tests;
 
 use jamband\ripple\Ripple;
-use Goutte\Client;
 
 class VimeoTest extends \PHPUnit_Framework_TestCase
 {
-    use ClientTrait;
+    public function setUp()
+    {
+        $this->ripple = new Ripple('https://vimeo.com/123');
+        $this->ripple->request([CURLOPT_URL => 'http://localhost:8080/vimeo.json']);
+    }
 
     /**
      * @param string $url
@@ -33,70 +36,37 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
     {
         return [
             // failure
-            ['https://vimeo.com/0123456789', false],
-            ['https://vimeo.com/'.static::id().'?', false],
-            ['https://vimeo.com/'.static::id().'/', false],
-            ['https://vimeo.com/'.static::id().'&query=value', false],
-            ['https://vimeo.com/'.static::id().'#fragment', false],
+            ['https://vimeo.com/0123', false],
+            ['https://vimeo.com/123?', false],
+            ['https://vimeo.com/123/', false],
+            ['https://vimeo.com/123&query=value', false],
+            ['https://vimeo.com/123#fragment', false],
+
             // success
-            ['https://vimeo.com/'.static::id(), true],
-            ['https://www.vimeo.com/'.static::id(), true],
-            ['http://vimeo.com/'.static::id(), true],
-            ['http://www.vimeo.com/'.static::id(), true],
+            ['https://vimeo.com/123', true],
+            ['https://www.vimeo.com/123', true],
+            ['http://vimeo.com/123', true],
+            ['http://www.vimeo.com/123', true],
         ];
     }
 
     public function testId()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
-
-        $ripple = new Ripple('https://vimeo.com/1234567890');
-        $ripple->request($client);
-
-        $this->assertSame('1234567890', $ripple->id());
+        $this->assertSame('123', $this->ripple->id());
     }
 
     public function testTitle()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
-
-        $ripple = new Ripple('https://vimeo.com/'.static::id());
-        $ripple->request($client);
-
-        $this->assertSame('Vimeo Title', $ripple->title());
+        $this->assertSame('Vimeo Title', $this->ripple->title());
     }
 
     public function testImage()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/Vimeo.php'));
-
-        $ripple = new Ripple('https://vimeo.com/'.static::id());
-        $ripple->request($client);
-
-        $this->assertSame('vimeo_thumbnail.jpg', $ripple->image());
+        $this->assertSame('vimeo_thumbnail.jpg', $this->ripple->image());
     }
 
     public function testEmbed()
     {
-        $id = static::id();
-
-        $ripple = new Ripple();
-        $this->assertSame("https://player.vimeo.com/video/$id", $ripple->embed('Vimeo', $id));
-
-        $ripple = new Ripple();
-        $ripple->setEmbedParams(['Vimeo' => '?autoplay=1']);
-        $this->assertSame("https://player.vimeo.com/video/$id?autoplay=1", $ripple->embed('Vimeo', $id));
-    }
-
-    /**
-     * Generate Vimeo like ID. ([1-9][0-9]+)
-     * @return string
-     */
-    private static function id()
-    {
-        return (string)mt_rand(10000000, 99999999);
+        $this->assertSame('https://player.vimeo.com/video/123', $this->ripple->embed());
     }
 }

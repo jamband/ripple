@@ -12,11 +12,14 @@
 namespace tests;
 
 use jamband\ripple\Ripple;
-use Goutte\Client;
 
 class YouTubeTest extends \PHPUnit_Framework_TestCase
 {
-    use ClientTrait;
+    public function setUp()
+    {
+        $this->ripple = new Ripple('https://www.youtube.com/watch?v=123');
+        $this->ripple->request([CURLOPT_URL => 'http://localhost:8080/youtube.json']);
+    }
 
     /**
      * @param string $url
@@ -54,47 +57,22 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
 
     public function testId()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
-
-        $ripple = new Ripple('https://www.youtube.com/watch?v=AbCxYz012_-');
-        $ripple->request($client);
-
-        $this->assertSame('AbCxYz012_-', $ripple->id());
+        $this->assertSame('123', $this->ripple->id());
     }
 
     public function testTitle()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
-
-        $ripple = new Ripple('https://www.youtube.com/watch?v='.static::id());
-        $ripple->request($client);
-
-        $this->assertSame('YouTube Title', $ripple->title());
+        $this->assertSame('YouTube Title', $this->ripple->title());
     }
 
     public function testImage()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/YouTube.php'));
-
-        $ripple = new Ripple('https://www.youtube.com/watch?v='.static::id());
-        $ripple->request($client);
-
-        $this->assertSame('youtube_thumbnail.jpg', $ripple->image());
+        $this->assertSame('youtube_thumbnail.jpg', $this->ripple->image());
     }
 
     public function testEmbed()
     {
-        $id = static::id();
-
-        $ripple = new Ripple();
-        $this->assertSame("https://www.youtube.com/embed/$id", $ripple->embed('YouTube', $id));
-
-        $ripple = new Ripple();
-        $ripple->setEmbedParams(['YouTube' => '?autoplay=1']);
-        $this->assertSame("https://www.youtube.com/embed/$id?autoplay=1", $ripple->embed('YouTube', $id));
+        $this->assertSame('https://www.youtube.com/embed/123', $this->ripple->embed());
     }
 
     /**

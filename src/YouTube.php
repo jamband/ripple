@@ -36,7 +36,7 @@ class YouTube
     public static $endpoint = 'http://www.youtube.com/oembed?url=';
 
     /**
-     * @return boolean
+     * @return string
      */
     public static function validUrlPattern()
     {

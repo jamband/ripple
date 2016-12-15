@@ -6,7 +6,7 @@ Get track information from the URL.
 
 ## Requirements
 
-This library depends on PHP 5.6+ and [Goutte](https://github.com/FriendsOfPHP/Goutte) 3+. And using [oEmbed](http://oembed.com/).
+This library depends on PHP 5.6+ and using [oEmbed](http://oembed.com/).
 
 ## Installation
 
@@ -30,7 +30,7 @@ $ripple = new jamband\ripple\Ripple($url);
 var_dump($ripple->provider()); // Bandcamp
 var_dump($ripple->isValidUrl()); // true
 
-$ripple->request(new Goutte\Client());
+$ripple->request();
 var_dump($ripple->id()); // 932292198
 var_dump($ripple->title()); // Tjeresten, by Linnés Helvete
 var_dump($ripple->image()); // http://f1.bcbits.com/img/a3144407673_16.jpg
@@ -42,7 +42,7 @@ var_dump($ripple->image()); // http://f1.bcbits.com/img/a3144407673_16.jpg
 $url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
 
 $ripple = new jamband\ripple\Ripple($url);
-$ripple->request(new Goutte\Client());
+$ripple->request();
 
 $ripple->setEmbedParams([
     'Bandcamp' => 'size=large/',

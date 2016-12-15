@@ -12,11 +12,14 @@
 namespace tests;
 
 use jamband\ripple\Ripple;
-use Goutte\Client;
 
 class SoundCloudTest extends \PHPUnit_Framework_TestCase
 {
-    use ClientTrait;
+    public function setUp()
+    {
+        $this->ripple = new Ripple('https://soundcloud.com/account/title');
+        $this->ripple->request([CURLOPT_URL => 'http://localhost:8080/soundcloud.html']);
+    }
 
     /**
      * @param string $url
@@ -47,61 +50,21 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
 
     public function testId()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
-
-        $ripple = new Ripple('https://soundcloud.com/example/title');
-        $ripple->request($client);
-
-        $this->assertSame('1234567890', $ripple->id());
+        $this->assertSame('123', $this->ripple->id());
     }
 
     public function testTitle()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
-
-        $ripple = new Ripple('https://soundcloud.com/example/title');
-        $ripple->request($client);
-
-        $this->assertSame('SoundCloud Title', $ripple->title());
+        $this->assertSame('SoundCloud Title', $this->ripple->title());
     }
 
     public function testImage()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/SoundCloud.php'));
-
-        $ripple = new Ripple('https://soundcloud.com/example/title');
-        $ripple->request($client);
-
-        $this->assertSame('soundcloud_thumbnail.jpg', $ripple->image());
+        $this->assertSame('soundcloud_thumbnail.jpg', $this->ripple->image());
     }
 
     public function testEmbed()
     {
-        $id = static::id();
-
-        $ripple = new Ripple();
-        $this->assertSame(
-            "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/$id",
-            $ripple->embed('SoundCloud', $id)
-        );
-
-        $ripple = new Ripple();
-        $ripple->setEmbedParams(['SoundCloud' => '?auto_play=true']);
-        $this->assertSame(
-            "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/$id?auto_play=true",
-            $ripple->embed('SoundCloud', $id)
-        );
-    }
-
-    /**
-     * Generate SoundCloud like ID. ([1-9][0-9]+)
-     * @return string
-     */
-    private static function id()
-    {
-        return (string)mt_rand(10000000, 99999999);
+        $this->assertSame('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123', $this->ripple->embed());
     }
 }

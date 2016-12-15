@@ -11,14 +11,14 @@
 
 namespace jamband\ripple;
 
-use Symfony\Component\DomCrawler\Crawler;
-
 /**
  * SoundCloud class file.
  * url pattern: https?://soundcloud.com/{account}/{title}
  */
 class SoundCloud
 {
+    use Utility;
+
     /**
      * @var array
      */
@@ -27,7 +27,7 @@ class SoundCloud
     ];
 
     /**
-     * @return boolean
+     * @return string
      */
     public static function validUrlPattern()
     {
@@ -35,15 +35,14 @@ class SoundCloud
     }
 
     /**
-     * @param Crawler $crawler
+     * @param string $content
      * @return null|string
      */
-    public static function id(Crawler $crawler)
+    public static function id($content = null)
     {
-        $meta = $crawler->filter('meta[property="twitter:player"]');
-        if ($meta->count() === 1) {
-            preg_match('/\/tracks\/([1-9][0-9]+)?/', rawurldecode($meta->attr('content')), $matches);
-
+        $nodes = static::query($content, '//meta[@property="twitter:player"]');
+        if (1 === $nodes->length) {
+            preg_match('/\/tracks\/([1-9][0-9]+)?/', rawurldecode($nodes->item(0)->getAttribute('content')), $matches);
             if (!empty($matches)) {
                 return array_pop($matches);
             }
@@ -52,30 +51,31 @@ class SoundCloud
     }
 
     /**
-     * @param Crawler $crawler
-     * @return string|null
+     * @param $content string
+     * @return null|string
      */
-    public static function title(Crawler $crawler)
+    public static function title($content = null)
     {
-        $crawler = $crawler->filter('meta[property="og:title"]');
-        if (1 === $crawler->count()) {
-            return $crawler->attr('content');
+        $nodes = static::query($content, '//meta[@property="og:title"]');
+        if (1 === $nodes->length) {
+            return $nodes->item(0)->getAttribute('content');
         }
         return null;
     }
 
     /**
-     * @param Crawler $crawler
-     * @return string|null
+     * @param $content string
+     * @return null|string
      */
-    public static function image(Crawler $crawler)
+    public static function image($content = null)
     {
-        $crawler = $crawler->filter('meta[property="og:image"]');
-        if (1 === $crawler->count()) {
-            return $crawler->attr('content');
+        $nodes = static::query($content, '//meta[@property="og:image"]');
+        if (1 === $nodes->length) {
+            return $nodes->item(0)->getAttribute('content');
         }
         return null;
     }
+
 
     /**
      * @param string $id

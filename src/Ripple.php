@@ -11,8 +11,6 @@
 
 namespace jamband\ripple;
 
-use Goutte\Client;
-
 /**
  * Ripple class file.
  */
@@ -62,7 +60,7 @@ class Ripple
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function provider()
     {
@@ -82,19 +80,20 @@ class Ripple
     }
 
     /**
-     * @param Client $client
+     * @param array $options Set multiple options for a cURL transfer
+     * @link http://php.net/manual/en/function.curl-setopt.php
      */
-    public function request(Client $client)
+    public function request(array $options = [])
     {
-        if (isset($this->provider)) {
-            $class = static::$providers[$this->provider];
+        if (null === $this->provider) {
+            return null;
+        }
+        $class = static::$providers[$this->provider];
 
-            if (isset($class::$endpoint)) {
-                $client->request('GET', $class::$endpoint.rawurlencode($this->url));
-                $this->content = json_decode($client->getResponse()->getContent());
-            } else {
-                $this->content = $client->request('GET', $this->url);
-            }
+        if (isset($class::$endpoint)) {
+            $this->content = json_decode(static::http($class::$endpoint.rawurlencode($this->url), $options));
+        } else {
+            $this->content = static::http($this->url, $options);
         }
     }
 
@@ -127,7 +126,7 @@ class Ripple
      * Sets HTML embed parameters of the track.
      * @param array $embedParams
      */
-    public function setEmbedParams(array $embedParams)
+    public function setEmbedParams(array $embedParams = [])
     {
         $this->embedParams = $embedParams;
     }

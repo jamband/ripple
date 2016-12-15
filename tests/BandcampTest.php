@@ -12,11 +12,14 @@
 namespace tests;
 
 use jamband\ripple\Ripple;
-use Goutte\Client;
 
 class BandcampTest extends \PHPUnit_Framework_TestCase
 {
-    use ClientTrait;
+    public function setUp()
+    {
+        $this->ripple = new Ripple('https://example.bandcamp.com/track/title');
+        $this->ripple->request([CURLOPT_URL => 'http://localhost:8080/bandcamp.html']);
+    }
 
     /**
      * @param string $url
@@ -53,55 +56,21 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
 
     public function testId()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
-
-        $ripple = new Ripple('https://example.bandcamp.com/track/title');
-        $ripple->request($client);
-
-        $this->assertSame('1234567890', $ripple->id());
+        $this->assertSame('123', $this->ripple->id());
     }
 
     public function testTitle()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
-
-        $ripple = new Ripple('https://example.bandcamp.com/track/title');
-        $ripple->request($client);
-
-        $this->assertSame('Bandcamp Title', $ripple->title());
+        $this->assertSame('Bandcamp Title', $this->ripple->title());
     }
 
     public function testImage()
     {
-        $client = new Client();
-        $client->setClient($this->getGuzzle(require __DIR__.'/response/Bandcamp.php'));
-
-        $ripple = new Ripple('https://example.bandcamp.com/track/title');
-        $ripple->request($client);
-
-        $this->assertSame('bandcamp-thumbnail.jpg', $ripple->image());
+        $this->assertSame('bandcamp_thumbnail.jpg', $this->ripple->image());
     }
 
     public function testEmbed()
     {
-        $id = static::id();
-
-        $ripple = new Ripple();
-        $this->assertSame("https://bandcamp.com/EmbeddedPlayer/track=$id/", $ripple->embed('Bandcamp', $id));
-
-        $ripple = new Ripple();
-        $ripple->setEmbedParams(['Bandcamp' => 'size=large/']);
-        $this->assertSame("https://bandcamp.com/EmbeddedPlayer/track=$id/size=large/", $ripple->embed('Bandcamp', $id));
-    }
-
-    /**
-     * Generate Bandcamp like ID. ([1-9][0-9]+)
-     * @return string
-     */
-    private static function id()
-    {
-        return (string)mt_rand(10000000, 99999999);
+        $this->assertSame('https://bandcamp.com/EmbeddedPlayer/track=123/', $this->ripple->embed());
     }
 }
