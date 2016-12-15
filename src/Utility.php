@@ -24,7 +24,7 @@ trait Utility
     {
         $domain = parse_url($url, PHP_URL_HOST);
 
-        if (false !== strpos($domain, '.')) {
+        if (null !== $domain) {
             return implode('.', array_slice(explode('.', $domain), -2));
         }
         return null;
