@@ -13,7 +13,6 @@ namespace jamband\ripple;
 
 use DomDocument;
 use DomXPath;
-use DomNodeList;
 
 /**
  * Utility trait file.
