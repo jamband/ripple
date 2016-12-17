@@ -45,9 +45,9 @@ class Bandcamp
      */
     public static function id($content = null)
     {
-        $nodes = static::query($content, '//meta[@property="og:video"]');
-        if (1 === $nodes->length) {
-            preg_match('/track\=([1-9][0-9]+)?/', $nodes->item(0)->getAttribute('content'), $matches);
+        $url = static::query($content, 'string(//meta[@property="og:video"]/@content)');
+        if (null !== $url) {
+            preg_match('/track\=([1-9][0-9]+)?/', $url, $matches);
             if (!empty($matches)) {
                 return array_pop($matches);
             }
@@ -61,11 +61,7 @@ class Bandcamp
      */
     public static function title($content = null)
     {
-        $nodes = static::query($content, '//meta[@property="og:title"]');
-        if (1 === $nodes->length) {
-            return $nodes->item(0)->getAttribute('content');
-        }
-        return null;
+        return static::query($content, 'string(//meta[@property="og:title"]/@content)');
     }
 
     /**
@@ -74,11 +70,7 @@ class Bandcamp
      */
     public static function image($content = null)
     {
-        $nodes = static::query($content, '//meta[@property="og:image"]');
-        if (1 === $nodes->length) {
-            return $nodes->item(0)->getAttribute('content');
-        }
-        return null;
+        return static::query($content, 'string(//meta[@property="og:image"]/@content)');
     }
 
     /**

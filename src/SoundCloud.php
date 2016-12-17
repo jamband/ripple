@@ -40,9 +40,9 @@ class SoundCloud
      */
     public static function id($content = null)
     {
-        $nodes = static::query($content, '//meta[@property="twitter:player"]');
-        if (1 === $nodes->length) {
-            preg_match('/\/tracks\/([1-9][0-9]+)?/', rawurldecode($nodes->item(0)->getAttribute('content')), $matches);
+        $url = static::query($content, 'string(//meta[@property="twitter:player"]/@content)');
+        if (null !== $url) {
+            preg_match('/\/tracks\/([1-9][0-9]+)?/', rawurldecode($url), $matches);
             if (!empty($matches)) {
                 return array_pop($matches);
             }
@@ -56,11 +56,7 @@ class SoundCloud
      */
     public static function title($content = null)
     {
-        $nodes = static::query($content, '//meta[@property="og:title"]');
-        if (1 === $nodes->length) {
-            return $nodes->item(0)->getAttribute('content');
-        }
-        return null;
+        return static::query($content, 'string(//meta[@property="og:title"]/@content)');
     }
 
     /**
@@ -69,11 +65,7 @@ class SoundCloud
      */
     public static function image($content = null)
     {
-        $nodes = static::query($content, '//meta[@property="og:image"]');
-        if (1 === $nodes->length) {
-            return $nodes->item(0)->getAttribute('content');
-        }
-        return null;
+        return static::query($content, 'string(//meta[@property="og:image"]/@content)');
     }
 
 

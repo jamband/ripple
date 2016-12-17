@@ -66,7 +66,7 @@ trait Utility
     /**
      * @param string $content
      * @param string $expression
-     * @return null|DomNodeList
+     * @return null|string
      */
     private static function query($content, $expression)
     {
@@ -75,7 +75,7 @@ trait Utility
             $dom = new DomDocument;
             $dom->loadHtml(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
             libxml_clear_errors();
-            return (new DomXPath($dom))->query($expression);
+            return (new DomXPath($dom))->evaluate($expression) ?: null;
         }
         return null;
     }
