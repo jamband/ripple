@@ -22,7 +22,6 @@ or add in composer.json
 ## Usage
 
 ```php
-<?php
 // basic
 $url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
 
@@ -37,7 +36,6 @@ var_dump($ripple->image()); // http://f1.bcbits.com/img/a3144407673_16.jpg
 ```
 
 ```php
-<?php
 // embed
 $url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
 
