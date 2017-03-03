@@ -88,15 +88,14 @@ class Ripple
      */
     public function request(array $options = [])
     {
-        if (null === $this->provider) {
-            return null;
-        }
-        $class = static::$providers[$this->provider];
+        if (null !== $this->provider) {
+            $class = static::$providers[$this->provider];
 
-        if (isset($class::$endpoint)) {
-            $this->content = json_decode(static::http($class::$endpoint.rawurlencode($this->url), $options));
-        } else {
-            $this->content = static::http($this->url, $options);
+            if (isset($class::$endpoint)) {
+                $this->content = json_decode(static::http($class::$endpoint.rawurlencode($this->url), $options));
+            } else {
+                $this->content = static::http($this->url, $options);
+            }
         }
     }
 
