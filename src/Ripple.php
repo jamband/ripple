@@ -71,7 +71,7 @@ class Ripple
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isValidUrl()
     {
@@ -126,7 +126,7 @@ class Ripple
 
     /**
      * Sets HTML embed parameters of the track.
-     * @param array $embedParams
+     * @param string[] $embedParams
      */
     public function setEmbedParams(array $embedParams = [])
     {
@@ -135,7 +135,7 @@ class Ripple
 
     /**
      * Returns all providers.
-     * @return array
+     * @return string[]
      */
     public static function providers()
     {

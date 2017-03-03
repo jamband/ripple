@@ -20,7 +20,7 @@ class SoundCloud
     use Utility;
 
     /**
-     * @var array
+     * @var string[]
      */
     public static $hosts = [
         'soundcloud.com',
@@ -51,7 +51,7 @@ class SoundCloud
     }
 
     /**
-     * @param $content string
+     * @param string $content
      * @return null|string
      */
     public static function title($content = null)
@@ -60,7 +60,7 @@ class SoundCloud
     }
 
     /**
-     * @param $content string
+     * @param string $content
      * @return null|string
      */
     public static function image($content = null)

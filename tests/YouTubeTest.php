@@ -15,6 +15,11 @@ use jamband\ripple\Ripple;
 
 class YouTubeTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Ripple
+     */
+    private $ripple;
+
     public function setUp()
     {
         $this->ripple = new Ripple('https://www.youtube.com/watch?v=123');

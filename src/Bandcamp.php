@@ -21,7 +21,7 @@ class Bandcamp
     use Utility;
 
     /**
-     * @var array
+     * @var string[]
      */
     public static $hosts = [
         'bandcamp.com',
@@ -40,7 +40,7 @@ class Bandcamp
     }
 
     /**
-     * @param $content string
+     * @param string $content
      * @return null|string
      */
     public static function id($content = null)
@@ -56,7 +56,7 @@ class Bandcamp
     }
 
     /**
-     * @param $content string
+     * @param string $content
      * @return null|string
      */
     public static function title($content = null)
@@ -65,7 +65,7 @@ class Bandcamp
     }
 
     /**
-     * @param $content string
+     * @param string $content
      * @return null|string
      */
     public static function image($content = null)
