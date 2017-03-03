@@ -13,6 +13,9 @@ namespace jamband\ripple;
 
 /**
  * Ripple class file.
+ * @method null|string id()
+ * @method null|string title()
+ * @method null|string image()
  */
 class Ripple
 {
