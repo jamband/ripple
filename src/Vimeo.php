@@ -30,7 +30,7 @@ class Vimeo
      * @var string
      * @link https://developer.vimeo.com/apis/oembed
      */
-    public static $endpoint = 'http://vimeo.com/api/oembed.json?url=';
+    public static $endpoint = 'https://vimeo.com/api/oembed.json?url=';
 
     /**
      * @return string

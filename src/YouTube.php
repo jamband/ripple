@@ -33,7 +33,7 @@ class YouTube
     /**
      * @var string
      */
-    public static $endpoint = 'http://www.youtube.com/oembed?url=';
+    public static $endpoint = 'https://www.youtube.com/oembed?url=';
 
     /**
      * @return string
