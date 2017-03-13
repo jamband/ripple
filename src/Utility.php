@@ -24,7 +24,7 @@ trait Utility
      * @param string $url
      * @return null|string
      */
-    private static function getDomain($url)
+    private static function domain($url)
     {
         $domain = parse_url($url, PHP_URL_HOST);
 

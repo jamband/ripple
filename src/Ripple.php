@@ -41,7 +41,7 @@ class Ripple
         $this->url = (string)$url;
 
         foreach (static::$providers as $provider => $class) {
-            if (in_array(static::getDomain($this->url), $class::$hosts, true)) {
+            if (in_array(static::domain($this->url), $class::$hosts, true)) {
                 $this->provider = $provider;
                 break;
             }
