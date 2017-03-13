@@ -42,7 +42,7 @@ class SoundCloud
     {
         $url = static::query($content, 'string(//meta[@property="twitter:player"]/@content)');
         if (null !== $url) {
-            preg_match('/\/tracks\/([1-9][0-9]+)?/', rawurldecode($url), $matches);
+            preg_match('#/tracks/([1-9][0-9]+)?#', rawurldecode($url), $matches);
             if (!empty($matches)) {
                 return array_pop($matches);
             }

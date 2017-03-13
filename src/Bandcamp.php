@@ -47,7 +47,7 @@ class Bandcamp
     {
         $url = static::query($content, 'string(//meta[@property="og:video"]/@content)');
         if (null !== $url) {
-            preg_match('/track\=([1-9][0-9]+)?/', $url, $matches);
+            preg_match('#track=([1-9][0-9]+)?#', $url, $matches);
             if (!empty($matches)) {
                 return array_pop($matches);
             }

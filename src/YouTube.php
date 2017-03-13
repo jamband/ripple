@@ -40,7 +40,7 @@ class YouTube
      */
     public static function validUrlPattern()
     {
-        return '#\Ahttps?\://(www\.)?(youtube\.com/watch\?v\=|youtu\.be/)[A-Za-z0-9_-]+\z#';
+        return '#\Ahttps?\://(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[A-Za-z0-9_-]+\z#';
     }
 
     /**
@@ -50,7 +50,7 @@ class YouTube
     public static function id(stdClass $content = null)
     {
         if (isset($content->html)) {
-            preg_match('/embed\/([A-Za-z0-9_-]+)?\?/', $content->html, $matches);
+            preg_match('#embed/([A-Za-z0-9_-]+)?\?#', $content->html, $matches);
 
             if (!empty($matches)) {
                 return array_pop($matches);
