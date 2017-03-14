@@ -53,6 +53,28 @@ var_dump($embed); // https://bandcamp.com/EmbeddedPlayer/track=123456789/size=la
 
 And also check [some samples](https://github.com/jamband/ripple/tree/master/samples).
 
+## Valid URLs
+
+```
+Bandcamp:
+https?://{subdomain}.bandcamp.com/track/{title}
+https?://{subdomain}.bandcamp.com/album/{title}
+https?://{domain}/track/{title}
+https?://{domain}/album/{title}
+
+SoundCloud:
+https?://soundcloud.com/{account}/{title}
+https?://soundcloud.com/{account}/sets/{title}
+
+Vimeo:
+https?://vimeo.com/{id}
+
+YouTube:
+https?://www.youtube.com/watch?v={id}
+https?://www.youtube.com/playlist?list={id}
+https?://youtu.be/{id}
+```
+
 ## Supported Providers
 
 - Bandcamp
