@@ -23,21 +23,21 @@ or add in composer.json
 
 ```php
 // basic
-$url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
+$url = 'https://example.bandcamp.com/track/title';
 
 $ripple = new jamband\ripple\Ripple($url);
 var_dump($ripple->provider()); // Bandcamp
 var_dump($ripple->isValidUrl()); // true
 
 $ripple->request();
-var_dump($ripple->id()); // 932292198
-var_dump($ripple->title()); // Tjeresten, by Linnés Helvete
-var_dump($ripple->image()); // http://f1.bcbits.com/img/a3144407673_16.jpg
+var_dump($ripple->id()); // 123456789
+var_dump($ripple->title()); // Title, by Artist
+var_dump($ripple->image()); // https://img.example.com/img/1234567890.jpg
 ```
 
 ```php
 // embed
-$url = 'http://linneshelvete.bandcamp.com/track/tjeresten';
+$url = 'https://example.bandcamp.com/track/title';
 
 $ripple = new jamband\ripple\Ripple($url);
 $ripple->request();
@@ -46,7 +46,7 @@ $ripple->setEmbedParams([
     'Bandcamp' => 'size=large/',
 ]);
 $embed = $ripple->embed();
-var_dump($embed); // https://bandcamp.com/EmbeddedPlayer/track=932292198/size=large/
+var_dump($embed); // https://bandcamp.com/EmbeddedPlayer/track=123456789/size=large/
 ?>
 <iframe width="300" height="300" src="<?= $embed ?>" frameborder="0" allowfullscreen></iframe>
 ```
