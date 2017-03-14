@@ -13,7 +13,8 @@ namespace jamband\ripple;
 
 /**
  * SoundCloud class file.
- * url pattern: https?://soundcloud.com/{account}/{title}
+ * url pattern 1: https?://soundcloud.com/{account}/{title}
+ * url pattern 2: https?://soundcloud.com/{account}/sets/{title}
  */
 class SoundCloud
 {
@@ -27,11 +28,16 @@ class SoundCloud
     ];
 
     /**
+     * @var string
+     */
+    public static $multiplePattern = '/sets/';
+
+    /**
      * @return string
      */
     public static function validUrlPattern()
     {
-        return '#\Ahttps?\://(www\.)?soundcloud\.com/[A-Za-z0-9-_]+/[A-Za-z0-9-_]+\z#';
+        return '#\Ahttps?\://(www\.)?soundcloud\.com/[A-Za-z0-9-_]+/(sets/)?[A-Za-z0-9-_]+\z#';
     }
 
     /**
@@ -42,7 +48,7 @@ class SoundCloud
     {
         $url = static::query($content, 'string(//meta[@property="twitter:player"]/@content)');
         if (null !== $url) {
-            preg_match('#/tracks/([1-9][0-9]+)?#', rawurldecode($url), $matches);
+            preg_match('#/(tracks|playlists)/([1-9][0-9]+)?#', rawurldecode($url), $matches);
             if (!empty($matches)) {
                 return array_pop($matches);
             }
@@ -61,6 +67,7 @@ class SoundCloud
 
     /**
      * @param string $content
+     *
      * @return null|string
      */
     public static function image($content = null)
@@ -71,10 +78,12 @@ class SoundCloud
 
     /**
      * @param string $id
+     * @param bool $hasMultiple
      * @return string
      */
-    public static function embed($id)
+    public static function embed($id, $hasMultiple)
     {
-        return "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/$id";
+        $embed = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com';
+        return $hasMultiple ? "$embed/playlists/$id" : "$embed/tracks/$id";
     }
 }

@@ -18,12 +18,20 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Ripple
      */
-    private $ripple;
+    private $video;
+
+    /**
+     * @var Ripple
+     */
+    private $playlist;
 
     public function setUp()
     {
-        $this->ripple = new Ripple('https://www.youtube.com/watch?v=123');
-        $this->ripple->request([CURLOPT_URL => 'http://localhost:8080/youtube.json']);
+        $this->video = new Ripple('https://www.youtube.com/watch?v=123');
+        $this->video->request([CURLOPT_URL => 'http://localhost:8080/youtube_video.json']);
+
+        $this->playlist = new Ripple('https://www.youtube.com/playlist?list=456');
+        $this->playlist->request([CURLOPT_URL => 'http://localhost:8080/youtube_playlist.json']);
     }
 
     /**
@@ -40,7 +48,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     public function validUrlPatternProvider()
     {
         return [
-            // failure
+            // video: failure
             ['https://www.youtube.com/watch?v='.static::id().'/', false],
             ['https://www.youtube.com/watch?v='.static::id().'?', false],
             ['https://www.youtube.com/watch?v='.static::id().'&query=value', false],
@@ -50,34 +58,50 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
             ['https://youtu.be/'.static::id().'&query=value', false],
             ['https://youtu.be/'.static::id().'#fragment', false],
 
-            // success
+            // playlist: failure
+            ['https://www.youtube.com/playlist?list='.static::id().'/', false],
+            ['https://www.youtube.com/playlist?list='.static::id().'?', false],
+            ['https://www.youtube.com/playlist?list='.static::id().'&query=value', false],
+            ['https://www.youtube.com/playlist?list='.static::id().'#fragment', false],
+
+            // video: success
             ['https://www.youtube.com/watch?v='.static::id(), true],
             ['https://youtube.com/watch?v='.static::id(), true],
             ['http://www.youtube.com/watch?v='.static::id(), true],
             ['http://youtube.com/watch?v='.static::id(), true],
             ['https://youtu.be/'.static::id(), true],
             ['http://youtu.be/'.static::id(), true],
+
+            // playlist: success
+            ['https://www.youtube.com/playlist?list='.static::id(), true],
+            ['https://youtube.com/playlist?list='.static::id(), true],
+            ['http://www.youtube.com/playlist?list='.static::id(), true],
+            ['http://youtube.com/playlist?list='.static::id(), true],
         ];
     }
 
     public function testId()
     {
-        $this->assertSame('123', $this->ripple->id());
+        $this->assertSame('123', $this->video->id());
+        $this->assertSame('456', $this->playlist->id());
     }
 
     public function testTitle()
     {
-        $this->assertSame('YouTube Title', $this->ripple->title());
+        $this->assertSame('YouTube Video Title', $this->video->title());
+        $this->assertSame('YouTube Playlist Title', $this->playlist->title());
     }
 
     public function testImage()
     {
-        $this->assertSame('youtube_thumbnail.jpg', $this->ripple->image());
+        $this->assertSame('youtube_video_thumbnail.jpg', $this->video->image());
+        $this->assertSame('youtube_playlist_thumbnail.jpg', $this->playlist->image());
     }
 
     public function testEmbed()
     {
-        $this->assertSame('https://www.youtube.com/embed/123', $this->ripple->embed());
+        $this->assertSame('https://www.youtube.com/embed/123', $this->video->embed());
+        $this->assertSame('https://www.youtube.com/embed/videoseries?list=456', $this->playlist->embed());
     }
 
     /**

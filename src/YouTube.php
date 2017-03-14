@@ -16,7 +16,8 @@ use stdClass;
 /**
  * YouTube class file.
  * url pattern 1: https?://www.youtube.com/watch?v={id}
- * url pattern 2: https?://youtu.be/{id}
+ * url pattern 2: https?://www.youtube.com/playlist?list={id}
+ * url pattern 3: https?://youtu.be/{id}
  */
 class YouTube
 {
@@ -33,6 +34,11 @@ class YouTube
     /**
      * @var string
      */
+    public static $multiplePattern = '?list=';
+
+    /**
+     * @var string
+     */
     public static $endpoint = 'https://www.youtube.com/oembed?url=';
 
     /**
@@ -40,7 +46,7 @@ class YouTube
      */
     public static function validUrlPattern()
     {
-        return '#\Ahttps?\://(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[A-Za-z0-9_-]+\z#';
+        return '#\Ahttps?\://(www\.)?(youtube\.com/watch\?v=|youtube\.com/playlist\?list=|youtu\.be/)[A-Za-z0-9_-]+\z#';
     }
 
     /**
@@ -50,7 +56,7 @@ class YouTube
     public static function id(stdClass $content = null)
     {
         if (isset($content->html)) {
-            preg_match('#embed/([A-Za-z0-9_-]+)?\?#', $content->html, $matches);
+            preg_match('#embed/(videoseries\?list=)?([A-Za-z0-9_-]+)?#', $content->html, $matches);
 
             if (!empty($matches)) {
                 return array_pop($matches);
@@ -85,10 +91,12 @@ class YouTube
 
     /**
      * @param string $id
+     * @param bool $hasMultiple
      * @return string
      */
-    public static function embed($id)
+    public static function embed($id, $hasMultiple)
     {
-        return "https://www.youtube.com/embed/$id";
+        $embed = 'https://www.youtube.com/embed';
+        return $hasMultiple ? "$embed/videoseries?list=$id" : "$embed/$id";
     }
 }

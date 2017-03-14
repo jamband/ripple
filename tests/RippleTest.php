@@ -64,10 +64,10 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['unknown.html', 'https://example.com/track/title', null],
-            ['bandcamp.html', 'https://example.bandcamp.com/track/title', '123'],
-            ['soundcloud.html', 'https://soundcloud.com/example/title', '123'],
-            ['vimeo.json', 'https://vimeo.com/123', '123'],
-            ['youtube.json', 'https://www.youtube.com/watch?v=123', '123'],
+            ['bandcamp_track.html', 'https://example.bandcamp.com/track/title', '123'],
+            ['soundcloud_track.html', 'https://soundcloud.com/example/title', '123'],
+            ['vimeo_video.json', 'https://vimeo.com/123', '123'],
+            ['youtube_video.json', 'https://www.youtube.com/watch?v=123', '123'],
         ];
     }
 
@@ -93,22 +93,22 @@ class RippleTest extends \PHPUnit_Framework_TestCase
                 null
             ],
             [
-                'bandcamp.html',
+                'bandcamp_track.html',
                 'https://example.bandcamp.com/track/title',
                 'https://bandcamp.com/EmbeddedPlayer/track=123/'
             ],
             [
-                'soundcloud.html',
+                'soundcloud_track.html',
                 'https://soundcloud.com/example/title',
                 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123',
             ],
             [
-                'vimeo.json',
+                'vimeo_video.json',
                 'https://vimeo.com/123',
                 'https://player.vimeo.com/video/123',
             ],
             [
-                'youtube.json',
+                'youtube_video.json',
                 'https://www.youtube.com/watch?v=123',
                 'https://www.youtube.com/embed/123',
             ],
@@ -116,39 +116,66 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $url
      * @param string $provider
      * @param string $id
      * @param string $embed
      * @dataProvider embedWithSetArgumentsProvider
      */
-    public function testEmbedWithSetArguments($provider, $id, $embed)
+    public function testEmbedWithSetArguments($url, $provider, $id, $embed)
     {
-        $this->assertSame($embed, (new Ripple())->embed($provider, $id));
+        $this->assertSame($embed, (new Ripple())->embed($url, $provider, $id));
     }
 
     public function embedWithSetArgumentsProvider()
     {
         return [
-            ['UnknownProvider', '1234567890', null],
-            ['Bandcamp', '123', 'https://bandcamp.com/EmbeddedPlayer/track=123/'],
-            ['SoundCloud', '123', 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123'],
-            ['Vimeo', '123', 'https://player.vimeo.com/video/123'],
-            ['YouTube', '123', 'https://www.youtube.com/embed/123'],
+            [
+                'https://example.com/track/title',
+                'UnknownProvider',
+                '1234567890',
+                null,
+            ],
+            [
+                'https://example.bandcamp.com/track/title',
+                'Bandcamp',
+                '123',
+                'https://bandcamp.com/EmbeddedPlayer/track=123/',
+            ],
+            [
+                'https://soundcloud.com/account/title',
+                'SoundCloud',
+                '123',
+                'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123',
+            ],
+            [
+                'https://vimeo.com/123',
+                'Vimeo',
+                '123',
+                'https://player.vimeo.com/video/123',
+            ],
+            [
+                'https://www.youtube.com/watch?v=123',
+                'YouTube',
+                '123',
+                'https://www.youtube.com/embed/123',
+            ],
         ];
     }
 
     /**
      * @param array $params
+     * @param string $url
      * @param string $provider
      * @param string $id
      * @param string $embed
      * @dataProvider setEmbedParamsProvider
      */
-    public function testSetEmbedParams($params, $provider, $id, $embed)
+    public function testSetEmbedParams($params, $url, $provider, $id, $embed)
     {
         $ripple = new Ripple();
         $ripple->setEmbedParams($params);
-        $this->assertSame($embed, $ripple->embed($provider, $id));
+        $this->assertSame($embed, $ripple->embed($url, $provider, $id));
     }
 
     public function setEmbedParamsProvider()
@@ -156,30 +183,35 @@ class RippleTest extends \PHPUnit_Framework_TestCase
         return [
             [
                 ['UnknownProvider' => '?query=value'],
+                'https://example.com/track/title',
                 'UnknownProvider',
                 '123',
                 null,
             ],
             [
                 ['Bandcamp' => 'size=large/'],
+                'https://example.bandcamp.com/track/title',
                 'Bandcamp',
                 '123',
                 'https://bandcamp.com/EmbeddedPlayer/track=123/size=large/',
             ],
             [
                 ['SoundCloud' => '?auto_play=true'],
+                'https://soundcloud.com/track/title',
                 'SoundCloud',
                 '123',
                 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123?auto_play=true',
             ],
             [
                 ['Vimeo' => '?autoplay=1'],
+                'https://vimeo.com/123',
                 'Vimeo',
                 '123',
                 'https://player.vimeo.com/video/123?autoplay=1',
             ],
             [
                 ['YouTube' => '?autoplay=1'],
+                'https://www.youtube.com/watch?v=123',
                 'YouTube',
                 '123',
                 'https://www.youtube.com/embed/123?autoplay=1',
@@ -187,6 +219,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
             // Set a different provider
             [
                 ['Bandcamp' => 'size=large/'],
+                'https://www.youtube.com/watch?v=123',
                 'YouTube',
                 '123',
                 'https://www.youtube.com/embed/123',

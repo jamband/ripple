@@ -102,21 +102,24 @@ class Ripple
 
     /**
      * Returns HTML embed of the track.
+     * @param string $url
      * @param string $provider
      * @param string $id
      * @return null|string
      */
-    public function embed($provider = null, $id = null)
+    public function embed($url = null, $provider = null, $id = null)
     {
         $embed = '';
 
-        if (isset($provider, $id) && in_array($provider, static::providers(), true)) {
+        if (isset($url, $provider, $id) && in_array($provider, static::providers(), true)) {
             $class = static::$providers[$provider];
-            $embed = $class::embed($id);
+            if (preg_match($class::validUrlPattern(), $url)) {
+                $embed = $class::embed($id, static::hasMultiple($url, $class::$multiplePattern));
+            }
 
         } elseif (isset($this->content)) {
             $class = static::$providers[$this->provider];
-            $embed = $class::embed($class::id($this->content));
+            $embed = $class::embed($class::id($this->content), static::hasMultiple($this->url, $class::$multiplePattern));
         }
 
         if ('' === $embed) {
@@ -135,6 +138,7 @@ class Ripple
     public function setEmbedParams(array $embedParams = [])
     {
         $this->embedParams = $embedParams;
+
     }
 
     /**

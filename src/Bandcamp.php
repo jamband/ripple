@@ -14,7 +14,9 @@ namespace jamband\ripple;
 /**
  * Bandcamp class file.
  * url pattern 1: https?://{subdomain}.bandcamp.com/track/{title}
- * url pattern 2: https?://{domain}/track/{title}
+ * url pattern 2: https?://{subdomain}.bandcamp.com/album/{title}
+ * url pattern 3: https?://{domain}/track/{title}
+ * url pattern 4: https?://{domain}/album/{title}
  */
 class Bandcamp
 {
@@ -31,12 +33,17 @@ class Bandcamp
     ];
 
     /**
+     * @var string
+     */
+    public static $multiplePattern = '/album/';
+
+    /**
      * @return string
      */
     public static function validUrlPattern()
     {
         $hosts = str_replace('.', '\.', implode('|', static::$hosts));
-        return '#\Ahttps?\://([a-z0-9][a-z0-9-]+\.)?('.$hosts.')/track/[A-Za-z0-9_-]+\z#';
+        return '#\Ahttps?\://([a-z0-9][a-z0-9-]+\.)?('.$hosts.')/(track|album)/[A-Za-z0-9_-]+\z#';
     }
 
     /**
@@ -47,7 +54,7 @@ class Bandcamp
     {
         $url = static::query($content, 'string(//meta[@property="og:video"]/@content)');
         if (null !== $url) {
-            preg_match('#track=([1-9][0-9]+)?#', $url, $matches);
+            preg_match('#(track|album)=([1-9][0-9]+)?#', $url, $matches);
             if (!empty($matches)) {
                 return array_pop($matches);
             }
@@ -75,10 +82,12 @@ class Bandcamp
 
     /**
      * @param string $id
+     * @param bool $hasMultiple
      * @return string
      */
-    public static function embed($id)
+    public static function embed($id, $hasMultiple)
     {
-        return "https://bandcamp.com/EmbeddedPlayer/track=$id/";
+        $embed = 'https://bandcamp.com/EmbeddedPlayer';
+        return $hasMultiple ? "$embed/album=$id/" : "$embed/track=$id/";
     }
 }

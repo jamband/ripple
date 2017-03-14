@@ -1,0 +1,5 @@
+{
+  "title": "YouTube Playlist Title",
+  "thumbnail_url": "youtube_playlist_thumbnail.jpg",
+  "html": "<iframe src=\"https://www.youtube.com/embed/videoseries?list=456\"></iframe>"
+}

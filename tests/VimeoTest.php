@@ -18,12 +18,20 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Ripple
      */
-    private $ripple;
+    private $video;
+
+    /**
+     * @var Ripple
+     */
+    private $playlist;
 
     public function setUp()
     {
-        $this->ripple = new Ripple('https://vimeo.com/123');
-        $this->ripple->request([CURLOPT_URL => 'http://localhost:8080/vimeo.json']);
+        $this->video = new Ripple('https://vimeo.com/123');
+        $this->video->request([CURLOPT_URL => 'http://localhost:8080/vimeo_video.json']);
+
+        $this->playlist = new Ripple('https://vimeo.com/album/456');
+        $this->playlist->request([CURLOPT_URL => 'http://localhost:8080/vimeo_playlist.json']);
     }
 
     /**
@@ -40,14 +48,14 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
     public function validUrlPatternProvider()
     {
         return [
-            // failure
+            // video: failure
             ['https://vimeo.com/0123', false],
             ['https://vimeo.com/123?', false],
             ['https://vimeo.com/123/', false],
             ['https://vimeo.com/123&query=value', false],
             ['https://vimeo.com/123#fragment', false],
 
-            // success
+            // video: success
             ['https://vimeo.com/123', true],
             ['https://www.vimeo.com/123', true],
             ['http://vimeo.com/123', true],
@@ -57,21 +65,25 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
 
     public function testId()
     {
-        $this->assertSame('123', $this->ripple->id());
+        $this->assertSame('123', $this->video->id());
+        $this->assertSame('456', $this->playlist->id());
     }
 
     public function testTitle()
     {
-        $this->assertSame('Vimeo Title', $this->ripple->title());
+        $this->assertSame('Vimeo Video Title', $this->video->title());
+        $this->assertSame('Vimeo Playlist Title', $this->playlist->title());
     }
 
     public function testImage()
     {
-        $this->assertSame('vimeo_thumbnail.jpg', $this->ripple->image());
+        $this->assertSame('vimeo_video_thumbnail.jpg', $this->video->image());
+        $this->assertSame('vimeo_playlist_thumbnail.jpg', $this->playlist->image());
     }
 
     public function testEmbed()
     {
-        $this->assertSame('https://player.vimeo.com/video/123', $this->ripple->embed());
+        $this->assertSame('https://player.vimeo.com/video/123', $this->video->embed());
+        $this->assertSame('https://player.vimeo.com/video/album/456', $this->playlist->embed());
     }
 }
