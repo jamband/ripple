@@ -38,12 +38,13 @@ class Ripple
      */
     public function __construct($url = null)
     {
-        $this->url = (string)$url;
-
-        foreach (static::$providers as $provider => $class) {
-            if (in_array(static::domain($this->url), $class::$hosts, true)) {
-                $this->provider = $provider;
-                break;
+        if (null !== $url) {
+            foreach (static::$providers as $provider => $class) {
+                if (in_array(static::domain($url), $class::$hosts, true)) {
+                    $this->url = $url;
+                    $this->provider = $provider;
+                    break;
+                }
             }
         }
     }

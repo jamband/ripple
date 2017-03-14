@@ -29,7 +29,9 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     public function providerProvider()
     {
         return [
+            [null, null],
             ['', null],
+            ['example', null],
             ['https://www.example.com/', null],
 
             ['https://example.bandcamp.com/', 'Bandcamp'],
