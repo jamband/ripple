@@ -100,8 +100,8 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
 
     public function testEmbed()
     {
-        $this->assertSame('https://www.youtube.com/embed/123', $this->video->embed());
-        $this->assertSame('https://www.youtube.com/embed/videoseries?list=456', $this->playlist->embed());
+        $this->assertSame('https://www.youtube.com/embed/123?rel=0', $this->video->embed());
+        $this->assertSame('https://www.youtube.com/embed/videoseries?list=456&rel=0', $this->playlist->embed());
     }
 
     /**

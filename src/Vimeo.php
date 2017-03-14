@@ -93,6 +93,6 @@ class Vimeo
     public static function embed($id, $hasMultiple)
     {
         $embed =  'https://player.vimeo.com/video';
-        return $hasMultiple ? "$embed/album/$id" : "$embed/$id";
+        return $hasMultiple ? "$embed/album/$id?rel=0" : "$embed/$id?rel=0";
     }
 }

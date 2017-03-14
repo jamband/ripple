@@ -97,6 +97,6 @@ class YouTube
     public static function embed($id, $hasMultiple)
     {
         $embed = 'https://www.youtube.com/embed';
-        return $hasMultiple ? "$embed/videoseries?list=$id" : "$embed/$id";
+        return $hasMultiple ? "$embed/videoseries?list=$id&rel=0" : "$embed/$id?rel=0";
     }
 }

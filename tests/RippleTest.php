@@ -39,10 +39,13 @@ class RippleTest extends \PHPUnit_Framework_TestCase
             ['https://souterraine.biz/track/title', 'Bandcamp'],
 
             ['https://soundcloud.com/example/title', 'SoundCloud'],
-            ['https://vimeo.com/1234567890', 'Vimeo'],
+            ['https://soundcloud.com/example/sets/title', 'SoundCloud'],
 
-            ['https://www.youtube.com/watch?v=AbCxYz012_-', 'YouTube'],
-            ['https://youtu.be/AbCxYz012_-', 'YouTube'],
+            ['https://vimeo.com/123', 'Vimeo'],
+
+            ['https://www.youtube.com/watch?v=123', 'YouTube'],
+            ['https://youtu.be/123', 'YouTube'],
+            ['https://www.youtube.com/playlist?list=456', 'YouTube'],
         ];
     }
 
@@ -65,9 +68,12 @@ class RippleTest extends \PHPUnit_Framework_TestCase
         return [
             ['unknown.html', 'https://example.com/track/title', null],
             ['bandcamp_track.html', 'https://example.bandcamp.com/track/title', '123'],
+            ['bandcamp_album.html', 'https://example.bandcamp.com/album/title', '456'],
             ['soundcloud_track.html', 'https://soundcloud.com/example/title', '123'],
+            ['soundcloud_playlist.html', 'https://soundcloud.com/example/sets/title', '456'],
             ['vimeo_video.json', 'https://vimeo.com/123', '123'],
             ['youtube_video.json', 'https://www.youtube.com/watch?v=123', '123'],
+            ['youtube_playlist.json', 'https://www.youtube.com/playlist?list=456', '456'],
         ];
     }
 
@@ -98,19 +104,34 @@ class RippleTest extends \PHPUnit_Framework_TestCase
                 'https://bandcamp.com/EmbeddedPlayer/track=123/'
             ],
             [
+                'bandcamp_album.html',
+                'https://example.bandcamp.com/album/title',
+                'https://bandcamp.com/EmbeddedPlayer/album=456/'
+            ],
+            [
                 'soundcloud_track.html',
                 'https://soundcloud.com/example/title',
                 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123',
             ],
             [
+                'soundcloud_playlist.html',
+                'https://soundcloud.com/example/sets/title',
+                'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/456',
+            ],
+            [
                 'vimeo_video.json',
                 'https://vimeo.com/123',
-                'https://player.vimeo.com/video/123',
+                'https://player.vimeo.com/video/123?rel=0',
             ],
             [
                 'youtube_video.json',
                 'https://www.youtube.com/watch?v=123',
-                'https://www.youtube.com/embed/123',
+                'https://www.youtube.com/embed/123?rel=0',
+            ],
+            [
+                'youtube_playlist.json',
+                'https://www.youtube.com/playlist?list=456',
+                'https://www.youtube.com/embed/videoseries?list=456&rel=0',
             ],
         ];
     }
@@ -143,22 +164,40 @@ class RippleTest extends \PHPUnit_Framework_TestCase
                 'https://bandcamp.com/EmbeddedPlayer/track=123/',
             ],
             [
+                'https://example.bandcamp.com/album/title',
+                'Bandcamp',
+                '456',
+                'https://bandcamp.com/EmbeddedPlayer/album=456/',
+            ],
+            [
                 'https://soundcloud.com/account/title',
                 'SoundCloud',
                 '123',
                 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123',
             ],
             [
+                'https://soundcloud.com/account/sets/title',
+                'SoundCloud',
+                '456',
+                'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/456',
+            ],
+            [
                 'https://vimeo.com/123',
                 'Vimeo',
                 '123',
-                'https://player.vimeo.com/video/123',
+                'https://player.vimeo.com/video/123?rel=0',
             ],
             [
                 'https://www.youtube.com/watch?v=123',
                 'YouTube',
                 '123',
-                'https://www.youtube.com/embed/123',
+                'https://www.youtube.com/embed/123?rel=0',
+            ],
+            [
+                'https://www.youtube.com/playlist?list=456',
+                'YouTube',
+                '456',
+                'https://www.youtube.com/embed/videoseries?list=456&rel=0',
             ],
         ];
     }
@@ -196,25 +235,46 @@ class RippleTest extends \PHPUnit_Framework_TestCase
                 'https://bandcamp.com/EmbeddedPlayer/track=123/size=large/',
             ],
             [
-                ['SoundCloud' => '?auto_play=true'],
+                ['Bandcamp' => 'size=large/'],
+                'https://example.bandcamp.com/album/title',
+                'Bandcamp',
+                '456',
+                'https://bandcamp.com/EmbeddedPlayer/album=456/size=large/',
+            ],
+            [
+                ['SoundCloud' => '&auto_play=true'],
                 'https://soundcloud.com/track/title',
                 'SoundCloud',
                 '123',
-                'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123?auto_play=true',
+                'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123&auto_play=true',
             ],
             [
-                ['Vimeo' => '?autoplay=1'],
+                ['SoundCloud' => '&auto_play=true'],
+                'https://soundcloud.com/account/sets/title',
+                'SoundCloud',
+                '456',
+                'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/456&auto_play=true',
+            ],
+            [
+                ['Vimeo' => '&autoplay=1'],
                 'https://vimeo.com/123',
                 'Vimeo',
                 '123',
-                'https://player.vimeo.com/video/123?autoplay=1',
+                'https://player.vimeo.com/video/123?rel=0&autoplay=1',
             ],
             [
-                ['YouTube' => '?autoplay=1'],
+                ['YouTube' => '&autoplay=1'],
                 'https://www.youtube.com/watch?v=123',
                 'YouTube',
                 '123',
-                'https://www.youtube.com/embed/123?autoplay=1',
+                'https://www.youtube.com/embed/123?rel=0&autoplay=1',
+            ],
+            [
+                ['YouTube' => '&autoplay=1'],
+                'https://www.youtube.com/playlist?list=456',
+                'YouTube',
+                '456',
+                'https://www.youtube.com/embed/videoseries?list=456&rel=0&autoplay=1',
             ],
             // Set a different provider
             [
@@ -222,7 +282,14 @@ class RippleTest extends \PHPUnit_Framework_TestCase
                 'https://www.youtube.com/watch?v=123',
                 'YouTube',
                 '123',
-                'https://www.youtube.com/embed/123',
+                'https://www.youtube.com/embed/123?rel=0',
+            ],
+            [
+                ['Bandcamp' => 'size=large/'],
+                'https://www.youtube.com/playlist?list=456',
+                'YouTube',
+                '456',
+                'https://www.youtube.com/embed/videoseries?list=456&rel=0',
             ],
         ];
     }

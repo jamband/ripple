@@ -19,9 +19,9 @@ var_dump($ripple->embed()); // https://bandcamp.com/EmbeddedPlayer/track=1234567
 
 // append parameter
 $ripple->setEmbedParams([
-    'YouTube' => '?autoplay=1',
-    'Vimeo' => '?autoplay=1',
-    'SoundCloud' => '?auto_play=true&amp;show_comments=false&amp;visual=true',
+    'YouTube' => '&autoplay=1',
+    'Vimeo' => '&autoplay=1',
+    'SoundCloud' => '&auto_play=true&show_comments=false&visual=true',
     'Bandcamp' => 'size=large/',
 ]);
 $embed = $ripple->embed();

@@ -83,7 +83,7 @@ class VimeoTest extends \PHPUnit_Framework_TestCase
 
     public function testEmbed()
     {
-        $this->assertSame('https://player.vimeo.com/video/123', $this->video->embed());
-        $this->assertSame('https://player.vimeo.com/video/album/456', $this->playlist->embed());
+        $this->assertSame('https://player.vimeo.com/video/123?rel=0', $this->video->embed());
+        $this->assertSame('https://player.vimeo.com/video/album/456?rel=0', $this->playlist->embed());
     }
 }
