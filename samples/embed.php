@@ -2,23 +2,20 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-// $url = 'https://folkadelphia.bandcamp.com/track/facing-west';
-$url = 'https://soundcloud.com/the-staves/pay-us-no-mind';
-// $url = 'https://vimeo.com/67320034';
-// $url = 'https://www.youtube.com/watch?v=MBlpfXLQLvU';
+$url = 'https://example.bandcamp.com/track/title';
 
-// simple (set provider name and ID)
+// simple (set url and provider name and ID)
 $ripple = new jamband\ripple\Ripple;
-var_dump($ripple->embed('YouTube', 'MBlpfXLQLvU')); // https://www.youtube.com/embed/MBlpfXLQLvU
+var_dump($ripple->embed($url, 'Bandcamp', '12345689')); // https://bandcamp.com/EmbeddedPlayer/track=123456789/
 
 // append parameter
-$ripple->setEmbedParams(['YouTube' => '?autoplay=1']);
-var_dump($ripple->embed('YouTube', 'MBlpfXLQLvU')); // https://www.youtube.com/embed/MBlpfXLQLvU?autoplay=1
+$ripple->setEmbedParams(['Bandcamp' => 'size=large/']);
+var_dump($ripple->embed($url, 'Bandcamp', '123456789')); // https://bandcamp.com/EmbeddedPlayer/track=123456789/size=large/
 
 // from track url
 $ripple = new jamband\ripple\Ripple($url);
 $ripple->request();
-var_dump($ripple->embed()); // https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/42854561
+var_dump($ripple->embed()); // https://bandcamp.com/EmbeddedPlayer/track=123456789/
 
 // append parameter
 $ripple->setEmbedParams([
@@ -28,7 +25,7 @@ $ripple->setEmbedParams([
     'Bandcamp' => 'size=large/',
 ]);
 $embed = $ripple->embed();
-var_dump($embed); // https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/42854561?auto_play=true&amp;show_comments=false&amp;visual=true
+var_dump($embed); // https://bandcamp.com/EmbeddedPlayer/track=123456789/size=large/
 ?>
 <!-- embed HTML -->
 <iframe width="300" height="300" src="<?= $embed ?>" frameborder="0" allowfullscreen></iframe>
