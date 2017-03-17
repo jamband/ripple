@@ -35,8 +35,8 @@ class RippleTest extends \PHPUnit_Framework_TestCase
             ['https://www.example.com/', null],
 
             ['https://example.bandcamp.com/', 'Bandcamp'],
-            ['https://music.botanicalhouse.net/track/title', 'Bandcamp'],
-            ['https://souterraine.biz/track/title', 'Bandcamp'],
+            ['http://music.botanicalhouse.net/track/title', 'Bandcamp'],
+            ['http://souterraine.biz/track/title', 'Bandcamp'],
 
             ['https://soundcloud.com/example/title', 'SoundCloud'],
             ['https://soundcloud.com/example/sets/title', 'SoundCloud'],
