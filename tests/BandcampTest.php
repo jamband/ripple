@@ -120,8 +120,8 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
 
     public function testImage()
     {
-        $this->assertSame('bandcamp_track_thumbnail.jpg', $this->track->image());
-        $this->assertSame('bandcamp_album_thumbnail.jpg', $this->album->image());
+        $this->assertSame('https://img.example.com/bandcamp_track_thumbnail.jpg', $this->track->image());
+        $this->assertSame('https://img.example.com/bandcamp_album_thumbnail.jpg', $this->album->image());
     }
 
     public function testEmbed()

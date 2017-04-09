@@ -78,7 +78,11 @@ class Bandcamp
      */
     public static function image($content = null)
     {
-        return static::query($content, 'string(//meta[@property="og:image"]/@content)');
+        $image = static::query($content, 'string(//meta[@property="og:image"]/@content)');
+        if (null !== $image) {
+            return preg_replace('/\Ahttp:/', 'https:', $image);
+        }
+        return null;
     }
 
     /**
