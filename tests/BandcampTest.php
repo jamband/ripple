@@ -53,6 +53,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
             ['http://tunes.mamabirdrecordingco.com/', 'Bandcamp'],
             ['http://souterraine.biz/', 'Bandcamp'],
             ['http://sunnysidezone.com/', 'Bandcamp'],
+            ['http://shop.fikarecordings.com/', 'Bandcamp'],
         ];
     }
 

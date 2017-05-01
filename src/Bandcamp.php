@@ -28,6 +28,7 @@ class Bandcamp
     public static $hosts = [
         'bandcamp.com',
         'botanicalhouse.net',
+        'fikarecordings.com',
         'mamabirdrecordingco.com',
         'souterraine.biz',
         'sunnysidezone.com',
