@@ -30,6 +30,7 @@ class Bandcamp
         'botanicalhouse.net',
         'fikarecordings.com',
         'mamabirdrecordingco.com',
+        'maybemars.org',
         'souterraine.biz',
         'sunnysidezone.com',
     ];

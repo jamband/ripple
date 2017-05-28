@@ -49,6 +49,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['https://bandcamp.com/track/title', 'Bandcamp'],
+            ['http://downloads.maybemars.org/', 'Bandcamp'],
             ['http://music.botanicalhouse.net/', 'Bandcamp'],
             ['http://tunes.mamabirdrecordingco.com/', 'Bandcamp'],
             ['http://souterraine.biz/', 'Bandcamp'],
