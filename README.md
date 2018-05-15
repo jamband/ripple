@@ -11,12 +11,7 @@ This library depends on PHP 5.6+ and using [oEmbed](http://oembed.com/).
 ## Installation
 
 ```
-php composer.phar require --prefer-dist jamband/ripple "^0.4"
-```
-
-or add in composer.json
-```
-"jamband/ripple": "^0.4"
+composer require --prefer-dist jamband/ripple "^0.4"
 ```
 
 ## Usage
