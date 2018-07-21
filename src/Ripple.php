@@ -125,13 +125,13 @@ class Ripple
             $ripple = new static($url);
 
             if (null !== $ripple->provider) {
-                $class = self::PROVIDERS[$provider = $ripple->provider];
+                $class = static::PROVIDERS[$provider = $ripple->provider];
                 $embed = $class::embed($id, $hasMultiple($url, $class::MULTIPLE_PATTERN));
             }
         }
 
         if (null !== $this->content) {
-            $class = self::PROVIDERS[$provider = $this->provider];
+            $class = static::PROVIDERS[$provider = $this->provider];
             $embed = $class::embed($class::id($this->content), $hasMultiple($this->url, $class::MULTIPLE_PATTERN));
         }
 
