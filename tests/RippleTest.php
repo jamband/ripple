@@ -145,15 +145,14 @@ class RippleTest extends TestCase
 
     /**
      * @param string $url
-     * @param string $provider
      * @param string $id
      * @param null|string $embed
      * @return void
      * @dataProvider embedWithSetArgumentsProvider
      */
-    public function testEmbedWithSetArguments(string $url, string $provider, string $id, ?string $embed): void
+    public function testEmbedWithSetArguments(string $url, string $id, ?string $embed): void
     {
-        $this->assertSame($embed, (new Ripple())->embed($url, $provider, $id));
+        $this->assertSame($embed, (new Ripple())->embed($url, $id));
     }
 
     public function embedWithSetArgumentsProvider(): array
@@ -161,49 +160,41 @@ class RippleTest extends TestCase
         return [
             [
                 'https://example.com/track/title',
-                'UnknownProvider',
                 '1234567890',
                 null,
             ],
             [
                 'https://example.bandcamp.com/track/title',
-                'Bandcamp',
                 '123',
                 'https://bandcamp.com/EmbeddedPlayer/track=123/',
             ],
             [
                 'https://example.bandcamp.com/album/title',
-                'Bandcamp',
                 '456',
                 'https://bandcamp.com/EmbeddedPlayer/album=456/',
             ],
             [
                 'https://soundcloud.com/account/title',
-                'SoundCloud',
                 '123',
                 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123',
             ],
             [
                 'https://soundcloud.com/account/sets/title',
-                'SoundCloud',
                 '456',
                 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/456',
             ],
             [
                 'https://vimeo.com/123',
-                'Vimeo',
                 '123',
                 'https://player.vimeo.com/video/123?rel=0',
             ],
             [
                 'https://www.youtube.com/watch?v=123',
-                'YouTube',
                 '123',
                 'https://www.youtube.com/embed/123?rel=0',
             ],
             [
                 'https://www.youtube.com/playlist?list=456',
-                'YouTube',
                 '456',
                 'https://www.youtube.com/embed/videoseries?list=456&rel=0',
             ],
@@ -213,17 +204,16 @@ class RippleTest extends TestCase
     /**
      * @param array $params
      * @param string $url
-     * @param string $provider
      * @param string $id
      * @param null|string $embed
      * @return void
      * @dataProvider setEmbedParamsProvider
      */
-    public function testSetEmbedParams(array $params, string $url, string $provider, string $id, ?string $embed): void
+    public function testSetEmbedParams(array $params, string $url, string $id, ?string $embed): void
     {
         $ripple = new Ripple();
         $ripple->setEmbedParams($params);
-        $this->assertSame($embed, $ripple->embed($url, $provider, $id));
+        $this->assertSame($embed, $ripple->embed($url, $id));
     }
 
     public function setEmbedParamsProvider(): array
@@ -232,73 +222,50 @@ class RippleTest extends TestCase
             [
                 ['UnknownProvider' => '?query=value'],
                 'https://example.com/track/title',
-                'UnknownProvider',
                 '123',
                 null,
             ],
             [
                 ['Bandcamp' => 'size=large/'],
                 'https://example.bandcamp.com/track/title',
-                'Bandcamp',
                 '123',
                 'https://bandcamp.com/EmbeddedPlayer/track=123/size=large/',
             ],
             [
                 ['Bandcamp' => 'size=large/'],
                 'https://example.bandcamp.com/album/title',
-                'Bandcamp',
                 '456',
                 'https://bandcamp.com/EmbeddedPlayer/album=456/size=large/',
             ],
             [
                 ['SoundCloud' => '&auto_play=true'],
                 'https://soundcloud.com/track/title',
-                'SoundCloud',
                 '123',
                 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123&auto_play=true',
             ],
             [
                 ['SoundCloud' => '&auto_play=true'],
                 'https://soundcloud.com/account/sets/title',
-                'SoundCloud',
                 '456',
                 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/456&auto_play=true',
             ],
             [
                 ['Vimeo' => '&autoplay=1'],
                 'https://vimeo.com/123',
-                'Vimeo',
                 '123',
                 'https://player.vimeo.com/video/123?rel=0&autoplay=1',
             ],
             [
                 ['YouTube' => '&autoplay=1'],
                 'https://www.youtube.com/watch?v=123',
-                'YouTube',
                 '123',
                 'https://www.youtube.com/embed/123?rel=0&autoplay=1',
             ],
             [
                 ['YouTube' => '&autoplay=1'],
                 'https://www.youtube.com/playlist?list=456',
-                'YouTube',
                 '456',
                 'https://www.youtube.com/embed/videoseries?list=456&rel=0&autoplay=1',
-            ],
-            // Set a different provider
-            [
-                ['Bandcamp' => 'size=large/'],
-                'https://www.youtube.com/watch?v=123',
-                'YouTube',
-                '123',
-                'https://www.youtube.com/embed/123?rel=0',
-            ],
-            [
-                ['Bandcamp' => 'size=large/'],
-                'https://www.youtube.com/playlist?list=456',
-                'YouTube',
-                '456',
-                'https://www.youtube.com/embed/videoseries?list=456&rel=0',
             ],
         ];
     }

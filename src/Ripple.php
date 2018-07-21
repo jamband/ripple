@@ -112,27 +112,30 @@ class Ripple
      * Returns HTML embed of the track.
      *
      * @param null|string $url
-     * @param null|string $provider
      * @param null|string $id
      * @return null|string
      */
-    public function embed(?string $url = null, ?string $provider = null, ?string $id = null): ?string
+    public function embed(?string $url = null, ?string $id = null): ?string
     {
-        $embed = '';
+        $hasMultiple = function (string $url, string $pattern): bool {
+            return false !== strpos($url, $pattern);
+        };
 
-        if (isset($url, $provider, $id) && in_array($provider, static::providers(), true)) {
-            $class = static::PROVIDERS[$provider];
+        if (isset($url, $id)) {
+            $ripple = new static($url);
 
-            if (preg_match($class::validUrlPattern(), $url)) {
-                $embed = $class::embed($id, static::hasMultiple($url, $class::MULTIPLE_PATTERN));
+            if (null !== $ripple->provider) {
+                $class = self::PROVIDERS[$provider = $ripple->provider];
+                $embed = $class::embed($id, $hasMultiple($url, $class::MULTIPLE_PATTERN));
             }
-
-        } elseif (isset($this->content)) {
-            $class = static::PROVIDERS[$this->provider];
-            $embed = $class::embed($class::id($this->content), static::hasMultiple($this->url, $class::MULTIPLE_PATTERN));
         }
 
-        if ('' === $embed) {
+        if (null !== $this->content) {
+            $class = self::PROVIDERS[$provider = $this->provider];
+            $embed = $class::embed($class::id($this->content), $hasMultiple($this->url, $class::MULTIPLE_PATTERN));
+        }
+
+        if (!isset($embed, $provider)) {
             return null;
         }
 
