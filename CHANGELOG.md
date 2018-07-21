@@ -1,5 +1,10 @@
 # Ripple Change Log
 
+## v0.5.0 - 2018.07.21
+
+- Change: [#6](https://github.com/jamband/ripple/issues/6): Support PHP version 7.1 or later (BC break)
+- Change: [#7](https://github.com/jamband/ripple/issues/7): Change arguments of Ripple::embed() method (BC break)
+
 ## v0.4.0 - 2017.03.14
 
 - Change: Support playlists and albums (BC break)

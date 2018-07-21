@@ -6,11 +6,11 @@ $url = 'https://example.bandcamp.com/track/title';
 
 // simple (set url and provider name and ID)
 $ripple = new jamband\ripple\Ripple;
-var_dump($ripple->embed($url, 'Bandcamp', '12345689')); // https://bandcamp.com/EmbeddedPlayer/track=123456789/
+var_dump($ripple->embed($url, '12345689')); // https://bandcamp.com/EmbeddedPlayer/track=123456789/
 
 // append parameter
 $ripple->setEmbedParams(['Bandcamp' => 'size=large/']);
-var_dump($ripple->embed($url, 'Bandcamp', '123456789')); // https://bandcamp.com/EmbeddedPlayer/track=123456789/size=large/
+var_dump($ripple->embed($url, '123456789')); // https://bandcamp.com/EmbeddedPlayer/track=123456789/size=large/
 
 // from track url
 $ripple = new jamband\ripple\Ripple($url);

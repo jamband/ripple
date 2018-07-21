@@ -6,12 +6,12 @@ Get a track/album information from the URL.
 
 ## Requirements
 
-This library depends on PHP 5.6+ and using [oEmbed](http://oembed.com/).
+PHP 7.1 or later
 
 ## Installation
 
 ```
-composer require --prefer-dist jamband/ripple "^0.4"
+composer require --prefer-dist jamband/ripple "^0.5"
 ```
 
 ## Usage
