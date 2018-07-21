@@ -101,7 +101,7 @@ class Ripple
             $class = static::PROVIDERS[$this->provider];
 
             if (defined("$class::ENDPOINT")) {
-                $this->content = json_decode(static::http($class::ENDPOINT.rawurlencode($this->url), $options));
+                $this->content = static::http($class::ENDPOINT.rawurlencode($this->url), $options);
             } else {
                 $this->content = static::http($this->url, $options);
             }

@@ -20,7 +20,7 @@ namespace jamband\ripple;
  * url pattern 3: https?://{domain}/track/{title}
  * url pattern 4: https?://{domain}/album/{title}
  */
-class Bandcamp
+class Bandcamp implements ProviderInterface
 {
     use Utility;
 
@@ -50,7 +50,7 @@ class Bandcamp
      * @param null|string $content
      * @return null|string
      */
-    public static function id(?string $content = null): ?string
+    public static function id(?string $content): ?string
     {
         $url = static::query($content, 'string(//meta[@property="og:video"]/@content)');
 
@@ -69,7 +69,7 @@ class Bandcamp
      * @param null|string $content
      * @return null|string
      */
-    public static function title(?string $content = null): ?string
+    public static function title(?string $content): ?string
     {
         return static::query($content, 'string(//meta[@property="og:title"]/@content)');
     }
@@ -78,7 +78,7 @@ class Bandcamp
      * @param null|string $content
      * @return null|string
      */
-    public static function image(?string $content = null): ?string
+    public static function image(?string $content): ?string
     {
         $image = static::query($content, 'string(//meta[@property="og:image"]/@content)');
 

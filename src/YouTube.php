@@ -21,7 +21,7 @@ use stdClass;
  * url pattern 2: https?://www.youtube.com/playlist?list={id}
  * url pattern 3: https?://youtu.be/{id}
  */
-class YouTube
+class YouTube implements ProviderInterface
 {
     use Utility;
 
@@ -42,11 +42,13 @@ class YouTube
     }
 
     /**
-     * @param null|stdClass $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function id(?stdClass $content = null): ?string
+    public static function id(?string $content): ?string
     {
+        $content = json_decode($content);
+
         if (isset($content->html)) {
             preg_match('#embed/(videoseries\?list=)?([A-Za-z0-9_-]+)?#', $content->html, $matches);
 
@@ -59,29 +61,25 @@ class YouTube
     }
 
     /**
-     * @param null|stdClass $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function title(?stdClass $content = null): ?string
+    public static function title(?string $content): ?string
     {
-        if (isset($content->title)) {
-            return $content->title;
-        }
+        $content = json_decode($content);
 
-        return null;
+        return $content->title ?? null;
     }
 
     /**
-     * @param null|stdClass $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function image(?stdClass $content = null): ?string
+    public static function image(?string $content): ?string
     {
-        if (isset($content->thumbnail_url)) {
-            return $content->thumbnail_url;
-        }
+        $content = json_decode($content);
 
-        return null;
+        return $content->thumbnail_url ?? null;
     }
 
     /**

@@ -18,7 +18,7 @@ namespace jamband\ripple;
  * url pattern 1: https?://soundcloud.com/{account}/{title}
  * url pattern 2: https?://soundcloud.com/{account}/sets/{title}
  */
-class SoundCloud
+class SoundCloud implements ProviderInterface
 {
     use Utility;
 
@@ -40,7 +40,7 @@ class SoundCloud
      * @param null|string $content
      * @return null|string
      */
-    public static function id(?string $content = null): ?string
+    public static function id(?string $content): ?string
     {
         $url = static::query($content, 'string(//meta[@property="twitter:player"]/@content)');
 
@@ -59,7 +59,7 @@ class SoundCloud
      * @param null|string $content
      * @return null|string
      */
-    public static function title(?string $content = null): ?string
+    public static function title(?string $content): ?string
     {
         return static::query($content, 'string(//meta[@property="og:title"]/@content)');
     }
@@ -68,7 +68,7 @@ class SoundCloud
      * @param null|string $content
      * @return null|string
      */
-    public static function image(?string $content = null): ?string
+    public static function image(?string $content): ?string
     {
         return static::query($content, 'string(//meta[@property="og:image"]/@content)');
     }

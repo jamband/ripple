@@ -23,7 +23,7 @@ use stdClass;
  * https://vimeo.com/album/{id} is work. But playlists can not get title and thumbnails when using oembed.
  * https://vimeo.com/album/{id}/video/{id} is work. But this will get one video information, not a playlist.
  */
-class Vimeo
+class Vimeo implements ProviderInterface
 {
     public const DOMAINS = [
         'vimeo.com',
@@ -41,11 +41,13 @@ class Vimeo
     }
 
     /**
-     * @param null|stdClass $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function id(?stdClass $content = null): ?string
+    public static function id(?string $content): ?string
     {
+        $content = json_decode($content);
+
         if (isset($content->video_id)) {
             return (string)$content->video_id;
         }
@@ -54,29 +56,25 @@ class Vimeo
     }
 
     /**
-     * @param null|stdClass $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function title(?stdClass $content = null): ?string
+    public static function title(?string $content): ?string
     {
-        if (isset($content->title)) {
-            return $content->title;
-        }
+        $content = json_decode($content);
 
-        return null;
+        return $content->title ?? null;
     }
 
     /**
-     * @param null|stdClass $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function image(?stdClass $content = null): ?string
+    public static function image(?string $content): ?string
     {
-        if (isset($content->thumbnail_url)) {
-            return $content->thumbnail_url;
-        }
+        $content = json_decode($content);
 
-        return null;
+        return $content->thumbnail_url ?? null;
     }
 
     /**
