@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace jamband\ripple;
 
 use stdClass;
@@ -44,16 +46,16 @@ class YouTube
     /**
      * @return string
      */
-    public static function validUrlPattern()
+    public static function validUrlPattern(): string
     {
         return '#\Ahttps?\://(www\.)?(youtube\.com/watch\?v=|youtube\.com/playlist\?list=|youtu\.be/)[A-Za-z0-9_-]+\z#';
     }
 
     /**
-     * @param stdClass $content
+     * @param null|stdClass $content
      * @return null|string
      */
-    public static function id(stdClass $content = null)
+    public static function id(?stdClass $content = null): ?string
     {
         if (isset($content->html)) {
             preg_match('#embed/(videoseries\?list=)?([A-Za-z0-9_-]+)?#', $content->html, $matches);
@@ -66,10 +68,10 @@ class YouTube
     }
 
     /**
-     * @param stdClass $content
+     * @param null|stdClass $content
      * @return null|string
      */
-    public static function title(stdClass $content = null)
+    public static function title(?stdClass $content = null): ?string
     {
         if (isset($content->title)) {
             return $content->title;
@@ -78,10 +80,10 @@ class YouTube
     }
 
     /**
-     * @param stdClass $content
+     * @param null|stdClass $content
      * @return null|string
      */
-    public static function image(stdClass $content = null)
+    public static function image(?stdClass $content = null): ?string
     {
         if (isset($content->thumbnail_url)) {
             return $content->thumbnail_url;
@@ -94,7 +96,7 @@ class YouTube
      * @param bool $hasMultiple
      * @return string
      */
-    public static function embed($id, $hasMultiple)
+    public static function embed(string $id, bool $hasMultiple): string
     {
         $embed = 'https://www.youtube.com/embed';
         return $hasMultiple ? "$embed/videoseries?list=$id&rel=0" : "$embed/$id?rel=0";

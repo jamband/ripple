@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace jamband\ripple;
 
 use DomDocument;
@@ -24,7 +26,7 @@ trait Utility
      * @param string $url
      * @return null|string
      */
-    private static function domain($url)
+    private static function domain(string $url): ?string
     {
         $domain = parse_url($url, PHP_URL_HOST);
 
@@ -39,7 +41,7 @@ trait Utility
      * @param string $pattern
      * @return bool
      */
-    private static function hasMultiple($url, $pattern)
+    private static function hasMultiple(string $url, string $pattern): bool
     {
         return false !== strpos($url, $pattern);
     }
@@ -49,7 +51,7 @@ trait Utility
      * @param array $options
      * @return null|string
      */
-    private static function http($url, array $options = [])
+    private static function http(string $url, array $options = []): ?string
     {
         $options = array_replace([
             CURLOPT_CONNECTTIMEOUT => 10,
@@ -74,11 +76,11 @@ trait Utility
     }
 
     /**
-     * @param string $content
+     * @param null|string $content
      * @param string $expression
      * @return null|string
      */
-    private static function query($content, $expression)
+    private static function query(?string $content, string $expression): ?string
     {
         if (null !== $content) {
             libxml_use_internal_errors(true);

@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace jamband\ripple;
 
 /**
@@ -35,16 +37,16 @@ class SoundCloud
     /**
      * @return string
      */
-    public static function validUrlPattern()
+    public static function validUrlPattern(): string
     {
         return '#\Ahttps?\://(www\.)?soundcloud\.com/[A-Za-z0-9-_]+/(sets/)?[A-Za-z0-9-_]+\z#';
     }
 
     /**
-     * @param string $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function id($content = null)
+    public static function id(?string $content = null): ?string
     {
         $url = static::query($content, 'string(//meta[@property="twitter:player"]/@content)');
         if (null !== $url) {
@@ -57,20 +59,19 @@ class SoundCloud
     }
 
     /**
-     * @param string $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function title($content = null)
+    public static function title(?string $content = null): ?string
     {
         return static::query($content, 'string(//meta[@property="og:title"]/@content)');
     }
 
     /**
-     * @param string $content
-     *
+     * @param null|string $content
      * @return null|string
      */
-    public static function image($content = null)
+    public static function image(?string $content = null): ?string
     {
         return static::query($content, 'string(//meta[@property="og:image"]/@content)');
     }
@@ -81,7 +82,7 @@ class SoundCloud
      * @param bool $hasMultiple
      * @return string
      */
-    public static function embed($id, $hasMultiple)
+    public static function embed(string $id, bool $hasMultiple): string
     {
         $embed = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com';
         return $hasMultiple ? "$embed/playlists/$id" : "$embed/tracks/$id";

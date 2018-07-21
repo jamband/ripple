@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace jamband\ripple;
 
 /**
@@ -34,9 +36,9 @@ class Ripple
     private $embedParams;
 
     /**
-     * @param string $url
+     * @param null|string $url
      */
-    public function __construct($url = null)
+    public function __construct(?string $url = null)
     {
         if (null !== $url) {
             foreach (static::$providers as $provider => $class) {
@@ -54,7 +56,7 @@ class Ripple
      * @param array $args
      * @return null|string
      */
-    public function __call($method, array $args)
+    public function __call(string $method, array $args): ?string
     {
         if (null === $this->provider) {
             return null;
@@ -66,7 +68,7 @@ class Ripple
     /**
      * @return null|string
      */
-    public function provider()
+    public function provider(): ?string
     {
         return $this->provider;
     }
@@ -74,7 +76,7 @@ class Ripple
     /**
      * @return bool
      */
-    public function isValidUrl()
+    public function isValidUrl(): bool
     {
         if (null === $this->provider) {
             return false;
@@ -85,9 +87,10 @@ class Ripple
 
     /**
      * @param array $options Set multiple options for a cURL transfer
+     * @return void
      * @link http://php.net/manual/en/function.curl-setopt.php
      */
-    public function request(array $options = [])
+    public function request(array $options = []): void
     {
         if (null !== $this->provider) {
             $class = static::$providers[$this->provider];
@@ -102,12 +105,12 @@ class Ripple
 
     /**
      * Returns HTML embed of the track.
-     * @param string $url
-     * @param string $provider
-     * @param string $id
+     * @param null|string $url
+     * @param null|string $provider
+     * @param null|string $id
      * @return null|string
      */
-    public function embed($url = null, $provider = null, $id = null)
+    public function embed(?string $url = null, ?string $provider = null, ?string $id = null): ?string
     {
         $embed = '';
 
@@ -134,8 +137,9 @@ class Ripple
     /**
      * Sets HTML embed parameters of the track.
      * @param string[] $embedParams
+     * @return void
      */
-    public function setEmbedParams(array $embedParams = [])
+    public function setEmbedParams(array $embedParams = []): void
     {
         $this->embedParams = $embedParams;
 
@@ -145,7 +149,7 @@ class Ripple
      * Returns all providers.
      * @return string[]
      */
-    public static function providers()
+    public static function providers(): array
     {
         return array_keys(static::$providers);
     }

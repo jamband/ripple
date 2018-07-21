@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace jamband\ripple;
 
 /**
@@ -43,17 +45,17 @@ class Bandcamp
     /**
      * @return string
      */
-    public static function validUrlPattern()
+    public static function validUrlPattern(): string
     {
         $hosts = str_replace('.', '\.', implode('|', static::$hosts));
         return '#\Ahttps?\://([a-z0-9][a-z0-9-]+\.)?('.$hosts.')/(track|album)/[A-Za-z0-9_-]+\z#';
     }
 
     /**
-     * @param string $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function id($content = null)
+    public static function id(?string $content = null): ?string
     {
         $url = static::query($content, 'string(//meta[@property="og:video"]/@content)');
         if (null !== $url) {
@@ -66,19 +68,19 @@ class Bandcamp
     }
 
     /**
-     * @param string $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function title($content = null)
+    public static function title(?string $content = null): ?string
     {
         return static::query($content, 'string(//meta[@property="og:title"]/@content)');
     }
 
     /**
-     * @param string $content
+     * @param null|string $content
      * @return null|string
      */
-    public static function image($content = null)
+    public static function image(?string $content = null): ?string
     {
         $image = static::query($content, 'string(//meta[@property="og:image"]/@content)');
         if (null !== $image) {
@@ -92,7 +94,7 @@ class Bandcamp
      * @param bool $hasMultiple
      * @return string
      */
-    public static function embed($id, $hasMultiple)
+    public static function embed(string $id, bool $hasMultiple): string
     {
         $embed = 'https://bandcamp.com/EmbeddedPlayer';
         return $hasMultiple ? "$embed/album=$id/" : "$embed/track=$id/";

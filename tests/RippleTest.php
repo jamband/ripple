@@ -9,24 +9,28 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace tests;
 
 use jamband\ripple\Ripple;
+use PHPUnit\Framework\TestCase;
 
-class RippleTest extends \PHPUnit_Framework_TestCase
+class RippleTest extends TestCase
 {
     /**
-     * @param string $url
-     * @param string $provider
+     * @param null|string $url
+     * @param null|string $provider
+     * @return void
      * @dataProvider providerProvider
      */
-    public function testProvider($url, $provider)
+    public function testProvider(?string $url, ?string $provider): void
     {
         $ripple = new Ripple($url);
         $this->assertSame($provider, $ripple->provider());
     }
 
-    public function providerProvider()
+    public function providerProvider(): array
     {
         return [
             [null, null],
@@ -52,18 +56,19 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     /**
      * Asserting by Ripple::id()
      * @param string $file
-     * @param string $track
-     * @param string $id
+     * @param null|string $track
+     * @param null|string $id
+     * @return void
      * @dataProvider requestProvider
      */
-    public function testRequest($file, $track, $id)
+    public function testRequest(string $file, ?string $track, ?string $id): void
     {
         $ripple = new Ripple($track);
         $ripple->request([CURLOPT_URL => "http://localhost:8080/$file"]);
         $this->assertSame($id, $ripple->id());
     }
 
-    public function requestProvider()
+    public function requestProvider(): array
     {
         return [
             ['unknown.html', 'https://example.com/track/title', null],
@@ -80,17 +85,18 @@ class RippleTest extends \PHPUnit_Framework_TestCase
     /**
      * @param string $file
      * @param string $url
-     * @param string $embed
+     * @param null|string $embed
+     * @return void
      * @dataProvider embedProvider
      */
-    public function testEmbed($file, $url, $embed)
+    public function testEmbed(string $file, string $url, ?string $embed): void
     {
         $ripple = new Ripple($url);
         $ripple->request([CURLOPT_URL => "http://localhost:8080/$file"]);
         $this->assertSame($embed, $ripple->embed());
     }
 
-    public function embedProvider()
+    public function embedProvider(): array
     {
         return [
             [
@@ -140,15 +146,16 @@ class RippleTest extends \PHPUnit_Framework_TestCase
      * @param string $url
      * @param string $provider
      * @param string $id
-     * @param string $embed
+     * @param null|string $embed
+     * @return void
      * @dataProvider embedWithSetArgumentsProvider
      */
-    public function testEmbedWithSetArguments($url, $provider, $id, $embed)
+    public function testEmbedWithSetArguments(string $url, string $provider, string $id, ?string $embed): void
     {
         $this->assertSame($embed, (new Ripple())->embed($url, $provider, $id));
     }
 
-    public function embedWithSetArgumentsProvider()
+    public function embedWithSetArgumentsProvider(): array
     {
         return [
             [
@@ -207,17 +214,18 @@ class RippleTest extends \PHPUnit_Framework_TestCase
      * @param string $url
      * @param string $provider
      * @param string $id
-     * @param string $embed
+     * @param null|string $embed
+     * @return void
      * @dataProvider setEmbedParamsProvider
      */
-    public function testSetEmbedParams($params, $url, $provider, $id, $embed)
+    public function testSetEmbedParams(array $params, string $url, string $provider, string $id, ?string $embed): void
     {
         $ripple = new Ripple();
         $ripple->setEmbedParams($params);
         $this->assertSame($embed, $ripple->embed($url, $provider, $id));
     }
 
-    public function setEmbedParamsProvider()
+    public function setEmbedParamsProvider(): array
     {
         return [
             [
@@ -294,7 +302,7 @@ class RippleTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testProviders()
+    public function testProviders(): void
     {
         $this->assertSame([
             'Bandcamp',

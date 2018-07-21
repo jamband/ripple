@@ -9,11 +9,14 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace tests;
 
 use jamband\ripple\Ripple;
+use PHPUnit\Framework\TestCase;
 
-class BandcampTest extends \PHPUnit_Framework_TestCase
+class BandcampTest extends TestCase
 {
     /**
      * @var Ripple
@@ -25,7 +28,7 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
      */
     private $album;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->track = new Ripple('https://example.bandcamp.com/track/title');
         $this->track->request([CURLOPT_URL => 'http://localhost:8080/bandcamp_track.html']);
@@ -37,15 +40,16 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
     /**
      * @param string $url
      * @param string $provider
+     * @return void
      * @dataProvider providerProvider
      */
-    public function testProvider($url, $provider)
+    public function testProvider(string $url, string $provider): void
     {
         $ripple = new Ripple($url);
         $this->assertSame($provider, $ripple->provider());
     }
 
-    public function providerProvider()
+    public function providerProvider(): array
     {
         return [
             ['https://bandcamp.com/track/title', 'Bandcamp'],
@@ -60,16 +64,17 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $url
-     * @param string $expected
+     * @param bool $expected
+     * @return void
      * @dataProvider validUrlPatternProvider
      */
-    public function testValidUrlPattern($url, $expected)
+    public function testValidUrlPattern(string $url, bool $expected): void
     {
         $ripple = new Ripple($url);
         $this->assertSame($expected, $ripple->isValidUrl());
     }
 
-    public function validUrlPatternProvider()
+    public function validUrlPatternProvider(): array
     {
         return [
             // track: failure
@@ -108,25 +113,25 @@ class BandcampTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testId()
+    public function testId(): void
     {
         $this->assertSame('123', $this->track->id());
         $this->assertSame('456', $this->album->id());
     }
 
-    public function testTitle()
+    public function testTitle(): void
     {
         $this->assertSame('Bandcamp Track Title', $this->track->title());
         $this->assertSame('Bandcamp Album Title', $this->album->title());
     }
 
-    public function testImage()
+    public function testImage(): void
     {
         $this->assertSame('https://img.example.com/bandcamp_track_thumbnail.jpg', $this->track->image());
         $this->assertSame('https://img.example.com/bandcamp_album_thumbnail.jpg', $this->album->image());
     }
 
-    public function testEmbed()
+    public function testEmbed(): void
     {
         $this->assertSame('https://bandcamp.com/EmbeddedPlayer/track=123/', $this->track->embed());
         $this->assertSame('https://bandcamp.com/EmbeddedPlayer/album=456/', $this->album->embed());

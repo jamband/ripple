@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace jamband\ripple;
 
 use stdClass;
@@ -44,16 +46,16 @@ class Vimeo
     /**
      * @return string
      */
-    public static function validUrlPattern()
+    public static function validUrlPattern(): string
     {
         return '#\Ahttps?\://(www\.)?vimeo\.com/[1-9][0-9]+\z#';
     }
 
     /**
-     * @param stdClass $content
+     * @param null|stdClass $content
      * @return null|string
      */
-    public static function id(stdClass $content = null)
+    public static function id(?stdClass $content = null): ?string
     {
         if (isset($content->video_id)) {
             return (string)$content->video_id;
@@ -62,10 +64,10 @@ class Vimeo
     }
 
     /**
-     * @param stdClass $content
+     * @param null|stdClass $content
      * @return null|string
      */
-    public static function title(stdClass $content = null)
+    public static function title(?stdClass $content = null): ?string
     {
         if (isset($content->title)) {
             return $content->title;
@@ -74,10 +76,10 @@ class Vimeo
     }
 
     /**
-     * @param stdClass $content
+     * @param null|stdClass $content
      * @return null|string
      */
-    public static function image(stdClass $content = null)
+    public static function image(?stdClass $content = null): ?string
     {
         if (isset($content->thumbnail_url)) {
             return $content->thumbnail_url;
@@ -90,7 +92,7 @@ class Vimeo
      * @param bool $hasMultiple
      * @return string
      */
-    public static function embed($id, $hasMultiple)
+    public static function embed(string $id, bool $hasMultiple): string
     {
         $embed =  'https://player.vimeo.com/video';
         return $hasMultiple ? "$embed/album/$id?rel=0" : "$embed/$id?rel=0";

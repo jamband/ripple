@@ -9,11 +9,14 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace tests;
 
 use jamband\ripple\Ripple;
+use PHPUnit\Framework\TestCase;
 
-class YouTubeTest extends \PHPUnit_Framework_TestCase
+class YouTubeTest extends TestCase
 {
     /**
      * @var Ripple
@@ -25,7 +28,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
      */
     private $playlist;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->video = new Ripple('https://www.youtube.com/watch?v=123');
         $this->video->request([CURLOPT_URL => 'http://localhost:8080/youtube_video.json']);
@@ -35,17 +38,18 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string $url
-     * @param string $isValidUrl
+     * @param null|string $url
+     * @param bool $isValidUrl
+     * @return void
      * @dataProvider validUrlPatternProvider
      */
-    public function testValidUrlPattern($url, $isValidUrl)
+    public function testValidUrlPattern(?string $url, bool $isValidUrl): void
     {
         $ripple = new Ripple($url);
         $this->assertSame($isValidUrl, $ripple->isValidUrl());
     }
 
-    public function validUrlPatternProvider()
+    public function validUrlPatternProvider(): array
     {
         return [
             // video: failure
@@ -80,25 +84,25 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testId()
+    public function testId(): void
     {
         $this->assertSame('123', $this->video->id());
         $this->assertSame('456', $this->playlist->id());
     }
 
-    public function testTitle()
+    public function testTitle(): void
     {
         $this->assertSame('YouTube Video Title', $this->video->title());
         $this->assertSame('YouTube Playlist Title', $this->playlist->title());
     }
 
-    public function testImage()
+    public function testImage(): void
     {
         $this->assertSame('youtube_video_thumbnail.jpg', $this->video->image());
         $this->assertSame('youtube_playlist_thumbnail.jpg', $this->playlist->image());
     }
 
-    public function testEmbed()
+    public function testEmbed(): void
     {
         $this->assertSame('https://www.youtube.com/embed/123?rel=0', $this->video->embed());
         $this->assertSame('https://www.youtube.com/embed/videoseries?list=456&rel=0', $this->playlist->embed());
@@ -108,7 +112,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
      * Generate YouTube like ID. (e.g. pButZ3Littk, P5xR6zWO_no, _-Hv-oThSwc)
      * @return string
      */
-    private static function id()
+    private static function id(): string
     {
         return rtrim(strtr(base64_encode(openssl_random_pseudo_bytes(8)), '+/', '-_'), '=');
     }
