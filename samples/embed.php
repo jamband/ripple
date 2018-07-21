@@ -4,7 +4,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 $url = 'https://example.bandcamp.com/track/title';
 
-// simple (set url and provider name and ID)
+// simple (set url and ID)
 $ripple = new jamband\ripple\Ripple;
 var_dump($ripple->embed($url, '12345689')); // https://bandcamp.com/EmbeddedPlayer/track=123456789/
 
