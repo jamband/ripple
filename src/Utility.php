@@ -40,16 +40,6 @@ trait Utility
 
     /**
      * @param string $url
-     * @param string $pattern
-     * @return bool
-     */
-    private static function hasMultiple(string $url, string $pattern): bool
-    {
-        return false !== strpos($url, $pattern);
-    }
-
-    /**
-     * @param string $url
      * @param array $options
      * @return null|string
      */
