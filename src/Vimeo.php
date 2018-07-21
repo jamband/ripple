@@ -60,6 +60,7 @@ class Vimeo
         if (isset($content->video_id)) {
             return (string)$content->video_id;
         }
+
         return null;
     }
 
@@ -72,6 +73,7 @@ class Vimeo
         if (isset($content->title)) {
             return $content->title;
         }
+
         return null;
     }
 
@@ -84,6 +86,7 @@ class Vimeo
         if (isset($content->thumbnail_url)) {
             return $content->thumbnail_url;
         }
+
         return null;
     }
 
@@ -95,6 +98,7 @@ class Vimeo
     public static function embed(string $id, bool $hasMultiple): string
     {
         $embed =  'https://player.vimeo.com/video';
+
         return $hasMultiple ? "$embed/album/$id?rel=0" : "$embed/$id?rel=0";
     }
 }

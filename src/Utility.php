@@ -23,6 +23,7 @@ trait Utility
 {
     /**
      * Returns the domain name from URL.
+     *
      * @param string $url
      * @return null|string
      */
@@ -33,6 +34,7 @@ trait Utility
         if (null !== $domain) {
             return implode('.', array_slice(explode('.', $domain), -2));
         }
+
         return null;
     }
 
@@ -72,6 +74,7 @@ trait Utility
         if (false !== $response) {
             return $response;
         }
+
         return null;
     }
 
@@ -84,11 +87,15 @@ trait Utility
     {
         if (null !== $content) {
             libxml_use_internal_errors(true);
+
             $dom = new DomDocument;
             $dom->loadHtml(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+
             libxml_clear_errors();
+
             return (new DomXPath($dom))->evaluate($expression) ?: null;
         }
+
         return null;
     }
 }

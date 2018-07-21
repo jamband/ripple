@@ -64,6 +64,7 @@ class YouTube
                 return array_pop($matches);
             }
         }
+
         return null;
     }
 
@@ -76,6 +77,7 @@ class YouTube
         if (isset($content->title)) {
             return $content->title;
         }
+
         return null;
     }
 
@@ -88,6 +90,7 @@ class YouTube
         if (isset($content->thumbnail_url)) {
             return $content->thumbnail_url;
         }
+
         return null;
     }
 
@@ -99,6 +102,7 @@ class YouTube
     public static function embed(string $id, bool $hasMultiple): string
     {
         $embed = 'https://www.youtube.com/embed';
+
         return $hasMultiple ? "$embed/videoseries?list=$id&rel=0" : "$embed/$id?rel=0";
     }
 }

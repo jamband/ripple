@@ -49,12 +49,15 @@ class SoundCloud
     public static function id(?string $content = null): ?string
     {
         $url = static::query($content, 'string(//meta[@property="twitter:player"]/@content)');
+
         if (null !== $url) {
             preg_match('#/(tracks|playlists)/([1-9][0-9]+)?#', rawurldecode($url), $matches);
+
             if (!empty($matches)) {
                 return array_pop($matches);
             }
         }
+
         return null;
     }
 
@@ -85,6 +88,7 @@ class SoundCloud
     public static function embed(string $id, bool $hasMultiple): string
     {
         $embed = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com';
+
         return $hasMultiple ? "$embed/playlists/$id" : "$embed/tracks/$id";
     }
 }

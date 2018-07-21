@@ -48,6 +48,7 @@ class Bandcamp
     public static function validUrlPattern(): string
     {
         $hosts = str_replace('.', '\.', implode('|', static::$hosts));
+
         return '#\Ahttps?\://([a-z0-9][a-z0-9-]+\.)?('.$hosts.')/(track|album)/[A-Za-z0-9_-]+\z#';
     }
 
@@ -58,12 +59,15 @@ class Bandcamp
     public static function id(?string $content = null): ?string
     {
         $url = static::query($content, 'string(//meta[@property="og:video"]/@content)');
+
         if (null !== $url) {
             preg_match('#(track|album)=([1-9][0-9]+)?#', $url, $matches);
+
             if (!empty($matches)) {
                 return array_pop($matches);
             }
         }
+
         return null;
     }
 
@@ -83,9 +87,11 @@ class Bandcamp
     public static function image(?string $content = null): ?string
     {
         $image = static::query($content, 'string(//meta[@property="og:image"]/@content)');
+
         if (null !== $image) {
             return preg_replace('/\Ahttp:/', 'https:', $image);
         }
+
         return null;
     }
 
@@ -97,6 +103,7 @@ class Bandcamp
     public static function embed(string $id, bool $hasMultiple): string
     {
         $embed = 'https://bandcamp.com/EmbeddedPlayer';
+
         return $hasMultiple ? "$embed/album=$id/" : "$embed/track=$id/";
     }
 }

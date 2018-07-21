@@ -45,6 +45,7 @@ class Ripple
                 if (in_array(static::domain($url), $class::$hosts, true)) {
                     $this->url = $url;
                     $this->provider = $provider;
+
                     break;
                 }
             }
@@ -61,7 +62,9 @@ class Ripple
         if (null === $this->provider) {
             return null;
         }
+
         $class = static::$providers[$this->provider];
+
         return $class::$method($this->content);
     }
 
@@ -81,7 +84,9 @@ class Ripple
         if (null === $this->provider) {
             return false;
         }
+
         $class = static::$providers[$this->provider];
+
         return (bool)preg_match($class::validUrlPattern(), $this->url);
     }
 
@@ -105,6 +110,7 @@ class Ripple
 
     /**
      * Returns HTML embed of the track.
+     *
      * @param null|string $url
      * @param null|string $provider
      * @param null|string $id
@@ -116,6 +122,7 @@ class Ripple
 
         if (isset($url, $provider, $id) && in_array($provider, static::providers(), true)) {
             $class = static::$providers[$provider];
+
             if (preg_match($class::validUrlPattern(), $url)) {
                 $embed = $class::embed($id, static::hasMultiple($url, $class::$multiplePattern));
             }
@@ -128,14 +135,17 @@ class Ripple
         if ('' === $embed) {
             return null;
         }
+
         if (isset($this->embedParams[$provider])) {
             return $embed.$this->embedParams[$provider];
         }
+
         return $embed;
     }
 
     /**
      * Sets HTML embed parameters of the track.
+     *
      * @param string[] $embedParams
      * @return void
      */
@@ -147,6 +157,7 @@ class Ripple
 
     /**
      * Returns all providers.
+     *
      * @return string[]
      */
     public static function providers(): array
