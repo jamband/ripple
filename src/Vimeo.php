@@ -25,23 +25,12 @@ use stdClass;
  */
 class Vimeo
 {
-    /**
-     * @var string[]
-     */
-    public static $hosts = [
+    public const DOMAINS = [
         'vimeo.com',
     ];
 
-    /**
-     * @var string
-     */
-    public static $multiplePattern = '/album/';
-
-    /**
-     * @var string
-     * @link https://developer.vimeo.com/apis/oembed
-     */
-    public static $endpoint = 'https://vimeo.com/api/oembed.json?url=';
+    public const MULTIPLE_PATTERN = '/album/';
+    public const ENDPOINT = 'https://vimeo.com/api/oembed.json?url=';
 
     /**
      * @return string

@@ -22,17 +22,11 @@ class SoundCloud
 {
     use Utility;
 
-    /**
-     * @var string[]
-     */
-    public static $hosts = [
+    public const DOMAINS = [
         'soundcloud.com',
     ];
 
-    /**
-     * @var string
-     */
-    public static $multiplePattern = '/sets/';
+    public const MULTIPLE_PATTERN = '/sets/';
 
     /**
      * @return string

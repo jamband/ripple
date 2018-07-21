@@ -25,23 +25,13 @@ class YouTube
 {
     use Utility;
 
-    /**
-     * @var string[]
-     */
-    public static $hosts = [
+    public const DOMAINS = [
         'youtube.com',
         'youtu.be',
     ];
 
-    /**
-     * @var string
-     */
-    public static $multiplePattern = '?list=';
-
-    /**
-     * @var string
-     */
-    public static $endpoint = 'https://www.youtube.com/oembed?url=';
+    public const MULTIPLE_PATTERN = '?list=';
+    public const ENDPOINT = 'https://www.youtube.com/oembed?url=';
 
     /**
      * @return string

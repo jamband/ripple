@@ -24,10 +24,7 @@ class Bandcamp
 {
     use Utility;
 
-    /**
-     * @var string[]
-     */
-    public static $hosts = [
+    public const DOMAINS = [
         'bandcamp.com',
         'botanicalhouse.net',
         'fikarecordings.com',
@@ -37,17 +34,14 @@ class Bandcamp
         'sunnysidezone.com',
     ];
 
-    /**
-     * @var string
-     */
-    public static $multiplePattern = '/album/';
+    public const MULTIPLE_PATTERN = '/album/';
 
     /**
      * @return string
      */
     public static function validUrlPattern(): string
     {
-        $hosts = str_replace('.', '\.', implode('|', static::$hosts));
+        $hosts = str_replace('.', '\.', implode('|', static::DOMAINS));
 
         return '#\Ahttps?\://([a-z0-9][a-z0-9-]+\.)?('.$hosts.')/(track|album)/[A-Za-z0-9_-]+\z#';
     }

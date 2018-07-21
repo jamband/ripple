@@ -23,17 +23,17 @@ class Ripple
 {
     use Utility;
 
-    private static $providers = [
-        'Bandcamp' => __NAMESPACE__.'\Bandcamp',
-        'SoundCloud' => __NAMESPACE__.'\SoundCloud',
-        'Vimeo' => __NAMESPACE__.'\Vimeo',
-        'YouTube' => __NAMESPACE__.'\YouTube',
+    protected const PROVIDERS = [
+        'Bandcamp' => Bandcamp::class,
+        'SoundCloud' => SoundCloud::class,
+        'Vimeo' => Vimeo::class,
+        'YouTube' => YouTube::class,
     ];
 
-    private $url;
-    private $provider;
     private $content;
     private $embedParams;
+    private $provider;
+    private $url;
 
     /**
      * @param null|string $url
@@ -41,8 +41,8 @@ class Ripple
     public function __construct(?string $url = null)
     {
         if (null !== $url) {
-            foreach (static::$providers as $provider => $class) {
-                if (in_array(static::domain($url), $class::$hosts, true)) {
+            foreach (static::PROVIDERS as $provider => $class) {
+                if (in_array(static::domain($url), $class::DOMAINS, true)) {
                     $this->url = $url;
                     $this->provider = $provider;
 
@@ -63,7 +63,7 @@ class Ripple
             return null;
         }
 
-        $class = static::$providers[$this->provider];
+        $class = static::PROVIDERS[$this->provider];
 
         return $class::$method($this->content);
     }
@@ -85,7 +85,7 @@ class Ripple
             return false;
         }
 
-        $class = static::$providers[$this->provider];
+        $class = static::PROVIDERS[$this->provider];
 
         return (bool)preg_match($class::validUrlPattern(), $this->url);
     }
@@ -98,10 +98,10 @@ class Ripple
     public function request(array $options = []): void
     {
         if (null !== $this->provider) {
-            $class = static::$providers[$this->provider];
+            $class = static::PROVIDERS[$this->provider];
 
-            if (isset($class::$endpoint)) {
-                $this->content = json_decode(static::http($class::$endpoint.rawurlencode($this->url), $options));
+            if (defined("$class::ENDPOINT")) {
+                $this->content = json_decode(static::http($class::ENDPOINT.rawurlencode($this->url), $options));
             } else {
                 $this->content = static::http($this->url, $options);
             }
@@ -121,15 +121,15 @@ class Ripple
         $embed = '';
 
         if (isset($url, $provider, $id) && in_array($provider, static::providers(), true)) {
-            $class = static::$providers[$provider];
+            $class = static::PROVIDERS[$provider];
 
             if (preg_match($class::validUrlPattern(), $url)) {
-                $embed = $class::embed($id, static::hasMultiple($url, $class::$multiplePattern));
+                $embed = $class::embed($id, static::hasMultiple($url, $class::MULTIPLE_PATTERN));
             }
 
         } elseif (isset($this->content)) {
-            $class = static::$providers[$this->provider];
-            $embed = $class::embed($class::id($this->content), static::hasMultiple($this->url, $class::$multiplePattern));
+            $class = static::PROVIDERS[$this->provider];
+            $embed = $class::embed($class::id($this->content), static::hasMultiple($this->url, $class::MULTIPLE_PATTERN));
         }
 
         if ('' === $embed) {
@@ -162,6 +162,6 @@ class Ripple
      */
     public static function providers(): array
     {
-        return array_keys(static::$providers);
+        return array_keys(static::PROVIDERS);
     }
 }
