@@ -13,10 +13,7 @@ declare(strict_types=1);
 
 namespace jamband\ripple;
 
-use stdClass;
-
 /**
- * Vimeo class file.
  * url pattern 1: https?://vimeo.com/{id}
  *
  * Vimeo's playlists is not implemented. The reasons are as follows:

@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace jamband\ripple;
 
 /**
- * Bandcamp class file.
  * url pattern 1: https?://{subdomain}.bandcamp.com/track/{title}
  * url pattern 2: https?://{subdomain}.bandcamp.com/album/{title}
  * url pattern 3: https?://{domain}/track/{title}

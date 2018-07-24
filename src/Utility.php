@@ -16,9 +16,6 @@ namespace jamband\ripple;
 use DomDocument;
 use DomXPath;
 
-/**
- * Utility trait file.
- */
 trait Utility
 {
     /**

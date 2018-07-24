@@ -13,10 +13,7 @@ declare(strict_types=1);
 
 namespace jamband\ripple;
 
-use stdClass;
-
 /**
- * YouTube class file.
  * url pattern 1: https?://www.youtube.com/watch?v={id}
  * url pattern 2: https?://www.youtube.com/playlist?list={id}
  * url pattern 3: https?://youtu.be/{id}

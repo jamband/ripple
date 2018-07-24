@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace jamband\ripple;
 
 /**
- * SoundCloud class file.
  * url pattern 1: https?://soundcloud.com/{account}/{title}
  * url pattern 2: https?://soundcloud.com/{account}/sets/{title}
  */
