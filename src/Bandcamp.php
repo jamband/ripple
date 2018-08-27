@@ -46,10 +46,10 @@ class Bandcamp implements ProviderInterface
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function id(?string $content): ?string
+    public static function id(string $content): ?string
     {
         $url = static::query($content, 'string(//meta[@property="og:video"]/@content)');
 
@@ -65,19 +65,19 @@ class Bandcamp implements ProviderInterface
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function title(?string $content): ?string
+    public static function title(string $content): ?string
     {
         return static::query($content, 'string(//meta[@property="og:title"]/@content)');
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function image(?string $content): ?string
+    public static function image(string $content): ?string
     {
         $image = static::query($content, 'string(//meta[@property="og:image"]/@content)');
 

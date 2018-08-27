@@ -21,22 +21,22 @@ interface ProviderInterface
     public static function validUrlPattern(): string;
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function id(?string $content): ?string;
+    public static function id(string $content): ?string;
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function title(?string $content): ?string;
+    public static function title(string $content): ?string;
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function image(?string $content): ?string;
+    public static function image(string $content): ?string;
 
     /**
      * @param string $id

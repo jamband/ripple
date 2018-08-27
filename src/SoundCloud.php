@@ -36,10 +36,10 @@ class SoundCloud implements ProviderInterface
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function id(?string $content): ?string
+    public static function id(string $content): ?string
     {
         $url = static::query($content, 'string(//meta[@property="twitter:player"]/@content)');
 
@@ -55,19 +55,19 @@ class SoundCloud implements ProviderInterface
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function title(?string $content): ?string
+    public static function title(string $content): ?string
     {
         return static::query($content, 'string(//meta[@property="og:title"]/@content)');
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function image(?string $content): ?string
+    public static function image(string $content): ?string
     {
         return static::query($content, 'string(//meta[@property="og:image"]/@content)');
     }

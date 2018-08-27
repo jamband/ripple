@@ -38,10 +38,10 @@ class Vimeo implements ProviderInterface
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function id(?string $content): ?string
+    public static function id(string $content): ?string
     {
         $content = json_decode($content);
 
@@ -53,10 +53,10 @@ class Vimeo implements ProviderInterface
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function title(?string $content): ?string
+    public static function title(string $content): ?string
     {
         $content = json_decode($content);
 
@@ -64,10 +64,10 @@ class Vimeo implements ProviderInterface
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @return null|string
      */
-    public static function image(?string $content): ?string
+    public static function image(string $content): ?string
     {
         $content = json_decode($content);
 

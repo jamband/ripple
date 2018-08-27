@@ -29,7 +29,7 @@ class Ripple
         'YouTube' => YouTube::class,
     ];
 
-    private $content;
+    private $content = '';
     private $embedParams;
     private $provider;
     private $url;
@@ -129,7 +129,7 @@ class Ripple
             }
         }
 
-        if (null !== $this->content) {
+        if ('' !== $this->content) {
             $class = static::PROVIDERS[$provider = $this->provider];
             $embed = $class::embed($class::id($this->content), $hasMultiple($this->url, $class::MULTIPLE_PATTERN));
         }

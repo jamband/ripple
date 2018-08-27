@@ -73,11 +73,19 @@ class RippleTest extends TestCase
     {
         return [
             ['unknown.html', 'https://example.com/track/title', null],
+
+            ['bandcamp_not_found.html', 'https://example.bandcamp.com/track/title', null],
             ['bandcamp_track.html', 'https://example.bandcamp.com/track/title', '123'],
             ['bandcamp_album.html', 'https://example.bandcamp.com/album/title', '456'],
+
+            ['soundcloud_not_found.html', 'https://soundcloud.com/example/title', null],
             ['soundcloud_track.html', 'https://soundcloud.com/example/title', '123'],
             ['soundcloud_playlist.html', 'https://soundcloud.com/example/sets/title', '456'],
+
+            ['vimeo_not_found.json', 'https://vimeo.com/123', null],
             ['vimeo_video.json', 'https://vimeo.com/123', '123'],
+
+            ['youtube_not_found.json', 'https://www.youtube.com/watch?v=123', null],
             ['youtube_video.json', 'https://www.youtube.com/watch?v=123', '123'],
             ['youtube_playlist.json', 'https://www.youtube.com/playlist?list=456', '456'],
         ];
