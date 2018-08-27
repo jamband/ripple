@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace jamband\ripple;
 
 use DomDocument;
+use DOMNodeList;
 use DomXPath;
 
 trait Utility
@@ -38,7 +39,7 @@ trait Utility
     /**
      * @param string $url
      * @param array $options
-     * @return null|string
+     * @return string
      */
     private static function http(string $url, array $options = []): ?string
     {
@@ -62,27 +63,26 @@ trait Utility
             return $response;
         }
 
-        return null;
+        return '';
     }
 
     /**
-     * @param null|string $content
+     * @param string $content
      * @param string $expression
-     * @return null|string
+     * @return string|DomNodeList
      */
-    private static function query(?string $content, string $expression): ?string
+    private static function query(string $content, string $expression)
     {
-        if (null !== $content) {
-            libxml_use_internal_errors(true);
+        libxml_use_internal_errors(true);
 
-            $dom = new DomDocument;
-            $dom->loadHtml(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        $dom = new DomDocument;
 
-            libxml_clear_errors();
-
-            return (new DomXPath($dom))->evaluate($expression) ?: null;
+        if ('' !== $content) {
+            $dom->loadHtml(mb_convert_encoding($content, 'HTML-ENTITIES'));
         }
 
-        return null;
+        libxml_clear_errors();
+
+        return (new DomXPath($dom))->evaluate($expression);
     }
 }
