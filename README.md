@@ -6,12 +6,12 @@ Get a track/album information from the URL.
 
 ## Requirements
 
-PHP 7.1 or later
+PHP 7.2 or later
 
 ## Installation
 
 ```
-composer require --prefer-dist jamband/ripple "^0.5"
+composer require --prefer-dist jamband/ripple "^0.6"
 ```
 
 ## Usage

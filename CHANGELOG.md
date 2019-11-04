@@ -1,5 +1,9 @@
 # Ripple Change Log
 
+## v0.6.0 - 2019.11.04
+
+- Change: Support PHP version 7.2 or later (BC break)
+
 ## v0.5.0 - 2018.07.21
 
 - Change: [#6](https://github.com/jamband/ripple/issues/6): Support PHP version 7.1 or later (BC break)
