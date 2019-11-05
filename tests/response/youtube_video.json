@@ -1,5 +1,0 @@
-{
-  "title": "YouTube Video Title",
-  "thumbnail_url": "youtube_video_thumbnail.jpg",
-  "html": "<iframe src=\"https://www.youtube.com/embed/123?feature=oembed\"></iframe>"
-}

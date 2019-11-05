@@ -20,12 +20,12 @@
   },
   "autoload": {
     "psr-4": {
-      "jamband\\ripple\\": "src"
+      "Jamband\\Ripple\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "tests\\": "tests"
+      "Tests\\": "tests"
     }
   }
 }

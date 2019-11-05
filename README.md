@@ -11,63 +11,52 @@ PHP 7.2 or later
 ## Installation
 
 ```
-composer require --prefer-dist jamband/ripple "^0.6"
+composer require jamband/ripple
 ```
 
 ## Usage
 
 ```php
 // basic
-$url = 'https://example.bandcamp.com/track/title';
-
-$ripple = new jamband\ripple\Ripple($url);
-var_dump($ripple->provider()); // Bandcamp
-var_dump($ripple->isValidUrl()); // true
-
-$ripple->request();
-var_dump($ripple->id()); // 123456789
-var_dump($ripple->title()); // Title, by Artist
-var_dump($ripple->image()); // https://img.example.com/img/1234567890.jpg
+$ripple = new Jamband\Ripple\Ripple;
+$ripple->request('https://example.bandcamp.com/track/title');
+$ripple->provider(); // Bandcamp
+$ripple->url(); // https://example.bandcamp.com/track/title
+$ripple->id(); // 123
+$ripple->title(); // Title, by Artist
+$ripple->image(); // https://img.example.com/img/123.jpg
 ```
 
 ```php
 // embed
-$url = 'https://example.bandcamp.com/track/title';
-
-$ripple = new jamband\ripple\Ripple($url);
-$ripple->request();
-
-$ripple->setEmbedParams([
-    'Bandcamp' => 'size=large/',
-]);
-$embed = $ripple->embed();
-var_dump($embed); // https://bandcamp.com/EmbeddedPlayer/track=123456789/size=large/
+$ripple = new Jamband\Ripple\Ripple;
+$ripple->options(['embed' => ['Bandcamp' => 'size=large/']]);
+$ripple->request('https://example.bandcamp.com/track/title');
+$embed = $ripple->embed(); // https://bandcamp.com/EmbeddedPlayer/track=123/size=large/
 ?>
-<iframe width="300" height="300" src="<?= $embed ?>" frameborder="0" allowfullscreen></iframe>
+<iframe width="300" height="300" src="<?= $embed ?>" allowfullscreen></iframe>
 ```
-
-And also check [some samples](https://github.com/jamband/ripple/tree/master/samples).
 
 ## Valid URLs
 
 ```
 Bandcamp:
-https?://{subdomain}.bandcamp.com/track/{title}
-https?://{subdomain}.bandcamp.com/album/{title}
+https://{subdomain}.bandcamp.com/track/{title}
+https://{subdomain}.bandcamp.com/album/{title}
 https?://{domain}/track/{title}
 https?://{domain}/album/{title}
 
 SoundCloud:
-https?://soundcloud.com/{account}/{title}
-https?://soundcloud.com/{account}/sets/{title}
+https://soundcloud.com/{account}/{title}
+https://soundcloud.com/{account}/sets/{title}
 
 Vimeo:
-https?://vimeo.com/{id}
+https://vimeo.com/{id}
 
 YouTube:
-https?://www.youtube.com/watch?v={id}
-https?://www.youtube.com/playlist?list={id}
-https?://youtu.be/{id}
+https://www.youtube.com/watch?v={id}
+https://www.youtube.com/playlist?list={id}
+https://youtu.be/{id}
 ```
 
 ## Supported Providers

@@ -11,159 +11,123 @@
 
 declare(strict_types=1);
 
-namespace jamband\ripple;
+namespace Jamband\Ripple;
+
+use Jamband\Ripple\Providers\ProviderInterface;
 
 /**
- * @method null|string id()
- * @method null|string title()
- * @method null|string image()
+ * @method string|null url()
+ * @method string|null id()
+ * @method string|null title()
+ * @method string|null image()
  */
 class Ripple
 {
-    use Utility;
+    protected const BANDCAMP_HOSTS =
+        'bandcamp\.com|'.
+        'fikarecordings\.com|'.
+        'mamabirdrecordingco\.com|'.
+        'maybemars\.org|'.
+        'souterraine\.biz';
 
-    protected const PROVIDERS = [
-        'Bandcamp' => Bandcamp::class,
-        'SoundCloud' => SoundCloud::class,
-        'Vimeo' => Vimeo::class,
-        'YouTube' => YouTube::class,
+    protected const PATTERNS = [
+        Providers\Bandcamp::class => 'https?://([a-z0-9-]+\.)?('.self::BANDCAMP_HOSTS.')/(track|album)/[\w-]+',
+        Providers\SoundCloud::class => 'https://soundcloud\.com/[\w-]+/(sets/)?[\w-]+',
+        Providers\Vimeo::class => 'https://vimeo\.com/[0-9]+',
+        Providers\YouTube::class => 'https://(www\.)?(youtube\.com/watch\?v=|youtube\.com/playlist\?list=|youtu\.be/)[\w-]+',
     ];
 
-    private $content = '';
-    private $embedParams;
+    private $options = [];
     private $provider;
-    private $url;
 
     /**
-     * @param null|string $url
+     * @param array $options
+     * @return void
      */
-    public function __construct(?string $url = null)
+    public function options(array $options): void
     {
-        if (null !== $url) {
-            foreach (static::PROVIDERS as $provider => $class) {
-                if (in_array(static::domain($url), $class::DOMAINS, true)) {
-                    $this->url = $url;
-                    $this->provider = $provider;
+        $this->options = $options;
+    }
 
-                    break;
-                }
+    /**
+     * @param string $url
+     * @return void
+     */
+    public function request(string $url): void
+    {
+        foreach (static::PATTERNS as $provider => $pattern) {
+            if (preg_match('#\A'.$pattern.'\z#', $url)) {
+                $this->provider = new $provider($url, $this->options);
+
+                break;
             }
         }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function provider(): ?string
+    {
+        if ($this->provider instanceof ProviderInterface) {
+            return static::classShortName(get_class($this->provider));
+        }
+
+        return null;
     }
 
     /**
      * @param string $method
      * @param array $args
-     * @return null|string
+     * @return string|null
      */
     public function __call(string $method, array $args): ?string
     {
-        if (null === $this->provider) {
-            return null;
+        if ($this->provider instanceof ProviderInterface) {
+            return $this->provider->$method();
         }
 
-        $class = static::PROVIDERS[$this->provider];
-
-        return $class::$method($this->content);
+        return null;
     }
 
     /**
-     * @return null|string
-     */
-    public function provider(): ?string
-    {
-        return $this->provider;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isValidUrl(): bool
-    {
-        if (null === $this->provider) {
-            return false;
-        }
-
-        $class = static::PROVIDERS[$this->provider];
-
-        return (bool)preg_match($class::validUrlPattern(), $this->url);
-    }
-
-    /**
-     * @param array $options Set multiple options for a cURL transfer
-     * @return void
-     * @link http://php.net/manual/en/function.curl-setopt.php
-     */
-    public function request(array $options = []): void
-    {
-        if (null !== $this->provider) {
-            $class = static::PROVIDERS[$this->provider];
-
-            if (defined("$class::ENDPOINT")) {
-                $this->content = static::http($class::ENDPOINT.rawurlencode($this->url), $options);
-            } else {
-                $this->content = static::http($this->url, $options);
-            }
-        }
-    }
-
-    /**
-     * Returns HTML embed of the track.
-     *
-     * @param null|string $url
-     * @param null|string $id
-     * @return null|string
+     * @param string|null $url
+     * @param string|null $id
+     * @return string|null
      */
     public function embed(?string $url = null, ?string $id = null): ?string
     {
-        $hasMultiple = function (string $url, string $pattern): bool {
-            return false !== strpos($url, $pattern);
-        };
-
         if (isset($url, $id)) {
-            $ripple = new static($url);
-
-            if (null !== $ripple->provider) {
-                $class = static::PROVIDERS[$provider = $ripple->provider];
-                $embed = $class::embed($id, $hasMultiple($url, $class::MULTIPLE_PATTERN));
-            }
+            $this->request($url);
         }
 
-        if ('' !== $this->content) {
-            $class = static::PROVIDERS[$provider = $this->provider];
-            $embed = $class::embed($class::id($this->content), $hasMultiple($this->url, $class::MULTIPLE_PATTERN));
+        if ($this->provider instanceof ProviderInterface) {
+            return $this->provider->embed($url, $id);
         }
 
-        if (!isset($embed, $provider)) {
-            return null;
-        }
-
-        if (isset($this->embedParams[$provider])) {
-            return $embed.$this->embedParams[$provider];
-        }
-
-        return $embed;
+        return null;
     }
 
     /**
-     * Sets HTML embed parameters of the track.
-     *
-     * @param string[] $embedParams
-     * @return void
-     */
-    public function setEmbedParams(array $embedParams = []): void
-    {
-        $this->embedParams = $embedParams;
-
-    }
-
-    /**
-     * Returns all providers.
-     *
      * @return string[]
      */
     public static function providers(): array
     {
-        return array_keys(static::PROVIDERS);
+        $providers = [];
+
+        foreach (array_keys(static::PATTERNS) as $provider) {
+            $providers[] = static::classShortName($provider);
+        }
+
+        return $providers;
+    }
+
+    /**
+     * @param string $path
+     * @return string
+     */
+    private static function classShortName(string $path): string
+    {
+        return basename(str_replace('\\', '/', $path));
     }
 }
