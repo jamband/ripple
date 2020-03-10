@@ -1,8 +1,12 @@
 # Ripple Change Log
 
+## v0.8.0 - 2020.03.10
+
+- Add: CURLOPT_TCP_FASTOPEN option in Provider.php [6a53aa3](https://github.com/jamband/ripple/commit/6a53aa3cf4ad3d2a063bf20c95485cefc9b284c8)
+
 ## v0.7.0 - 2019.11.05
 
-- Change: [#8](https://github.com/jamband/ripple/issues/8): Major changes in API (BC break)
+- Change: Major changes in API (BC break) [#8](https://github.com/jamband/ripple/issues/8)
 
 ## v0.6.0 - 2019.11.04
 
@@ -10,5 +14,5 @@
 
 ## v0.5.0 - 2018.07.21
 
-- Change: [#6](https://github.com/jamband/ripple/issues/6): Support PHP version 7.1 or later (BC break)
-- Change: [#7](https://github.com/jamband/ripple/issues/7): Change arguments of Ripple::embed() method (BC break)
+- Change: Support PHP version 7.1 or later (BC break) [#6](https://github.com/jamband/ripple/issues/6)
+- Change: Change arguments of Ripple::embed() method (BC break) [#7](https://github.com/jamband/ripple/issues/7)
