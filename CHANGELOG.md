@@ -1,5 +1,9 @@
 # Ripple Change Log
 
+## v0.9.0 - 2020.12.24
+
+- Change: Support PHP version 7.3 or later (BC break)
+
 ## v0.8.0 - 2020.03.10
 
 - Add: CURLOPT_TCP_FASTOPEN option in Provider.php [6a53aa3](https://github.com/jamband/ripple/commit/6a53aa3cf4ad3d2a063bf20c95485cefc9b284c8)
