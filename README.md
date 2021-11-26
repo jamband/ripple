@@ -6,7 +6,7 @@ Get a track/album information from the URL.
 
 ## Requirements
 
-PHP 7.3 or later
+PHP 7.4 or later
 
 ## Installation
 
