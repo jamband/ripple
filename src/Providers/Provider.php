@@ -18,9 +18,9 @@ use DOMXPath;
 
 class Provider
 {
-    protected $url;
-    protected $options;
-    protected $response;
+    protected string $url;
+    protected array $options;
+    protected ?string $response;
 
     /**
      * @param string $url

@@ -37,8 +37,8 @@ class Ripple
         Providers\YouTube::class => 'https://(www\.)?(youtube\.com/watch\?v=|youtube\.com/playlist\?list=|youtu\.be/)[\w-]+',
     ];
 
-    private $options = [];
-    private $provider;
+    private array $options = [];
+    private ?ProviderInterface $provider = null;
 
     /**
      * @param array $options
