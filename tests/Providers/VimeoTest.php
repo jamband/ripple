@@ -20,27 +20,24 @@ class VimeoTest extends TestCase
 {
     private const URL_TRACK = 'https://vimeo.com/123';
 
-    public function testUrl(): void
+    public function testUrlWithTrackUrl(): void
     {
-        // track
         $ripple = new Ripple;
         $ripple->options(['response' => '']);
         $ripple->request(self::URL_TRACK);
         $this->assertSame(self::URL_TRACK, $ripple->url());
     }
 
-    public function testId(): void
+    public function testIdWithTrackUrl(): void
     {
-        // track
         $ripple = new Ripple;
         $ripple->options(['response' => '']);
         $ripple->request(self::URL_TRACK);
         $this->assertSame('123', $ripple->id());
     }
 
-    public function testTitle(): void
+    public function testTitleWithTrackUrl(): void
     {
-        // track
         $ripple = new Ripple;
         $response = json_encode(['title' => 'Foo Title']);
         $ripple->options(['response' => $response]);
@@ -48,9 +45,8 @@ class VimeoTest extends TestCase
         $this->assertSame('Foo Title', $ripple->title());
     }
 
-    public function testImage(): void
+    public function testImageWithTrackUrl(): void
     {
-        // track
         $ripple = new Ripple;
         $response = json_encode(['thumbnail_url' => 'https://image.example.com/123.jpg']);
         $ripple->options(['response' => $response]);
@@ -58,28 +54,33 @@ class VimeoTest extends TestCase
         $this->assertSame('https://image.example.com/123.jpg', $ripple->image());
     }
 
-    public function testEmbed(): void
+    public function testEmbedWithTrackUrl(): void
     {
-        // track
         $ripple = new Ripple;
         $response = json_encode(['video_id' => 123]);
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK);
         $this->assertSame('https://player.vimeo.com/video/123?rel=0', $ripple->embed());
+    }
 
-        // track with options
+    public function testEmbedWithTrackUrlAndOptions(): void
+    {
         $ripple = new Ripple;
         $response = json_encode(['video_id' => 123]);
         $ripple->options(['response' => $response, 'embed' => ['Vimeo' => 'autoplay=1']]);
         $ripple->request(self::URL_TRACK);
         $this->assertSame('https://player.vimeo.com/video/123?rel=0&autoplay=1', $ripple->embed());
+    }
 
-        // track with arguments
+    public function testEmbedWithTrackUrlAndArguments(): void
+    {
         $ripple = new Ripple;
         $ripple->options(['response' => '']);
         $this->assertSame('https://player.vimeo.com/video/123?rel=0', $ripple->embed(self::URL_TRACK, '123'));
+    }
 
-        // track with options and arguments
+    public function testEmbedWithTrackUrlAndOptionsAndArguments(): void
+    {
         $ripple = new Ripple;
         $ripple->options(['response' => '', 'embed' => ['Vimeo' => 'autoplay=1']]);
         $this->assertSame('https://player.vimeo.com/video/123?rel=0&autoplay=1', $ripple->embed(self::URL_TRACK, '123'));
