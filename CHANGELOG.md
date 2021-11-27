@@ -1,5 +1,9 @@
 # Ripple Change Log
 
+## v0.10.1 - 2021.11.27
+
+- Add: Add some property types [b862b47](https://github.com/jamband/ripple/commit/b862b476fd3291c74a928e4203bbe59fad2660ec)
+
 ## v0.10.0 - 2021.11.26
 
 - Change: Support PHP version 7.4 or later (BC break)
