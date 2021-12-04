@@ -20,7 +20,7 @@ class Provider
 {
     protected string $url;
     protected array $options;
-    protected ?string $response;
+    protected ?string $response = null;
 
     /**
      * @param string $url
