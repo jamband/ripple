@@ -1,5 +1,9 @@
 # Ripple Change Log
 
+## v0.10.2 - 2021.12.04
+
+- Fix: Set the initial value to $response [a0df3ec](https://github.com/jamband/ripple/commit/a0df3ec73f1b1f1454821cb8153233846e7d8a87)
+
 ## v0.10.1 - 2021.11.27
 
 - Add: Add some property types [b862b47](https://github.com/jamband/ripple/commit/b862b476fd3291c74a928e4203bbe59fad2660ec)
