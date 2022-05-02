@@ -70,7 +70,7 @@ class Ripple
     public function provider(): ?string
     {
         if ($this->provider instanceof ProviderInterface) {
-            return static::classShortName(get_class($this->provider));
+            return basename(str_replace('\\', '/', get_class($this->provider)));
         }
 
         return null;
@@ -116,18 +116,9 @@ class Ripple
         $providers = [];
 
         foreach (array_keys(static::PATTERNS) as $provider) {
-            $providers[] = static::classShortName($provider);
+            $providers[] = basename(str_replace('\\', '/', $provider));
         }
 
         return $providers;
-    }
-
-    /**
-     * @param string $path
-     * @return string
-     */
-    private static function classShortName(string $path): string
-    {
-        return basename(str_replace('\\', '/', $path));
     }
 }
