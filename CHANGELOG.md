@@ -1,5 +1,10 @@
 # Ripple Change Log
 
+## v0.10.3 - 2022.05.02
+
+- Chore: Remove unnecessary some methods [fc7c798](https://github.com/jamband/ripple/commit/fc7c798ab6b4efd7e9dcaece9336f11fb0404338)
+- Chore: Update some github actions [96d1c61](https://github.com/jamband/ripple/commit/96d1c617ced48f22ccf604ebc38f6db87f7da8b5)
+
 ## v0.10.2 - 2021.12.04
 
 - Fix: Set the initial value to $response [a0df3ec](https://github.com/jamband/ripple/commit/a0df3ec73f1b1f1454821cb8153233846e7d8a87)
