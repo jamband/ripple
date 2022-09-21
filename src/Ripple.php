@@ -31,7 +31,7 @@ class Ripple
         'souterraine\.biz';
 
     protected const PATTERNS = [
-        Providers\Bandcamp::class => 'https?://([a-z0-9-]+\.)?('.self::BANDCAMP_HOSTS.')/(track|album)/[\w-]+',
+        Providers\Bandcamp::class => 'https?://([a-z0-9-]+\.)?('.self::BANDCAMP_HOSTS.')/((track|album)/[\w-]+|releases)',
         Providers\SoundCloud::class => 'https://soundcloud\.com/[\w-]+/(sets/)?[\w-]+',
         Providers\Vimeo::class => 'https://vimeo\.com/[0-9]+',
         Providers\YouTube::class => 'https://(www\.)?(youtube\.com/watch\?v=|youtube\.com/playlist\?list=|youtu\.be/)[\w-]+',

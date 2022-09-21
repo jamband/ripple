@@ -16,8 +16,10 @@ namespace Jamband\Ripple\Providers;
 /**
  * url pattern 1: https://{subdomain}.bandcamp.com/track/{title}
  * url pattern 2: https://{subdomain}.bandcamp.com/album/{title}
- * url pattern 3: https?://{domain}/track/{title}
- * url pattern 4: https?://{domain}/album/{title}
+ * url pattern 3: https://{subdomain}.bandcamp.com/releases
+ * url pattern 4: https?://{domain}/track/{title}
+ * url pattern 5: https?://{domain}/album/{title}
+ * url pattern 6: https?://{domain}/releases
  */
 final class Bandcamp extends Provider implements ProviderInterface
 {

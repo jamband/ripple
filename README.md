@@ -43,8 +43,10 @@ $embed = $ripple->embed(); // https://bandcamp.com/EmbeddedPlayer/track=123/size
 Bandcamp:
 https://{subdomain}.bandcamp.com/track/{title}
 https://{subdomain}.bandcamp.com/album/{title}
+https://{subdomain}.bandcamp.com/releases
 https?://{domain}/track/{title}
 https?://{domain}/album/{title}
+https?://{domain}/releases
 
 SoundCloud:
 https://soundcloud.com/{account}/{title}

@@ -20,6 +20,7 @@ class BandcampTest extends TestCase
 {
     private const URL_TRACK = 'https://foo.bandcamp.com/track/title';
     private const URL_ALBUM = 'https://foo.bandcamp.com/album/title';
+    private const URL_RELEASES = 'https://foo.bandcamp.com/releases';
 
     public function testUrlWithTrackUrl(): void
     {
@@ -35,6 +36,14 @@ class BandcampTest extends TestCase
         $ripple->options(['response' => '']);
         $ripple->request(self::URL_ALBUM);
         $this->assertSame(self::URL_ALBUM, $ripple->url());
+    }
+
+    public function testUrlWithReleasesUrl(): void
+    {
+        $ripple = new Ripple;
+        $ripple->options(['response' => '']);
+        $ripple->request(self::URL_RELEASES);
+        $this->assertSame(self::URL_RELEASES, $ripple->url());
     }
 
     public function testIdWithTrackUrl(): void
