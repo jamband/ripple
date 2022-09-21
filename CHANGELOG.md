@@ -1,5 +1,9 @@
 # Ripple Change Log
 
+## v0.11.0 - 2022.09.21
+
+- Add: support the /releases path for bandcamp [9f0dc96](https://github.com/jamband/ripple/commit/9f0dc960eb3f2a6145a8de707bd1b48eceefe28c)
+
 ## v0.10.3 - 2022.05.02
 
 - Chore: Remove unnecessary some methods [fc7c798](https://github.com/jamband/ripple/commit/fc7c798ab6b4efd7e9dcaece9336f11fb0404338)
