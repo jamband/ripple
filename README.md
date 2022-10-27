@@ -37,6 +37,24 @@ $embed = $ripple->embed(); // https://bandcamp.com/EmbeddedPlayer/track=123/size
 <iframe width="300" height="300" src="<?= $embed ?>" allowfullscreen></iframe>
 ```
 
+```php
+// custom curl options
+$ripple = new Jamband\Ripple\Ripple;
+$ripple->options(['curl' => [
+    // CURLOPT_TIMEOUT => 8,
+    // CURLOPT_USERAGENT => '...',
+    // ...
+]]);
+$ripple->request('https://example.bandcamp.com/track/title');
+```
+
+```php
+// mock response
+$ripple = new Jamband\Ripple\Ripple;
+$ripple->options(['response' => '...']);
+$ripple->request('https://example.bandcamp.com/track/title');
+```
+
 ## Valid URLs
 
 ```
