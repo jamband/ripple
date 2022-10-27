@@ -47,7 +47,6 @@ class Provider
                 CURLOPT_FAILONERROR => true,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_TCP_FASTOPEN => true,
                 CURLOPT_TIMEOUT => 10,
                 CURLOPT_URL => $url,
                 CURLOPT_USERAGENT => 'Jamband/Ripple BrowserKit',
