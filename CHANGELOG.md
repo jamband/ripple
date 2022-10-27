@@ -1,5 +1,10 @@
 # Ripple Change Log
 
+## v0.12.0 - 2022.10.27
+
+- Change: remove CURLOPT_TCP_FASTOPEN option [d24bbdf](https://github.com/jamband/ripple/commit/d24bbdf2d0f2054110733c8465e49fd2c6c1c53e)
+- Chore: add some more usage [d2adc9e](https://github.com/jamband/ripple/commit/d2adc9ee71d276ff3970a10e5f93662c50e14bd3)
+
 ## v0.11.0 - 2022.09.21
 
 - Add: support the /releases path for bandcamp [9f0dc96](https://github.com/jamband/ripple/commit/9f0dc960eb3f2a6145a8de707bd1b48eceefe28c)
