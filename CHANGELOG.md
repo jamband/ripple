@@ -1,6 +1,6 @@
 # Ripple Change Log
 
-## v0.13.0 - 2022.10.27
+## v0.13.0 - 2022.11.28
 
 - Change: drop support for php 7.4 (BC break) [4b92b21](https://github.com/jamband/ripple/commit/4b92b212a37932c465ddac8a36edb6c0c57d9ecf)
 
