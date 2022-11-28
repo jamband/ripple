@@ -1,5 +1,13 @@
 # Ripple Change Log
 
+## v0.13.1 - 2022.11.28
+
+- Fix: fix release date for v0.13.0 [7e5aa63](https://github.com/jamband/ripple/commit/7e5aa63cceeec9d00cfe7d9f394da2d40fd6c1de)
+- Fix: use str_contains instead of strpos [52b490f](https://github.com/jamband/ripple/commit/52b490f9ea58520430fa55dd55d64e9a3a82aa62)
+- Add: add php cs fixer [71ba6cb](https://github.com/jamband/ripple/commit/71ba6cb094e0ae97e2a0911708c09322cb91e26d)
+- Add: add phpstan [2304f9c](https://github.com/jamband/ripple/commit/2304f9c18b0e0bd9bed422a2bf3c5d5a97033ff8)
+- Chore: add bc break comment in CHANGELOG.md [60027fe](https://github.com/jamband/ripple/commit/60027fe4659ce8b5b4b169f9db3502699456b69d)
+
 ## v0.13.0 - 2022.11.28
 
 - Change: drop support for php 7.4 (BC break) [4b92b21](https://github.com/jamband/ripple/commit/4b92b212a37932c465ddac8a36edb6c0c57d9ecf)
