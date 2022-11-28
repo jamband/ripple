@@ -1,11 +1,11 @@
-name: tests
+name: ci
 
 on:
   push:
   pull_request:
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: true
@@ -37,5 +37,11 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-interaction --no-progress
 
-      - name: Execute tests
+      - name: Run tests
         run: vendor/bin/phpunit --verbose
+
+      - name: Run format
+        run: composer format
+
+      - name: Run analyse
+        run: composer analyse
