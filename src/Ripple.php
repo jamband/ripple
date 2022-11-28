@@ -38,21 +38,13 @@ class Ripple
     ];
 
     private array $options = [];
-    private ?ProviderInterface $provider = null;
+    private ProviderInterface|null $provider = null;
 
-    /**
-     * @param array $options
-     * @return void
-     */
     public function options(array $options): void
     {
         $this->options = $options;
     }
 
-    /**
-     * @param string $url
-     * @return void
-     */
     public function request(string $url): void
     {
         foreach (static::PATTERNS as $provider => $pattern) {
@@ -64,10 +56,7 @@ class Ripple
         }
     }
 
-    /**
-     * @return string|null
-     */
-    public function provider(): ?string
+    public function provider(): string|null
     {
         if ($this->provider instanceof ProviderInterface) {
             return basename(str_replace('\\', '/', get_class($this->provider)));
@@ -76,12 +65,7 @@ class Ripple
         return null;
     }
 
-    /**
-     * @param string $method
-     * @param array $args
-     * @return string|null
-     */
-    public function __call(string $method, array $args): ?string
+    public function __call(string $method, array $args): string|null
     {
         if ($this->provider instanceof ProviderInterface) {
             return $this->provider->$method();
@@ -90,12 +74,7 @@ class Ripple
         return null;
     }
 
-    /**
-     * @param string|null $url
-     * @param string|null $id
-     * @return string|null
-     */
-    public function embed(?string $url = null, ?string $id = null): ?string
+    public function embed(string|null $url = null, string|null $id = null): string|null
     {
         if (isset($url, $id)) {
             $this->request($url);
@@ -108,9 +87,6 @@ class Ripple
         return null;
     }
 
-    /**
-     * @return string[]
-     */
     public static function providers(): array
     {
         $providers = [];

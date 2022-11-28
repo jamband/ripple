@@ -19,18 +19,12 @@ namespace Jamband\Ripple\Providers;
  */
 final class SoundCloud extends Provider implements ProviderInterface
 {
-    /**
-     * @return string
-     */
     public function url(): string
     {
         return $this->url;
     }
 
-    /**
-     * @return string|null
-     */
-    public function id(): ?string
+    public function id(): string|null
     {
         $this->request($this->url);
         $content = $this->query('//meta[@property="twitter:player"]/@content');
@@ -42,32 +36,21 @@ final class SoundCloud extends Provider implements ProviderInterface
         return $matches['id'] ?? null;
     }
 
-    /**
-     * @return string|null
-     */
-    public function title(): ?string
+    public function title(): string|null
     {
         $this->request($this->url);
 
         return $this->query('//meta[@property="og:title"]/@content');
     }
 
-    /**
-     * @return string|null
-     */
-    public function image(): ?string
+    public function image(): string|null
     {
         $this->request($this->url);
 
         return $this->query('//meta[@property="og:image"]/@content');
     }
 
-    /**
-     * @param string|null $url
-     * @param string|null $id
-     * @return string
-     */
-    public function embed(?string $url = null, ?string $id = null): string
+    public function embed(string|null $url = null, string|null $id = null): string
     {
         if (!isset($url, $id)) {
             $this->request($this->url);

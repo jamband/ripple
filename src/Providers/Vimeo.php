@@ -24,28 +24,19 @@ final class Vimeo extends Provider implements ProviderInterface
 {
     private const ENDPOINT = 'https://vimeo.com/api/oembed.json?url=';
 
-    /**
-     * @return string
-     */
     public function url(): string
     {
         return $this->url;
     }
 
-    /**
-     * @return string|null
-     */
-    public function id(): ?string
+    public function id(): string|null
     {
         [$id] = explode('/', trim(parse_url($this->url, PHP_URL_PATH), '/'));
 
         return $id ?? null;
     }
 
-    /**
-     * @return string|null
-     */
-    public function title(): ?string
+    public function title(): string|null
     {
         $this->request(self::ENDPOINT.rawurlencode($this->url));
 
@@ -58,10 +49,7 @@ final class Vimeo extends Provider implements ProviderInterface
         return null;
     }
 
-    /**
-     * @return string|null
-     */
-    public function image(): ?string
+    public function image(): string|null
     {
         $this->request(self::ENDPOINT.rawurlencode($this->url));
 
@@ -74,12 +62,7 @@ final class Vimeo extends Provider implements ProviderInterface
         return null;
     }
 
-    /**
-     * @param string|null $url
-     * @param string|null $id
-     * @return string
-     */
-    public function embed(?string $url = null, ?string $id = null): string
+    public function embed(string|null $url = null, string|null $id = null): string
     {
         if (!isset($id)) {
             $this->request($this->url);

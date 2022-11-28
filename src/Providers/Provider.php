@@ -18,23 +18,14 @@ use DOMXPath;
 
 class Provider
 {
-    protected string $url;
-    protected array $options;
-    protected ?string $response = null;
+    protected string|null $response = null;
 
-    /**
-     * @param string $url
-     * @param array $options
-     */
-    public function __construct(string $url, array $options)
-    {
-        $this->url = $url;
-        $this->options = $options;
+    public function __construct(
+        protected string $url,
+        protected array $options,
+    ) {
     }
 
-    /**
-     * @param string $url
-     */
     protected function request(string $url): void
     {
         if (isset($this->options['response']) && is_string($this->options['response'])) {
@@ -67,11 +58,7 @@ class Provider
         }
     }
 
-    /**
-     * @param string $expression
-     * @return string|null
-     */
-    protected function query(string $expression): ?string
+    protected function query(string $expression): string|null
     {
         libxml_use_internal_errors(true);
 

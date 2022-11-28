@@ -15,30 +15,13 @@ namespace Jamband\Ripple\Providers;
 
 interface ProviderInterface
 {
-    /**
-     * @return string
-     */
     public function url(): string;
 
-    /**
-     * @return string|null
-     */
-    public function id(): ?string;
+    public function id(): string|null;
 
-    /**
-     * @return string|null
-     */
-    public function title(): ?string;
+    public function title(): string|null;
 
-    /**
-     * @return string|null
-     */
-    public function image(): ?string;
+    public function image(): string|null;
 
-    /**
-     * @param string|null $url
-     * @param string|null $id
-     * @return string|null
-     */
-    public function embed(?string $url = null, ?string $id = null): ?string;
+    public function embed(string|null $url = null, string|null $id = null): string|null;
 }
