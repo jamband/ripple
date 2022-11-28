@@ -58,7 +58,7 @@ final class SoundCloud extends Provider implements ProviderInterface
             $id = $this->id();
         }
 
-        $type = false !== strpos($url, '/sets/') ? 'playlists' : 'tracks';
+        $type = str_contains($url, '/sets/') ? 'playlists' : 'tracks';
 
         $options = '';
         if (isset($this->options['embed']['SoundCloud'])) {

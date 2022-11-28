@@ -109,7 +109,7 @@ final class YouTube extends Provider implements ProviderInterface
 
         $embed = 'https://www.youtube.com/embed';
 
-        if (false !== strpos($url, '?list=')) {
+        if (str_contains($url, '?list=')) {
             return "$embed/videoseries?list=$id&rel=0$options";
         }
 

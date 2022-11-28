@@ -67,7 +67,7 @@ final class Bandcamp extends Provider implements ProviderInterface
             $id = $this->id();
         }
 
-        $type = false !== strpos($url, '/album/') ? 'album' : 'track';
+        $type = str_contains($url, '/album/') ? 'album' : 'track';
         $options = $this->options['embed']['Bandcamp'] ?? '';
 
         return "https://bandcamp.com/EmbeddedPlayer/$type=$id/$options";
