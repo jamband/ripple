@@ -33,7 +33,6 @@ class Provider
     {
         if (isset($this->options['response']) && is_string($this->options['response'])) {
             $this->response = $this->options['response'];
-
         } elseif (null === $this->response) {
             $options = [
                 CURLOPT_CONNECTTIMEOUT => 10,
@@ -66,7 +65,7 @@ class Provider
     {
         libxml_use_internal_errors(true);
 
-        $dom = new DOMDocument;
+        $dom = new DOMDocument();
         $dom->preserveWhiteSpace = false;
 
         if (null !== $this->response && '' !== $this->response) {

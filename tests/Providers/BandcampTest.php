@@ -24,7 +24,7 @@ class BandcampTest extends TestCase
 
     public function testUrlWithTrackUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->options(['response' => '']);
         $ripple->request(self::URL_TRACK);
         $this->assertSame(self::URL_TRACK, $ripple->url());
@@ -32,7 +32,7 @@ class BandcampTest extends TestCase
 
     public function testUrlWithAlbumUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->options(['response' => '']);
         $ripple->request(self::URL_ALBUM);
         $this->assertSame(self::URL_ALBUM, $ripple->url());
@@ -40,7 +40,7 @@ class BandcampTest extends TestCase
 
     public function testUrlWithReleasesUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->options(['response' => '']);
         $ripple->request(self::URL_RELEASES);
         $this->assertSame(self::URL_RELEASES, $ripple->url());
@@ -48,7 +48,7 @@ class BandcampTest extends TestCase
 
     public function testIdWithTrackUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/track=123/">';
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK);
@@ -57,7 +57,7 @@ class BandcampTest extends TestCase
 
     public function testIdWithAlbumUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/album=456/">';
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_ALBUM);
@@ -66,7 +66,7 @@ class BandcampTest extends TestCase
 
     public function testTitleWithTrackUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:title" content="Foo Title">';
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK);
@@ -75,7 +75,7 @@ class BandcampTest extends TestCase
 
     public function testTitleWithAlbumUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:title" content="Foo Album">';
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_ALBUM);
@@ -84,7 +84,7 @@ class BandcampTest extends TestCase
 
     public function testImageWithTrackUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:image" content="https://image.example.com/123.jpg">';
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK);
@@ -93,7 +93,7 @@ class BandcampTest extends TestCase
 
     public function testImageWithAlbumUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:image" content="https://image.example.com/456.jpg">';
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_ALBUM);
@@ -102,7 +102,7 @@ class BandcampTest extends TestCase
 
     public function testEmbedWithTrackUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/track=123/">';
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK);
@@ -111,7 +111,7 @@ class BandcampTest extends TestCase
 
     public function testEmbedWithAlbumUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/album=456/">';
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_ALBUM);
@@ -120,7 +120,7 @@ class BandcampTest extends TestCase
 
     public function testEmbedWithTrackUrlAndOptions(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/track=123/">';
         $ripple->options(['response' => $response, 'embed' => ['Bandcamp' => 'size=large/']]);
         $ripple->request(self::URL_TRACK);
@@ -129,7 +129,7 @@ class BandcampTest extends TestCase
 
     public function testEmbedWithAlbumUrlAndOptions(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/album=456/">';
         $ripple->options(['response' => $response, 'embed' => ['Bandcamp' => 'size=large/']]);
         $ripple->request(self::URL_ALBUM);
@@ -138,28 +138,28 @@ class BandcampTest extends TestCase
 
     public function testEmbedWithTrackUrlAndArguments(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->options(['response' => '']);
         $this->assertSame('https://bandcamp.com/EmbeddedPlayer/track=123/', $ripple->embed(self::URL_TRACK, '123'));
     }
 
     public function testEmbedWithAlbumUrlAndArguments(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->options(['response' => '']);
         $this->assertSame('https://bandcamp.com/EmbeddedPlayer/album=456/', $ripple->embed(self::URL_ALBUM, '456'));
     }
 
     public function testEmbedWithTrackAndOptionsAndArguments(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->options(['response' => '', 'embed' => ['Bandcamp' => 'size=large/']]);
         $this->assertSame('https://bandcamp.com/EmbeddedPlayer/track=123/size=large/', $ripple->embed(self::URL_TRACK, '123'));
     }
 
     public function testEmbedWithAlbumAndOptionsAndArguments(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->options(['response' => '', 'embed' => ['Bandcamp' => 'size=large/']]);
         $this->assertSame('https://bandcamp.com/EmbeddedPlayer/album=456/size=large/', $ripple->embed(self::URL_ALBUM, '456'));
     }

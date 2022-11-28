@@ -18,7 +18,7 @@ composer require jamband/ripple
 
 ```php
 // basic
-$ripple = new Jamband\Ripple\Ripple;
+$ripple = new Jamband\Ripple\Ripple();
 $ripple->request('https://example.bandcamp.com/track/title');
 $ripple->provider(); // Bandcamp
 $ripple->url(); // https://example.bandcamp.com/track/title
@@ -29,7 +29,7 @@ $ripple->image(); // https://img.example.com/img/123.jpg
 
 ```php
 // embed
-$ripple = new Jamband\Ripple\Ripple;
+$ripple = new Jamband\Ripple\Ripple();
 $ripple->options(['embed' => ['Bandcamp' => 'size=large/']]);
 $ripple->request('https://example.bandcamp.com/track/title');
 $embed = $ripple->embed(); // https://bandcamp.com/EmbeddedPlayer/track=123/size=large/
@@ -39,7 +39,7 @@ $embed = $ripple->embed(); // https://bandcamp.com/EmbeddedPlayer/track=123/size
 
 ```php
 // custom curl options
-$ripple = new Jamband\Ripple\Ripple;
+$ripple = new Jamband\Ripple\Ripple();
 $ripple->options(['curl' => [
     // CURLOPT_TIMEOUT => 8,
     // CURLOPT_USERAGENT => '...',
@@ -50,7 +50,7 @@ $ripple->request('https://example.bandcamp.com/track/title');
 
 ```php
 // mock response
-$ripple = new Jamband\Ripple\Ripple;
+$ripple = new Jamband\Ripple\Ripple();
 $ripple->options(['response' => '...']);
 $ripple->request('https://example.bandcamp.com/track/title');
 ```

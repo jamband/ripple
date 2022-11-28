@@ -20,7 +20,7 @@ class RippleTest extends TestCase
 {
     public function testOptionsWithEmptyStringResponse(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->options(['response' => '']);
         $ripple->request('https://foo.bandcamp.com/track/title');
         $this->assertNull($ripple->id());
@@ -28,7 +28,7 @@ class RippleTest extends TestCase
 
     public function testOptionsWithResponse(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/track=123/">';
         $ripple->options(['response' => $response]);
         $ripple->request('https://foo.bandcamp.com/track/title');
@@ -37,7 +37,7 @@ class RippleTest extends TestCase
 
     public function testOptionsWithResponseAndEmbed(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/track=123/">';
         $ripple->options(['response' => $response, 'embed' => ['Bandcamp' => 'size=large/']]);
         $ripple->request('https://foo.bandcamp.com/track/title');
@@ -46,14 +46,14 @@ class RippleTest extends TestCase
 
     public function testRequestFails(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->request('https://example.com/track/title');
         $this->assertNull($ripple->provider());
     }
 
     public function testRequest(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->request('https://foo.bandcamp.com/track/title');
         $this->assertSame('Bandcamp', $ripple->provider());
     }
@@ -63,7 +63,7 @@ class RippleTest extends TestCase
      */
     public function testProvider(string $url, ?string $provider): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->request($url);
         $this->assertSame($provider, $ripple->provider());
     }
@@ -110,7 +110,7 @@ class RippleTest extends TestCase
 
     public function testUrl(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $this->assertNull($ripple->url());
 
         $ripple->request('https://foo.bandcamp.com/track/title');
@@ -119,7 +119,7 @@ class RippleTest extends TestCase
 
     public function testId(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $this->assertNull($ripple->id());
 
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/track=123/">';
@@ -130,7 +130,7 @@ class RippleTest extends TestCase
 
     public function testTitle(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $this->assertNull($ripple->title());
 
         $response = '<meta property="og:title" content="Foo Title">';
@@ -141,7 +141,7 @@ class RippleTest extends TestCase
 
     public function testImage(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $this->assertNull($ripple->image());
 
         $response = '<meta property="og:image" content="https://image.example.com/123.jpg">';
@@ -152,13 +152,13 @@ class RippleTest extends TestCase
 
     public function testEmbedWithNonRequest(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $this->assertNull($ripple->embed());
     }
 
     public function testEmbedWithResponse(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/track=123/">';
         $ripple->options(['response' => $response]);
         $ripple->request('https://foo.bandcamp.com/track/title');
@@ -167,7 +167,7 @@ class RippleTest extends TestCase
 
     public function testEmbedWithEmptyStringResponseWithEmbed(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $ripple->options(['response' => '', 'embed' => ['Bandcamp' => 'size=large/']]);
         $url = 'https://foo.bandcamp.com/track/title';
         $this->assertSame('https://bandcamp.com/EmbeddedPlayer/track=123/size=large/', $ripple->embed($url, '123'));
@@ -175,7 +175,7 @@ class RippleTest extends TestCase
 
     public function testEmbedWithResponseAndEmbed(): void
     {
-        $ripple = new Ripple;
+        $ripple = new Ripple();
         $response = '<meta property="og:video" content="https://example.com/EmbeddedPlayer/v=2/track=123/">';
         $ripple->options(['response' => $response, 'embed' => ['Bandcamp' => 'size=large/']]);
         $ripple->request('https://foo.bandcamp.com/track/title');
