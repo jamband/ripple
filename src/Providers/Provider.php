@@ -77,7 +77,7 @@ class Provider
         $xpath = new DOMXPath($dom);
         $string = $xpath->evaluate("string($expression)");
 
-        if (false !== $string && '' !== $string) {
+        if (false !== $string && is_string($string) && '' !== $string) {
             return $string;
         }
 

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Jamband\Ripple\Providers;
 
+use stdClass;
+
 /**
  * url pattern 1: https://www.youtube.com/watch?v={id}
  * url pattern 2: https://www.youtube.com/playlist?list={id}
@@ -73,9 +75,12 @@ final class YouTube extends Provider implements ProviderInterface
         $this->request(self::ENDPOINT.rawurlencode($this->url));
 
         if (null !== $this->response) {
+            /** @var stdClass|null $content */
             $content = json_decode($this->response);
 
-            return $content->title ?? null;
+            if (null !== $content && is_string($content->title)) {
+                return $content->title;
+            }
         }
 
         return null;
@@ -86,9 +91,12 @@ final class YouTube extends Provider implements ProviderInterface
         $this->request(self::ENDPOINT.rawurlencode($this->url));
 
         if (null !== $this->response) {
+            /** @var stdClass|null $content */
             $content = json_decode($this->response);
 
-            return $content->thumbnail_url ?? null;
+            if (null !== $content && is_string($content->thumbnail_url)) {
+                return $content->thumbnail_url;
+            }
         }
 
         return null;
