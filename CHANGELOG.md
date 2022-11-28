@@ -1,7 +1,11 @@
 # Ripple Change Log
 
-## v0.13.1 - 2022.11.28
+## v0.13.1 - 2022.11.29
 
+- Chore: improve analyse command for phpstan [e1942c8](https://github.com/jamband/ripple/commit/e1942c8ae6c0c2df342125b0859162026ec30957)
+- Chore: improve github action for ci [444d3a4](https://github.com/jamband/ripple/commit/444d3a4828b36e29cc31bfc20abe8081a18b4add)
+- Enhancement: change phpstan level to 9 [611f6ca](https://github.com/jamband/ripple/commit/611f6caed8047b7572f29fb539ea1492c37f3a60)
+- Chore: update changelog for v0.13.1 [04d5ec9](https://github.com/jamband/ripple/commit/04d5ec9670f99465e3742f5f96e71001d57581ef)
 - Fix: fix release date for v0.13.0 [7e5aa63](https://github.com/jamband/ripple/commit/7e5aa63cceeec9d00cfe7d9f394da2d40fd6c1de)
 - Fix: use str_contains instead of strpos [52b490f](https://github.com/jamband/ripple/commit/52b490f9ea58520430fa55dd55d64e9a3a82aa62)
 - Add: add php cs fixer [71ba6cb](https://github.com/jamband/ripple/commit/71ba6cb094e0ae97e2a0911708c09322cb91e26d)
