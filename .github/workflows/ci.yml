@@ -44,4 +44,4 @@ jobs:
         run: composer format
 
       - name: Run analyse
-        run: composer analyse
+        run: vendor/bin/phpstan analyse --no-progress
