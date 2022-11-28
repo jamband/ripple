@@ -74,6 +74,8 @@ class YouTubeTest extends TestCase
     {
         $ripple = new Ripple;
         $response = json_encode(['title' => 'Foo Title']);
+        assert(is_string($response));
+
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK_1);
         $this->assertSame('Foo Title', $ripple->title());
@@ -83,6 +85,8 @@ class YouTubeTest extends TestCase
     {
         $ripple = new Ripple;
         $response = json_encode(['title' => 'Bar Title']);
+        assert(is_string($response));
+
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_PLAYLIST);
         $this->assertSame('Bar Title', $ripple->title());
@@ -92,6 +96,8 @@ class YouTubeTest extends TestCase
     {
         $ripple = new Ripple;
         $response = json_encode(['thumbnail_url' => 'https://image.example.com/foo123.jpg']);
+        assert(is_string($response));
+
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK_1);
         $this->assertSame('https://image.example.com/foo123.jpg', $ripple->image());
@@ -101,6 +107,8 @@ class YouTubeTest extends TestCase
     {
         $ripple = new Ripple;
         $response = json_encode(['thumbnail_url' => 'https://image.example.com/bar456.jpg']);
+        assert(is_string($response));
+
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_PLAYLIST);
         $this->assertSame('https://image.example.com/bar456.jpg', $ripple->image());

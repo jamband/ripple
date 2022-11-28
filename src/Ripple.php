@@ -30,6 +30,7 @@ class Ripple
         'maybemars\.org|'.
         'souterraine\.biz';
 
+    /** @var array<string, string> */
     protected const PATTERNS = [
         Providers\Bandcamp::class => 'https?://([a-z0-9-]+\.)?('.self::BANDCAMP_HOSTS.')/((track|album)/[\w-]+|releases)',
         Providers\SoundCloud::class => 'https://soundcloud\.com/[\w-]+/(sets/)?[\w-]+',
@@ -37,9 +38,14 @@ class Ripple
         Providers\YouTube::class => 'https://(www\.)?(youtube\.com/watch\?v=|youtube\.com/playlist\?list=|youtu\.be/)[\w-]+',
     ];
 
+    /** @var array<string, string|array<int|string, int|string|bool>> */
     private array $options = [];
+
     private ProviderInterface|null $provider = null;
 
+    /**
+     * @param array<string, string|array<int|string, int|string|bool>> $options
+     */
     public function options(array $options): void
     {
         $this->options = $options;
@@ -49,9 +55,13 @@ class Ripple
     {
         foreach (static::PATTERNS as $provider => $pattern) {
             if (preg_match('#\A'.$pattern.'\z#', $url)) {
-                $this->provider = new $provider($url, $this->options);
+                $instance = new $provider($url, $this->options);
 
-                break;
+                if ($instance instanceof ProviderInterface) {
+                    $this->provider = $instance;
+
+                    break;
+                }
             }
         }
     }
@@ -65,6 +75,11 @@ class Ripple
         return null;
     }
 
+    /**
+     * @param string $method
+     * @param array<never> $args
+     * @return string|null
+     */
     public function __call(string $method, array $args): string|null
     {
         if ($this->provider instanceof ProviderInterface) {
@@ -87,6 +102,9 @@ class Ripple
         return null;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public static function providers(): array
     {
         $providers = [];

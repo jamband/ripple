@@ -40,6 +40,8 @@ class VimeoTest extends TestCase
     {
         $ripple = new Ripple;
         $response = json_encode(['title' => 'Foo Title']);
+        assert(is_string($response));
+
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK);
         $this->assertSame('Foo Title', $ripple->title());
@@ -49,6 +51,8 @@ class VimeoTest extends TestCase
     {
         $ripple = new Ripple;
         $response = json_encode(['thumbnail_url' => 'https://image.example.com/123.jpg']);
+        assert(is_string($response));
+
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK);
         $this->assertSame('https://image.example.com/123.jpg', $ripple->image());
@@ -58,6 +62,8 @@ class VimeoTest extends TestCase
     {
         $ripple = new Ripple;
         $response = json_encode(['video_id' => 123]);
+        assert(is_string($response));
+
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_TRACK);
         $this->assertSame('https://player.vimeo.com/video/123?rel=0', $ripple->embed());
@@ -67,6 +73,8 @@ class VimeoTest extends TestCase
     {
         $ripple = new Ripple;
         $response = json_encode(['video_id' => 123]);
+        assert(is_string($response));
+
         $ripple->options(['response' => $response, 'embed' => ['Vimeo' => 'autoplay=1']]);
         $ripple->request(self::URL_TRACK);
         $this->assertSame('https://player.vimeo.com/video/123?rel=0&autoplay=1', $ripple->embed());

@@ -20,6 +20,9 @@ class Provider
 {
     protected string|null $response = null;
 
+    /**
+     * @param array<string, string|array<int|string, int|string|bool>> $options
+     */
     public function __construct(
         protected string $url,
         protected array $options,
@@ -53,6 +56,7 @@ class Provider
             curl_close($ch);
 
             if (false !== $response) {
+                assert(is_string($response));
                 $this->response = $response;
             }
         }

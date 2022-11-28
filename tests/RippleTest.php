@@ -68,6 +68,9 @@ class RippleTest extends TestCase
         $this->assertSame($provider, $ripple->provider());
     }
 
+    /**
+     * @return array<int, array<int, string|null>>
+     */
     public function providerProvider(): array
     {
         return [

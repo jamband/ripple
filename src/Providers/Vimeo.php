@@ -31,9 +31,15 @@ final class Vimeo extends Provider implements ProviderInterface
 
     public function id(): string|null
     {
-        [$id] = explode('/', trim(parse_url($this->url, PHP_URL_PATH), '/'));
+        $url = parse_url($this->url, PHP_URL_PATH);
 
-        return $id ?? null;
+        if (is_string($url)) {
+            [$id] = explode('/', trim($url, '/'));
+
+            return $id;
+        }
+
+        return null;
     }
 
     public function title(): string|null

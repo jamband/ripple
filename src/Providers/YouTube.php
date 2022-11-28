@@ -24,10 +24,14 @@ final class YouTube extends Provider implements ProviderInterface
 
     public function url(): string
     {
-        $parts = parse_url($this->url);
+        $host = parse_url($this->url, PHP_URL_HOST);
 
-        if ('youtu.be' === $parts['host']) {
-            return 'https://www.youtube.com/watch?v='.trim($parts['path'], '/');
+        if ('youtu.be' === $host) {
+            $path = parse_url($this->url, PHP_URL_PATH);
+
+            if (is_string($path)) {
+                return 'https://www.youtube.com/watch?v='.trim($path, '/');
+            }
         }
 
         return $this->url;
@@ -35,22 +39,30 @@ final class YouTube extends Provider implements ProviderInterface
 
     public function id(): string|null
     {
-        $parts = parse_url($this->url);
+        $host = parse_url($this->url, PHP_URL_HOST);
 
-        if ('www.youtube.com' === $parts['host']) {
-            parse_str($parts['query'], $query);
+        if ('www.youtube.com' === $host) {
+            $query = parse_url($this->url, PHP_URL_QUERY);
 
-            if (isset($query['v'])) {
-                return $query['v'];
-            }
+            if (is_string($query)) {
+                parse_str($query, $queries);
 
-            if (isset($query['list'])) {
-                return $query['list'];
+                if (isset($queries['v']) && is_string($queries['v'])) {
+                    return $queries['v'];
+                }
+
+                if (isset($queries['list']) && is_string($queries['list'])) {
+                    return $queries['list'];
+                }
             }
         }
 
-        if ('youtu.be' === $parts['host']) {
-            return trim($parts['path'], '/');
+        if ('youtu.be' === $host) {
+            $path = parse_url($this->url, PHP_URL_PATH);
+
+            if (is_string($path)) {
+                return trim($path, '/');
+            }
         }
 
         return null;
