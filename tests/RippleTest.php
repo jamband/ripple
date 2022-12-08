@@ -139,6 +139,17 @@ class RippleTest extends TestCase
         $this->assertSame('Foo Title', $ripple->title());
     }
 
+    public function testTitleWithMultibyteString(): void
+    {
+        $ripple = new Ripple();
+        $this->assertNull($ripple->title());
+
+        $response = '<meta property="og:title" content="坂本九 - 上を向いて歩こう">';
+        $ripple->options(['response' => $response]);
+        $ripple->request('https://foo.bandcamp.com/track/title');
+        $this->assertSame('坂本九 - 上を向いて歩こう', $ripple->title());
+    }
+
     public function testImage(): void
     {
         $ripple = new Ripple();

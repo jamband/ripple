@@ -69,7 +69,13 @@ class Provider
         $dom->preserveWhiteSpace = false;
 
         if (null !== $this->response && '' !== $this->response) {
-            $dom->loadHTML(mb_convert_encoding($this->response, 'HTML-ENTITIES'));
+            $dom->loadHTML(
+                mb_encode_numericentity(
+                    $this->response,
+                    [0x80, 0x10FFFF, 0, 0x1FFFFF],
+                    'UTF-8'
+                )
+            );
         }
 
         libxml_clear_errors();
