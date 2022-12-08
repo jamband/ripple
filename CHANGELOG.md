@@ -1,5 +1,9 @@
 # Ripple Change Log
 
+## v0.14.0 - 2022.12.09
+
+- Add: add support for php 8.2 [a9cf41a](https://github.com/jamband/ripple/commit/a9cf41a842c42e3779ba12a32d6918719a30ed45)
+
 ## v0.13.1 - 2022.11.29
 
 - Chore: improve analyse command for phpstan [e1942c8](https://github.com/jamband/ripple/commit/e1942c8ae6c0c2df342125b0859162026ec30957)
