@@ -41,6 +41,7 @@ jobs:
         run: vendor/bin/phpunit --verbose
 
       - name: Run format
+        if: matrix.php-version != 8.2
         run: composer format
 
       - name: Run analyse
