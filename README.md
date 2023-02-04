@@ -1,6 +1,6 @@
 # ripple
 
-[![Build Status](https://github.com/jamband/ripple/workflows/tests/badge.svg)](https://github.com/jamband/ripple/actions?workflow=tests) [![Latest Stable Version](https://img.shields.io/packagist/v/jamband/ripple)](https://packagist.org/packages/jamband/ripple) [![Total Downloads](https://img.shields.io/packagist/dt/jamband/ripple)](https://packagist.org/packages/jamband/ripple)
+[![Build Status](https://github.com/jamband/ripple/workflows/ci/badge.svg)](https://github.com/jamband/ripple/actions?workflow=ci) [![Latest Stable Version](https://img.shields.io/packagist/v/jamband/ripple)](https://packagist.org/packages/jamband/ripple) [![Total Downloads](https://img.shields.io/packagist/dt/jamband/ripple)](https://packagist.org/packages/jamband/ripple)
 
 Get a track/album information from the URL.
 
