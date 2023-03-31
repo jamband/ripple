@@ -92,6 +92,9 @@ class RippleTest extends TestCase
             ['https://souterraine.biz/track/title', 'Bandcamp'],
             ['https://souterraine.biz/album/title', 'Bandcamp'],
             ['https://souterraine.biz/releases', 'Bandcamp'],
+            ['https://wrwtfww.com/track/title', 'Bandcamp'],
+            ['https://wrwtfww.com/album/title', 'Bandcamp'],
+            ['https://wrwtfww.com/releases', 'Bandcamp'],
 
             ['https://soundcloud.com/foo', null],
             ['https://soundcloud.com/foo/title', 'SoundCloud'],

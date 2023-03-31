@@ -28,7 +28,8 @@ class Ripple
         'fikarecordings\.com|'.
         'mamabirdrecordingco\.com|'.
         'maybemars\.org|'.
-        'souterraine\.biz';
+        'souterraine\.biz|'.
+        'wrwtfww\.com';
 
     /** @var array<string, string> */
     protected const PATTERNS = [
