@@ -1,5 +1,10 @@
 # Ripple Change Log
 
+## v0.15.0 - 2023.03.31
+
+- Chore: cleaning test code [0e14d2b](https://github.com/jamband/ripple/commit/0e14d2b263c574225086b21a1aa8e0fd9684b998)
+- Add: add some custom hosts for bandcamp [fb1cd88](https://github.com/jamband/ripple/commit/fb1cd889e5e8a12d472e7747889b59c8c21fed6b)
+
 ## v0.14.0 - 2022.12.09
 
 - Add: add support for php 8.2 [a9cf41a](https://github.com/jamband/ripple/commit/a9cf41a842c42e3779ba12a32d6918719a30ed45)
