@@ -32,6 +32,6 @@
   },
   "scripts": {
     "format": "php-cs-fixer fix --dry-run",
-    "analyse": "phpstan analyse --memory-limit=2G --xdebug"
+    "analyse": "phpstan analyse --memory-limit=2G"
   }
 }
