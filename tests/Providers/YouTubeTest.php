@@ -13,14 +13,29 @@ declare(strict_types=1);
 
 namespace Tests\Providers;
 
+use Jamband\Ripple\Providers\ProviderInterface;
+use Jamband\Ripple\Providers\YouTube;
 use Jamband\Ripple\Ripple;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class YouTubeTest extends TestCase
 {
     private const URL_TRACK_1 = 'https://www.youtube.com/watch?v=foo123';
     private const URL_TRACK_2 = 'https://youtu.be/foo123';
     private const URL_PLAYLIST = 'https://www.youtube.com/playlist?list=bar456';
+
+    public function testIsFinal(): void
+    {
+        $reflection = new ReflectionClass(YouTube::class);
+        $this->assertTrue($reflection->isFinal());
+    }
+
+    public function testImplementsProviderInterface(): void
+    {
+        $reflection = new ReflectionClass(YouTube::class);
+        $this->assertTrue($reflection->implementsInterface(ProviderInterface::class));
+    }
 
     public function testUrlWithTrackUrl(): void
     {

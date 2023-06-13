@@ -13,14 +13,29 @@ declare(strict_types=1);
 
 namespace Tests\Providers;
 
+use Jamband\Ripple\Providers\Bandcamp;
+use Jamband\Ripple\Providers\ProviderInterface;
 use Jamband\Ripple\Ripple;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class BandcampTest extends TestCase
 {
     private const URL_TRACK = 'https://foo.bandcamp.com/track/title';
     private const URL_ALBUM = 'https://foo.bandcamp.com/album/title';
     private const URL_RELEASES = 'https://foo.bandcamp.com/releases';
+
+    public function testIsFinal(): void
+    {
+        $reflection = new ReflectionClass(Bandcamp::class);
+        $this->assertTrue($reflection->isFinal());
+    }
+
+    public function testImplementsProviderInterface(): void
+    {
+        $reflection = new ReflectionClass(Bandcamp::class);
+        $this->assertTrue($reflection->implementsInterface(ProviderInterface::class));
+    }
 
     public function testUrlWithTrackUrl(): void
     {

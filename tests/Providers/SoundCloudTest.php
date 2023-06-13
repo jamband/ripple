@@ -13,13 +13,28 @@ declare(strict_types=1);
 
 namespace Tests\Providers;
 
+use Jamband\Ripple\Providers\ProviderInterface;
+use Jamband\Ripple\Providers\SoundCloud;
 use Jamband\Ripple\Ripple;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class SoundCloudTest extends TestCase
 {
     private const URL_TRACK = 'https://soundcloud.com/foo/title';
     private const URL_PLAYLIST = 'https://soundcloud.com/foo/sets/title';
+
+    public function testIsFinal(): void
+    {
+        $reflection = new ReflectionClass(SoundCloud::class);
+        $this->assertTrue($reflection->isFinal());
+    }
+
+    public function testImplementsProviderInterface(): void
+    {
+        $reflection = new ReflectionClass(SoundCloud::class);
+        $this->assertTrue($reflection->implementsInterface(ProviderInterface::class));
+    }
 
     public function testUrlWithTrackUrl(): void
     {

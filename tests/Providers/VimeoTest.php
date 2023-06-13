@@ -13,12 +13,27 @@ declare(strict_types=1);
 
 namespace Tests\Providers;
 
+use Jamband\Ripple\Providers\ProviderInterface;
+use Jamband\Ripple\Providers\Vimeo;
 use Jamband\Ripple\Ripple;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class VimeoTest extends TestCase
 {
     private const URL_TRACK = 'https://vimeo.com/123';
+
+    public function testIsFinal(): void
+    {
+        $reflection = new ReflectionClass(Vimeo::class);
+        $this->assertTrue($reflection->isFinal());
+    }
+
+    public function testImplementsProviderInterface(): void
+    {
+        $reflection = new ReflectionClass(Vimeo::class);
+        $this->assertTrue($reflection->implementsInterface(ProviderInterface::class));
+    }
 
     public function testUrlWithTrackUrl(): void
     {
