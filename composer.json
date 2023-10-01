@@ -29,9 +29,5 @@
     "psr-4": {
       "Tests\\": "tests"
     }
-  },
-  "scripts": {
-    "format": "php-cs-fixer fix --dry-run",
-    "analyse": "phpstan analyse --memory-limit=2G"
   }
 }
