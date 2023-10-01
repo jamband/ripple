@@ -41,7 +41,7 @@ jobs:
         run: vendor/bin/phpunit --verbose
 
       - name: Run format
-        run: composer format
+        run: vendor/bin/php-cs-fixer check
 
       - name: Run analyse
-        run: vendor/bin/phpstan analyse --no-progress
+        run: vendor/bin/phpstan
