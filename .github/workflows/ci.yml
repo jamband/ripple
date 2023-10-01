@@ -44,4 +44,4 @@ jobs:
         run: vendor/bin/php-cs-fixer check
 
       - name: Run analyse
-        run: vendor/bin/phpstan
+        run: vendor/bin/phpstan --memory-limit=2G
