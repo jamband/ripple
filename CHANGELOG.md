@@ -1,5 +1,9 @@
 # Ripple Change Log
 
+## v0.16.0 - 2023.11.25
+
+- Add: support for php 8.3 [a0c96b8](https://github.com/jamband/ripple/commit/a0c96b885e08a13e413372960e3714c8d0956681)
+
 ## v0.15.0 - 2023.03.31
 
 - Chore: cleaning test code [0e14d2b](https://github.com/jamband/ripple/commit/0e14d2b263c574225086b21a1aa8e0fd9684b998)
