@@ -1,5 +1,10 @@
 # Ripple Change Log
 
+## v0.16.1 - 2023.11.27
+
+- Chore: use allow attribute instead of allowfullscreen in readme [8cf3c59](https://github.com/jamband/ripple/commit/8cf3c5938d6565ee87c7d9df925cd1dc999c0215)
+- Fix: remove unnecessary curl_close line [0d1ea95](https://github.com/jamband/ripple/commit/0d1ea9571b30a2dd68ab766f6f2c544abe0755a2)
+
 ## v0.16.0 - 2023.11.25
 
 - Add: support for php 8.3 [a0c96b8](https://github.com/jamband/ripple/commit/a0c96b885e08a13e413372960e3714c8d0956681)
