@@ -34,7 +34,7 @@ $ripple->options(['embed' => ['Bandcamp' => 'size=large/']]);
 $ripple->request('https://example.bandcamp.com/track/title');
 $embed = $ripple->embed(); // https://bandcamp.com/EmbeddedPlayer/track=123/size=large/
 ?>
-<iframe width="300" height="300" src="<?= $embed ?>" allowfullscreen></iframe>
+<iframe width="300" height="300" src="<?= $embed ?>" allow="fullscreen"></iframe>
 ```
 
 ```php
