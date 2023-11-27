@@ -52,7 +52,6 @@ class Provider
             $ch = curl_init();
             curl_setopt_array($ch, $options);
             $response = curl_exec($ch);
-            curl_close($ch);
 
             if (false !== $response) {
                 assert(is_string($response));
