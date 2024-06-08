@@ -17,8 +17,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9.6",
-    "phpstan/phpstan": "^1.10",
-    "friendsofphp/php-cs-fixer": "^3.54"
+    "phpstan/phpstan": "^1.11",
+    "friendsofphp/php-cs-fixer": "^3.58"
   },
   "autoload": {
     "psr-4": {
