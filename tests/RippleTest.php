@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Jamband\Ripple\Ripple;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RippleTest extends TestCase
@@ -58,9 +59,7 @@ class RippleTest extends TestCase
         $this->assertSame('Bandcamp', $ripple->provider());
     }
 
-    /**
-     * @dataProvider providerProvider
-     */
+    #[DataProvider('providerProvider')]
     public function testProvider(string $url, ?string $provider): void
     {
         $ripple = new Ripple();
@@ -71,7 +70,7 @@ class RippleTest extends TestCase
     /**
      * @return array<int, array<int, string|null>>
      */
-    public function providerProvider(): array
+    public static function providerProvider(): array
     {
         return [
             ['https://example.com/track/title', null],
