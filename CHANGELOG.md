@@ -1,5 +1,11 @@
 # Ripple Change Log
 
+## v0.17.0 - 2024.11.04
+
+- Change: drop support for php 8.0 [ae4635d](https://github.com/jamband/ripple/commit/ae4635d10e0754277146e58eaa075c8351b7da6e)
+- Chore: use metadata in attributes instead of metadata in doc-comments [95a2e83](https://github.com/jamband/ripple/commit/95a2e831eba5c411528234af5eaef394397bd01e)
+- Change: update phpunit version from 9.x to 10.x [5e7832a](https://github.com/jamband/ripple/commit/5e7832a6f44754a96445d16a6ae569077fd6aecb)
+
 ## v0.16.1 - 2023.11.27
 
 - Chore: use allow attribute instead of allowfullscreen in readme [8cf3c59](https://github.com/jamband/ripple/commit/8cf3c5938d6565ee87c7d9df925cd1dc999c0215)
