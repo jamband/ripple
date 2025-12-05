@@ -6,11 +6,11 @@ on:
 
 jobs:
   ci:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.1', '8.2', '8.3', '8.4']
+        php: ['8.2', '8.3', '8.4', '8.5']
 
     steps:
       - name: Checkout
@@ -41,7 +41,6 @@ jobs:
         run: vendor/bin/phpunit
 
       - name: Run format
-        if: ${{ matrix.php != '8.4' }}
         run: vendor/bin/php-cs-fixer check
 
       - name: Run analyse
