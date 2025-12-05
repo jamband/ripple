@@ -1,5 +1,9 @@
 # Ripple Change Log
 
+## v0.18.0 - 2025.12.05
+
+- Change: support for php 8.5 and drop support for php 8.1 [b11dbe4](https://github.com/jamband/ripple/commit/b11dbe4ca3078b17c846cf4d9eefb0128f56c91e)
+
 ## v0.17.0 - 2024.11.04
 
 - Change: drop support for php 8.0 [ae4635d](https://github.com/jamband/ripple/commit/ae4635d10e0754277146e58eaa075c8351b7da6e)
