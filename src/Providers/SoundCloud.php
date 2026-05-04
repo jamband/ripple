@@ -30,7 +30,13 @@ final class SoundCloud extends Provider implements ProviderInterface
         $content = $this->query('//meta[@property="twitter:player"]/@content');
 
         if (null !== $content) {
-            preg_match('#/(tracks|playlists)/(?<id>[0-9]+)#', rawurldecode($content), $matches);
+            // SoundCloud widget URLs may be double-encoded (e.g. %3A -> %253A),
+            // which changes the URL pattern from /tracks/123 to soundcloud:tracks:123
+            // Retry with a different pattern and double decode if the first attempt fails
+            $decoded = rawurldecode($content);
+            if (!preg_match('#/(tracks|playlists)/(?<id>[0-9]+)#', $decoded, $matches)) {
+                preg_match('#(tracks|playlists):(?<id>[0-9]+)#', rawurldecode($decoded), $matches);
+            }
         }
 
         return $matches['id'] ?? null;

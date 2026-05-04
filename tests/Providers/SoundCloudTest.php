@@ -61,10 +61,28 @@ class SoundCloudTest extends TestCase
         $this->assertSame('123', $ripple->id());
     }
 
+    public function testIdWithDoubleEncodedTrackUrl(): void
+    {
+        $ripple = new Ripple();
+        $response = '<meta property="twitter:player" content="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2Fsoundcloud%253Atracks%253A123&amp;auto_play=false&amp;show_artwork=true&amp;visual=true&amp;origin=twitter">';
+        $ripple->options(['response' => $response]);
+        $ripple->request(self::URL_TRACK);
+        $this->assertSame('123', $ripple->id());
+    }
+
     public function testIdWithPlaylistUrl(): void
     {
         $ripple = new Ripple();
         $response = '<meta property="twitter:player" content="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F456&amp;auto_play=false&amp;show_artwork=true&amp;visual=true&amp;origin=twitter">';
+        $ripple->options(['response' => $response]);
+        $ripple->request(self::URL_PLAYLIST);
+        $this->assertSame('456', $ripple->id());
+    }
+
+    public function testIdWithDoubleEncodedPlaylistUrl(): void
+    {
+        $ripple = new Ripple();
+        $response = '<meta property="twitter:player" content="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2Fsoundcloud%253Aplaylists%253A456&amp;auto_play=false&amp;show_artwork=true&amp;visual=true&amp;origin=twitter">';
         $ripple->options(['response' => $response]);
         $ripple->request(self::URL_PLAYLIST);
         $this->assertSame('456', $ripple->id());
