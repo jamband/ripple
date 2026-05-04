@@ -1,5 +1,10 @@
 # Ripple Change Log
 
+## v0.18.1 - 2026.05.04
+
+- Fix: fix handle double-encoded soundcloud urls
+ [1243643](https://github.com/jamband/ripple/commit/12436431bf363e3059475f0a4acc6408535bb993)
+
 ## v0.18.0 - 2025.12.05
 
 - Change: support for php 8.5 and drop support for php 8.1 [b11dbe4](https://github.com/jamband/ripple/commit/b11dbe4ca3078b17c846cf4d9eefb0128f56c91e)
